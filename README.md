@@ -2,7 +2,7 @@
 
 > **Open Source. No Limits.**
 
-The official marketing website for [Obliq](https://obliq.in) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
+The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
 
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
