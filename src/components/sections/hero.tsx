@@ -99,14 +99,14 @@ export function Hero() {
       </div>
 
       {/* ── Spacer for floating navbar ── */}
-      <div className="h-[90px] flex-shrink-0" />
+      <div className="h-22.5 shrink-0" />
 
       {/* ── Main hero content ── */}
       <div className="container-obliq flex-1 flex flex-col items-center justify-center text-center pb-0 pt-12">
 
         {/* Headline */}
         <h1
-          className="font-black leading-[1.05] tracking-tight text-[var(--charcoal)] animate-fade-up"
+          className="font-black leading-[1.05] tracking-tight text-charcoal animate-fade-up"
           style={{
             fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
             maxWidth: "800px",
@@ -173,7 +173,7 @@ export function Hero() {
                 className="flex-1 mx-4 h-5 rounded-full flex items-center px-3"
                 style={{ background: "rgba(0,0,0,0.06)", maxWidth: "260px" }}
               >
-                <span className="text-[10px] text-[var(--muted)]">obliq.in/dashboard</span>
+                <span className="text-[10px] text-muted">obliq.in/dashboard</span>
               </div>
             </div>
 
@@ -184,12 +184,12 @@ export function Hero() {
             >
               {/* Sidebar */}
               <div
-                className="flex-shrink-0 border-r border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-1"
+                className="shrink-0 border-r border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-1"
                 style={{ width: "180px", background: "#f5f3ef" }}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="h-5 w-5 rounded bg-[var(--charcoal)]" />
-                  <span className="text-xs font-semibold text-[var(--charcoal)]">OBLIQ</span>
+                  <div className="h-5 w-5 rounded bg-charcoal" />
+                  <span className="text-xs font-semibold text-charcoal">OBLIQ</span>
                 </div>
                 {["Home", "Clients", "Projects", "Invoices", "Contracts", "Accounting"].map((item) => (
                   <div
@@ -199,8 +199,8 @@ export function Hero() {
                       background: item === "Home" ? "rgba(0,0,0,0.07)" : "transparent",
                     }}
                   >
-                    <div className="h-3 w-3 rounded bg-[var(--muted)] opacity-40" />
-                    <span className="text-xs text-[var(--charcoal)] opacity-70">{item}</span>
+                    <div className="h-3 w-3 rounded bg-muted opacity-40" />
+                    <span className="text-xs text-charcoal opacity-70">{item}</span>
                   </div>
                 ))}
               </div>
@@ -209,8 +209,8 @@ export function Hero() {
               <div className="flex-1 p-6 flex flex-col gap-4">
                 {/* Greeting */}
                 <div>
-                  <h3 className="font-semibold text-sm text-[var(--charcoal)]">Hello, there 👋</h3>
-                  <p className="text-xs text-[var(--muted)] mt-0.5">What are you working on?</p>
+                  <h3 className="font-semibold text-sm text-charcoal">Hello, there 👋</h3>
+                  <p className="text-xs text-muted mt-0.5">What are you working on?</p>
                 </div>
 
                 {/* Stat cards */}
@@ -226,8 +226,8 @@ export function Hero() {
                       className="card-cream flex flex-col gap-1 p-3"
                       style={{ borderRadius: "12px" }}
                     >
-                      <span className="text-[10px] text-[var(--muted)]">{s.label}</span>
-                      <span className="text-lg font-bold text-[var(--charcoal)]">{s.value}</span>
+                      <span className="text-[10px] text-muted">{s.label}</span>
+                      <span className="text-lg font-bold text-charcoal">{s.value}</span>
                     </div>
                   ))}
                 </div>
@@ -235,10 +235,10 @@ export function Hero() {
                 {/* Chart placeholder */}
                 <div className="card p-4 flex flex-col gap-2" style={{ borderRadius: "14px" }}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[var(--charcoal)]">Hours overview</span>
+                    <span className="text-xs font-semibold text-charcoal">Hours overview</span>
                     <div className="flex gap-3">
                       <span className="text-[10px] text-blue-400">● Billable</span>
-                      <span className="text-[10px] text-[var(--muted)]">● Non-Billable</span>
+                      <span className="text-[10px] text-muted">● Non-Billable</span>
                     </div>
                   </div>
                   {/* Simple bar chart */}
@@ -261,20 +261,20 @@ export function Hero() {
 
               {/* Right panel — quick actions */}
               <div
-                className="flex-shrink-0 border-l border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-3"
+                className="shrink-0 border-l border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-3"
                 style={{ width: "160px", background: "#f9f7f4" }}
               >
-                <span className="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider">Quick actions</span>
+                <span className="text-[10px] font-semibold text-muted uppercase tracking-wider">Quick actions</span>
                 {["Draft a proposal", "Create a contract", "Add a form"].map((a) => (
                   <div
                     key={a}
-                    className="card flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[var(--cream-2)] transition-colors"
+                    className="card flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-cream-2 transition-colors"
                     style={{ borderRadius: "12px" }}
                   >
-                    <div className="h-7 w-7 rounded-lg bg-[var(--cream-pill)] flex items-center justify-center">
-                      <div className="h-3 w-3 rounded bg-[var(--muted)] opacity-50" />
+                    <div className="h-7 w-7 rounded-lg bg-cream-pill flex items-center justify-center">
+                      <div className="h-3 w-3 rounded bg-muted opacity-50" />
                     </div>
-                    <span className="text-[10px] text-center text-[var(--charcoal)] opacity-70 leading-tight">{a}</span>
+                    <span className="text-[10px] text-center text-charcoal opacity-70 leading-tight">{a}</span>
                   </div>
                 ))}
               </div>
