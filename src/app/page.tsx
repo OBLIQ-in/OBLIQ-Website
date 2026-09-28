@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { ProjectManagement } from "@/components/sections/ProjectManagement";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -13,6 +14,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <ProjectManagement />
 
       {/* Contributor to-do board */}
       <section

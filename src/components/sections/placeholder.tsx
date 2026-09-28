@@ -64,12 +64,6 @@ export function SectionPlaceholder({ section, index = 0 }: SectionPlaceholderPro
  */
 export const placeholderSections: PlaceholderSection[] = [
   {
-    title: "Features Section",
-    description: "Showcase Obliq's core capabilities with icon cards and visual polish.",
-    issueNumber: 16,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/16",
-  },
-  {
     title: "Benefits / Why Obliq Section",
     description: "Highlight key benefits that differentiate Obliq. Side-by-side layout with stats.",
     issueNumber: 27,
