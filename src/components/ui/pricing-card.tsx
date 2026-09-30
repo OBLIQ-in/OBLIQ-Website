@@ -25,6 +25,8 @@ export interface PricingCardProps {
   cta: { label: string; href: string };
   /** Content above the plan name — the featured card holds the billing toggle here. */
   top?: ReactNode;
+  /** Level of the plan-name heading: one below the section heading (h3 under an h2, h2 under a page h1). */
+  headingLevel?: "h2" | "h3";
   className?: string;
 }
 
@@ -66,6 +68,7 @@ export function PricingCard({
   badgeBilling,
   cta,
   top,
+  headingLevel: Heading = "h3",
   className,
 }: PricingCardProps) {
   return (
@@ -89,7 +92,7 @@ export function PricingCard({
         <div className="flex flex-col gap-1">
           {/* min-h keeps the row the badge's height, so hiding it doesn't shift the card */}
           <div className={cn("flex items-center gap-2", badge && "min-h-7")}>
-            <h3 className="text-lg font-medium leading-[1.4] text-[var(--ink-soft)]">{name}</h3>
+            <Heading className="text-lg font-medium leading-[1.4] text-[var(--ink-soft)]">{name}</Heading>
             {badge && (
               <span
                 className={cn(

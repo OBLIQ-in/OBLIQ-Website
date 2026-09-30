@@ -17,30 +17,43 @@ A marketing website for Obliq — an open source developer platform. The site mu
 
 ## Pages
 
-| Page | Status | Notes |
-|------|--------|-------|
-| `/` | ✅ Scaffold | Hero + placeholder board |
-| `/about` | ✅ Stub | Brand story |
-| `/features` | 🔜 Issue #16 | Full features deep-dive |
-| `/pricing` | 🔜 Issue #33 | Tier comparison |
-| `/blog` | 🔜 Issue #36 | MDX blog |
-| `/contact` | 🔜 Issue #37 | Contact form |
+| Page | Status | Issue | Notes |
+|------|--------|-------|-------|
+| `/` | 🚧 In progress | see below | Hero, Integrations, Pricing + contributor to-do board |
+| `/about` | ✅ Stub | — | Brand story |
+| `/features` | 🔜 Open | #32, #34 | Reuses the homepage feature sections |
+| `/pricing` | ✅ Built | #37 | The pricing section, as the page |
+| `/blog` | ✅ Built | #58 | Index; launch posts in #60 |
+| `/blog/[slug]` | ✅ Built | #59 | MDX post template |
+| `/contact-us` | ✅ Form UI | #54 | Join Our Team; sending the form is #55 (`/contact` redirects here) |
+| `/privacy` | ✅ Built | #61 | Privacy Policy |
+| `/terms` | ✅ Built | #62 | Terms of Service |
 
 ---
 
 ## Homepage Sections
 
+In page order:
+
 | Section | Status | Issue |
 |---------|--------|-------|
-| Hero | ✅ Built | — |
-| Features | 🔜 Open | #16 |
-| Benefits / Why Obliq | 🔜 Open | #27 |
-| Integrations | 🔜 Open | #32 |
-| Pricing | 🔜 Open | #33 |
-| Testimonials | 🔜 Open | #34 |
-| CTA | 🔜 Open | #35 |
+| Hero | ✅ Built | — (entrance animations: #28) |
+| Logo cloud — "Trusted by…" | 🔜 Open | #26 |
+| Device showcase | 🔜 Open | #29 |
+| Project management | 🔜 Open | #30 |
+| Financial management | 🔜 Open | #31 |
+| Features / personalization | 🔜 Open | #32 |
+| Integrations marquee | ✅ Built | #33 |
+| Feature trio | 🔜 Open | #34 |
+| Spotlight testimonial | 🔜 Open | #35 |
+| Testimonial marquee | 🔜 Open | #36 |
+| Pricing | ✅ Built | #37 |
+| Blog preview | 🔜 Open | #38 |
+| Community — "Stay in the loop" | 🔜 Open | #51 |
+| Final CTA banner | 🔜 Open | #52 |
+| Footer — newsletter + sitemap | 🔜 Open | #53 |
 
-> **Important:** Issue numbers #16, #27, and #32 are referenced in code. Do not renumber.
+Open sections also appear on the homepage to-do board, driven by `placeholderSections` in `src/components/sections/placeholder.tsx` — update both when a section ships.
 
 ---
 

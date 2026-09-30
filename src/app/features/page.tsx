@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { SectionPlaceholder } from "@/components/sections/placeholder";
-import type { PlaceholderSection } from "@/types";
+import { SectionPlaceholder, openIssue } from "@/components/sections/placeholder";
 
 export const metadata: Metadata = {
   title: "Features",
   description: "Explore the powerful features that make Obliq the platform of choice for open source teams.",
 };
 
-const featurePlaceholder: PlaceholderSection = {
-  title:       "Features Page — Full Content",
-  description: "This page needs a full features deep-dive with expanded descriptions, screenshots or demos, and a comparison table.",
-  issueNumber: 16,
-  issueUrl:    "https://github.com/OBLIQ-in/OBLIQ-Website/issues/16",
-};
+// The feature sections being built for the homepage; this page will reuse them
+const featurePlaceholders = [
+  openIssue(32, "Features / personalization", "The “Built for freelancers, powered by simplicity” block with a large customization screenshot."),
+  openIssue(34, "Feature trio", "Three equal cards: collaborate in realtime, speaks your language, view things your way."),
+];
 
 export default function FeaturesPage() {
   return (
@@ -27,8 +25,10 @@ export default function FeaturesPage() {
           subheading="Obliq provides a complete toolkit for modern open source development."
 
         />
-        <div className="mt-12">
-          <SectionPlaceholder section={featurePlaceholder} headingLevel="h2" />
+        <div className="mt-12 flex flex-col gap-4">
+          {featurePlaceholders.map((section, i) => (
+            <SectionPlaceholder key={section.issueNumber} section={section} index={i} headingLevel="h2" />
+          ))}
         </div>
       </Container>
     </div>

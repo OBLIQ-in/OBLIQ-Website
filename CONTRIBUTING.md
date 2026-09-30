@@ -167,7 +167,7 @@ All brand assets, logos, and product screenshots belong in the dedicated reposit
    ```
 2. **Add the file into the correct folder**:
    - `logos/` — SVGs for brand logos and icons
-   - `screenshots/` — UI screenshots and mockups (issues #18, #19, #20)
+   - `screenshots/` — UI screenshots and mockups (issues #28, #29, #30)
    - `imagery/` — Background patterns, banners, and illustrations
 3. **Commit & Open a PR**:
    ```bash
@@ -200,15 +200,12 @@ All brand assets, logos, and product screenshots belong in the dedicated reposit
 3. Comment: "I'd like to work on this"
 4. A maintainer will assign it to you
 
-### Stable issue numbers
+### Keeping the to-do board current
 
-The following issues are referenced in code and documentation. Do **not** renumber them:
-
-| Issue | Section |
-|-------|---------|
-| #16 | Features Section |
-| #27 | Benefits Section |
-| #32 | Integrations Section |
+The homepage board lists open homepage-section issues from `placeholderSections` in
+[`src/components/sections/placeholder.tsx`](./src/components/sections/placeholder.tsx).
+If your PR builds one of those sections, remove its entry there and render the section
+in `src/app/page.tsx` in the same PR, so the board never points at closed work.
 
 ---
 
