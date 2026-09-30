@@ -9,6 +9,7 @@ Thank you to everyone who has contributed to the Obliq website! 🙏
 ## Community Contributors
 
 <!-- Contributors are automatically listed here via All Contributors or manual PRs -->
+- Uppala Shlesha (https://github.com/Shlesha5847) — Added myself to contributors
 
 ---
 

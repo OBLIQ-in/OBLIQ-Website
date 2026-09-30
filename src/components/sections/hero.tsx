@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import { MockupFrame } from "@/components/ui/mockup-frame";
 
 /**
  * Hero — matches obliqq.framer.ai exactly.
@@ -152,32 +153,8 @@ export function Hero() {
           className="mt-14 w-full animate-fade-up"
           style={{ animationDelay: "240ms", maxWidth: "900px" }}
         >
-          <div
-            className="card overflow-hidden"
-            style={{
-              borderRadius: "20px 20px 0 0",
-              boxShadow: "0 8px 60px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
-            }}
-          >
-            {/* Window chrome bar */}
-            <div
-              className="flex items-center gap-2 px-4 border-b border-[rgba(0,0,0,0.07)]"
-              style={{ background: "#f2f0eb", height: "38px" }}
-            >
-              <div className="flex gap-1.5">
-                <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
-                <div className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-                <div className="h-2.5 w-2.5 rounded-full bg-green-400" />
-              </div>
-              <div
-                className="flex-1 mx-4 h-5 rounded-full flex items-center px-3"
-                style={{ background: "rgba(0,0,0,0.06)", maxWidth: "260px" }}
-              >
-                <span className="text-[10px] text-[var(--muted)]">obliq.in/dashboard</span>
-              </div>
-            </div>
-
-            {/* Dashboard body */}
+          <MockupFrame variant="browser" url="obliq.in/dashboard">
+            {/* Dashboard body — swap for the real screenshot once it's in brand-assets */}
             <div
               className="flex"
               style={{ background: "#faf9f7", minHeight: "320px" }}
@@ -209,7 +186,7 @@ export function Hero() {
               <div className="flex-1 p-6 flex flex-col gap-4">
                 {/* Greeting */}
                 <div>
-                  <h3 className="font-semibold text-sm text-[var(--charcoal)]">Hello, there 👋</h3>
+                  <p className="font-semibold text-sm text-[var(--charcoal)]">Hello, there 👋</p>
                   <p className="text-xs text-[var(--muted)] mt-0.5">What are you working on?</p>
                 </div>
 
@@ -237,7 +214,7 @@ export function Hero() {
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-[var(--charcoal)]">Hours overview</span>
                     <div className="flex gap-3">
-                      <span className="text-[10px] text-blue-400">● Billable</span>
+                      <span className="text-[10px] text-blue-600">● Billable</span>
                       <span className="text-[10px] text-[var(--muted)]">● Non-Billable</span>
                     </div>
                   </div>
@@ -279,7 +256,7 @@ export function Hero() {
                 ))}
               </div>
             </div>
-          </div>
+          </MockupFrame>
         </div>
       </div>
 

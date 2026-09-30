@@ -7,6 +7,7 @@ This is an open-source project and every contribution — big or small — is we
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
+- [Community](#community)
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Project Structure](#project-structure)
@@ -21,6 +22,22 @@ This is an open-source project and every contribution — big or small — is we
 ## Code of Conduct
 
 By participating, you agree to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+---
+
+## Community
+
+**Stuck for more than an hour? Ask — that's normal around here.**
+
+| Channel | When to use |
+|---------|------------|
+| [Discord](https://discord.gg/XPC4ETU7kp) | Quick questions, pair-debugging, showing WIPs, hanging out |
+| [GitHub Discussions](https://github.com/OBLIQ-in/OBLIQ-Website/discussions) | Long-form Q&A, design proposals, RFCs |
+| [GitHub Issues](https://github.com/OBLIQ-in/OBLIQ-Website/issues) | Bug reports, feature requests, task tracking |
+
+**Discord channels:** `#welcome` · `#help` · `#show-your-work` · `#announcements`
+
+> **Rule of thumb:** Discord for real-time sync. Discussions for anything that should be searchable later.
 
 ---
 

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import "@fontsource/open-runde/400.css";
+import "@fontsource/open-runde/500.css";
+import "@fontsource/open-runde/600.css";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -43,6 +46,7 @@ export const metadata: Metadata = {
         width:  1200,
         height: 630,
         alt:    `${siteConfig.name} — ${siteConfig.tagline}`,
+        type:   "image/png",
       },
     ],
   },
@@ -68,11 +72,8 @@ export const metadata: Metadata = {
     },
   },
 
-  icons: {
-    icon:     "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple:    "/apple-touch-icon.png",
-  },
+  // Icons come from Next.js file conventions: app/favicon.ico, app/icon.svg
+  // and app/apple-icon.tsx — no manual <link> tags needed.
 
   alternates: {
     canonical: siteConfig.url,
@@ -87,8 +88,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Navbar />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
         <Footer />

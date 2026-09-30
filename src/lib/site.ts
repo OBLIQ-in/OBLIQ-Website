@@ -16,7 +16,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/OBLIQ-in",
     twitter: "https://twitter.com/obliq_in",
-    discord: "https://discord.gg/obliq",
+    discord: "https://discord.gg/XPC4ETU7kp",
   },
 
   email: {
@@ -46,7 +46,7 @@ export const siteConfig = {
     ],
     community: [
       { label: "GitHub", href: "https://github.com/OBLIQ-in" },
-      { label: "Discord", href: "https://discord.gg/obliq" },
+      { label: "Discord", href: "https://discord.gg/XPC4ETU7kp" },
       { label: "Twitter", href: "https://twitter.com/obliq_in" },
       { label: "Contributing", href: "/contributing" },
     ],

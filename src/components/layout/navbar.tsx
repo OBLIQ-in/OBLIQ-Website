@@ -74,7 +74,7 @@ export function Navbar() {
               OBLIQ
             </span>
             <span
-              className="text-[var(--charcoal)] opacity-50"
+              className="text-[var(--muted)]"
               style={{ fontSize: "0.6rem", alignSelf: "flex-end", marginBottom: "2px", fontWeight: 500 }}
             >
               .in

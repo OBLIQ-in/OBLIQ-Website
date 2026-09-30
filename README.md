@@ -5,7 +5,9 @@
 The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
 
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/50dca47b-09f5-4fd0-a780-7c44508c0e8d/deploy-status)](https://app.netlify.com/projects/obliq-in/deploys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Discord](https://img.shields.io/discord/1234567890?color=5865F2&label=Discord&logo=discord&logoColor=white)](https://discord.gg/XPC4ETU7kp)
 
 ---
 
@@ -61,6 +63,19 @@ See [`docs/design-system.md`](./docs/design-system.md) for the complete guide.
 
 ---
 
+## 💬 Community
+
+| Channel | Purpose |
+|---------|---------|
+| [Discord](https://discord.gg/XPC4ETU7kp) | Real-time chat — quick questions, show your work, hang out between PRs |
+| [GitHub Discussions](https://github.com/OBLIQ-in/OBLIQ-Website/discussions) | Long-form Q&A, RFCs, and design proposals |
+
+**Discord channels:** `#welcome` · `#help` · `#show-your-work` · `#announcements`
+
+> Use Discord for quick sync, Discussions for anything that should be searchable later.
+
+---
+
 ## 🤝 Contributing
 
 The homepage is a **live contributor to-do board** — each placeholder section maps to an open GitHub issue.
@@ -97,3 +112,4 @@ npm run lint   # ESLint
 ## 📄 License
 
 MIT © [Obliq](https://obliq.in)
+

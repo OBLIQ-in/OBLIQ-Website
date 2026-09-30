@@ -37,12 +37,39 @@
   --obliq-lime-light: #dffb8c;
   --obliq-periwinkle-light: #aab4ee;
 
+  /* ── Pricing (matches obliqq.framer.ai) ── */
+  --ink:         #1a1615;
+  --ink-soft:    #453f3d;
+  --ink-muted:   #757170;
+  --pill:        #f4f1ee;
+  --pill-hover:  #ebe6e1;
+  --sky-card:    #b7d5f1;
+  --peach-card:  #f4e6da;
+  --sky-ring:    #84b9ef;
+  --success:     #007a21; /* 4.87:1 on --success-bg (WCAG AA) */
+  --success-bg:  #eaf3ed;
+  --pricing-bg-top:    #ebeef2;
+  --pricing-bg-bottom: #e3ecf5;
+
+  /* ── Contact / Join our team (matches obliqq.framer.ai/contact-us) ── */
+  --contact-bg-top:    #9cc1e7;
+  --contact-bg-bottom: #eddfd0;
+  --eyebrow-brown:     #614a44;
+  --field-shadow:      0 4px 50px rgba(97,74,68,0.06);
+  --danger:            #c8321e;
+
+  /* ── Mockup frames (matches obliqq.framer.ai) ── */
+  --mist:           #f9f8f8;
+  --mockup-app-top:    #99c1e9;
+  --mockup-app-bottom: #ece1d7;
+
   /* ── Borders ── */
   --border:      rgba(0,0,0,0.08);
   --border-card: rgba(0,0,0,0.06);
 
   /* ── Fonts ── */
   --font-sans:   "Inter", system-ui, sans-serif;
+  --font-rounded: "Open Runde", "Inter", system-ui, sans-serif;
 
   /* ── Radius ── */
   --radius-pill: 9999px;
@@ -56,6 +83,7 @@
 }
 
 @theme inline {
+  --font-rounded:        var(--font-rounded);
   --color-sky-top:       var(--sky-top);
   --color-sky-bottom:    var(--sky-bottom);
   --color-cream:         var(--cream);
@@ -63,6 +91,8 @@
   --color-cream-card:    var(--cream-card);
   --color-cream-pill:    var(--cream-pill);
   --color-charcoal:      var(--charcoal);
+  --color-ink:           var(--ink);
+  --color-mist:          var(--mist);
   --color-muted:         var(--muted);
   --color-body-text:     var(--body-text);
   --color-rust:          var(--rust);
@@ -72,134 +102,215 @@
   --font-sans:           var(--font-sans);
 }
 
-/* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Base and component styles live in cascade layers so Tailwind utilities
+   (in @layer utilities) can override them. Tailwind's preflight already
+   resets margin/padding/box-sizing. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  body {
+    background-color: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--charcoal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cream-2); }
+  ::-webkit-scrollbar-thumb { background: #c5bfb5; border-radius: 99px; }
 }
 
-body {
-  background-color: var(--cream);
-  color: var(--charcoal);
-  font-family: var(--font-sans);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+@layer components {
+  /* ── Layout helpers ── */
+  .container-obliq {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
 
-::selection {
-  background: var(--charcoal);
-  color: var(--cream);
-}
+  .section { padding-block: var(--section-py); }
 
-:focus-visible {
-  outline: 2px solid var(--charcoal);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
+  /* ── Hero sky background ── */
+  .hero-sky {
+    background: var(--sky-bg);
+    position: relative;
+  }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--cream-2); }
-::-webkit-scrollbar-thumb { background: #c5bfb5; border-radius: 99px; }
+  /* ── Floating pill navbar ── */
+  .navbar-pill {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+  }
 
-/* ── Layout helpers ── */
-.container-obliq {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
-}
+  /* ── Pill button — primary (dark) ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--charcoal);
+    color: #fff;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.18s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97); }
 
-.section { padding-block: var(--section-py); }
+  /* ── Pill button — secondary (cream) ── */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--cream-pill);
+    color: var(--charcoal);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover { background: #d9d4cc; transform: translateY(-1px); }
 
-/* ── Hero sky background ── */
-.hero-sky {
-  background: var(--sky-bg);
-  position: relative;
-}
+  /* ── Card ── */
+  .card {
+    background: #fff;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-card);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  }
 
-/* ── Floating pill navbar ── */
-.navbar-pill {
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
-}
+  .card-cream {
+    background: var(--cream-card);
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
 
-/* ── Pill button — primary (dark) ── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--charcoal);
-  color: #fff;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.18s, transform 0.18s;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-.btn-primary:active { transform: scale(0.97); }
+  /* ── Eyebrow label ── */
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-/* ── Pill button — secondary (cream) ── */
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--cream-pill);
-  color: var(--charcoal);
-  border-radius: var(--radius-pill);
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  transition: background 0.18s, transform 0.18s;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.btn-secondary:hover { background: #d9d4cc; transform: translateY(-1px); }
+  /* ── Skip link: first focusable element, visible only on keyboard focus ── */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-pill);
+    background: var(--charcoal);
+    color: var(--cream);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus { transform: none; }
 
-/* ── Card ── */
-.card {
-  background: #fff;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--border-card);
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-}
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
 
-.card-cream {
-  background: var(--cream-card);
-  border-radius: var(--radius-card);
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-/* ── Eyebrow label ── */
-.eyebrow {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* ── Divider ── */
-.divider {
-  height: 1px;
-  background: var(--border);
-  width: 100%;
+  /* ── Long-form prose (blog posts, legal pages) ── */
+  .prose-obliq {
+    color: var(--body-text);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+  .prose-obliq > * + * { margin-top: 1.25em; }
+  .prose-obliq h2,
+  .prose-obliq h3 {
+    color: var(--charcoal);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    scroll-margin-top: 7rem;
+  }
+  .prose-obliq h2 { font-size: 1.6rem; margin-top: 2.2em; }
+  .prose-obliq h3 { font-size: 1.25rem; margin-top: 1.8em; }
+  .prose-obliq h2 + *,
+  .prose-obliq h3 + * { margin-top: 0.75em; }
+  .prose-obliq strong { color: var(--charcoal); font-weight: 600; }
+  .prose-obliq a {
+    color: var(--charcoal);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(0,0,0,0.25);
+    transition: text-decoration-color 0.2s;
+  }
+  .prose-obliq a:hover { text-decoration-color: var(--charcoal); }
+  .prose-obliq ul,
+  .prose-obliq ol { padding-left: 1.4em; }
+  .prose-obliq ul { list-style: disc; }
+  .prose-obliq ol { list-style: decimal; }
+  .prose-obliq li + li { margin-top: 0.4em; }
+  .prose-obliq li::marker { color: var(--muted); }
+  .prose-obliq blockquote {
+    border-left: 3px solid var(--charcoal);
+    padding: 0.25em 0 0.25em 1.1em;
+    color: var(--charcoal);
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .prose-obliq code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    background: var(--cream-pill);
+    border-radius: 6px;
+    padding: 0.15em 0.4em;
+  }
+  .prose-obliq pre {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 1.1em 1.25em;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .prose-obliq pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+  .prose-obliq hr { border: 0; height: 1px; background: var(--border); margin-block: 2.5em; }
+  .prose-obliq img { border-radius: var(--radius-lg); }
 }
 
 /* ── Animations ── */
@@ -220,28 +331,58 @@ body {
   to   { transform: translateX(-50%); }
 }
 
-.animate-fade-up  { animation: fade-up  0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
-.animate-fade-in  { animation: fade-in  0.5s ease forwards; }
-.animate-float    { animation: float 5s ease-in-out infinite; }
-.animate-marquee  { animation: marquee 28s linear infinite; }
+@layer components {
+  .animate-fade-up  { animation: fade-up  0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .animate-fade-in  { animation: fade-in  0.5s ease forwards; }
+  .animate-float    { animation: float 5s ease-in-out infinite; }
+  .animate-marquee  { animation: marquee 28s linear infinite; }
 
-/* ── Cloud decoration ── */
-.cloud {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.55);
-  filter: blur(28px);
+  /* ── Cloud decoration ── */
+  .cloud {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    filter: blur(28px);
+  }
+
+  /* ── Scroll reveal (see components/ui/reveal.tsx) ──
+     Reveal only marks below-the-fold elements "pending" after mount, so
+     server HTML, no-JS and reduced-motion users always see content. */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal[data-reveal="pending"] {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .reveal[data-reveal="shown"] {
+      transition:
+        opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+        transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+  }
+
+  /* ── Placeholder sections (contributor board) ── */
+  .placeholder-section {
+    border: 2px dashed rgba(0,0,0,0.12);
+    border-radius: var(--radius-card);
+    background: rgba(0,0,0,0.02);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .placeholder-section:hover {
+    border-color: rgba(0,0,0,0.22);
+    background: rgba(0,0,0,0.035);
+  }
 }
 
-/* ── Placeholder sections (contributor board) ── */
-.placeholder-section {
-  border: 2px dashed rgba(0,0,0,0.12);
-  border-radius: var(--radius-card);
-  background: rgba(0,0,0,0.02);
-  transition: border-color 0.2s, background 0.2s;
-}
-.placeholder-section:hover {
-  border-color: rgba(0,0,0,0.22);
-  background: rgba(0,0,0,0.035);
+/* ── Reduced motion: no movement anywhere — content is simply visible ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

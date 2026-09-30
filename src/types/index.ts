@@ -14,20 +14,32 @@ export interface SocialLink {
   icon?: string;
 }
 
-export interface BlogPost {
-  slug: string;
+/** Metadata each post exports from its .mdx file as `export const frontmatter`. */
+export interface BlogFrontmatter {
   title: string;
-  excerpt: string;
-  date: string;
+  description: string;
+  category: string;
   author: Author;
-  tags: string[];
-  coverImage?: string;
+  /** ISO date, e.g. "2026-09-29" */
+  date: string;
+  /** Placeholder cover art tone until real covers come from brand-assets */
+  cover?: "sky" | "peach" | "cream";
+  /** Pin this post as the full-width feature on /blog (newest featured post wins) */
+  featured?: boolean;
+}
+
+export interface BlogPost extends BlogFrontmatter {
+  slug: string;
+  /** Estimated minutes to read */
+  readingTime: number;
 }
 
 export interface Author {
   name: string;
+  role?: string;
   avatar?: string;
-  github?: string;
+  /** Profile link shown on the author card (GitHub, LinkedIn, …) */
+  url?: string;
 }
 
 export interface Feature {
