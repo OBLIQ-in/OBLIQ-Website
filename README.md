@@ -5,6 +5,7 @@
 The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
 
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
+[![Lighthouse CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/lighthouse.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50dca47b-09f5-4fd0-a780-7c44508c0e8d/deploy-status)](https://app.netlify.com/projects/obliq-in/deploys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Discord](https://img.shields.io/discord/1234567890?color=5865F2&label=Discord&logo=discord&logoColor=white)](https://discord.gg/XPC4ETU7kp)
@@ -98,7 +99,7 @@ The homepage is a **live contributor to-do board** — each placeholder section 
 
 ---
 
-## 📜 Scripts
+## 📜 Scripts & CI
 
 ```bash
 npm run dev    # Development server (Turbopack)
@@ -106,6 +107,16 @@ npm run build  # Production build
 npm run start  # Production server
 npm run lint   # ESLint
 ```
+
+### Automated CI Checks
+
+Every Pull Request runs the following automated checks:
+
+| Check | Tool / Command | Threshold |
+|-------|----------------|-----------|
+| **Lint** | `npm run lint` | 0 errors / warnings |
+| **Build** | `npm run build` | Clean production build |
+| **Lighthouse CI** | `lhci autorun` | Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95 |
 
 ---
 

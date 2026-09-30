@@ -235,9 +235,10 @@ style: fix spacing in hero
 
 Every PR runs:
 
-| Check | Command |
-|-------|---------|
-| Lint | `npm run lint` |
-| Build | `npm run build` |
+| Check | Command / Workflow | Threshold |
+|-------|--------------------|-----------|
+| **Lint** | `npm run lint` | ESLint passes with 0 errors |
+| **Build** | `npm run build` | Next.js production build succeeds |
+| **Lighthouse CI** | Automatic on PR | Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95 |
 
-Both must pass before a PR can be merged.
+All checks must pass before a PR can be merged.
