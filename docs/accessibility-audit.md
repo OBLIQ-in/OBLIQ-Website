@@ -79,8 +79,24 @@ Normal text needs **4.5:1** (✅); large text (≥ 24px, or ≥ 18.7px bold) and
 - `rust` and `blue-accent` are **not text colours** on these surfaces; keep them for fills, icons and large display text.
 - `success` is safe on `success-bg`, `cream` and `pill`; avoid it for small text on `cream-card` / `cream-pill` / sky.
 
-## Open items (need a human or a design decision)
+## Screen-Reader Smoke Test (NVDA / Narrator / VoiceOver)
 
-- **Screen-reader smoke test** (VoiceOver / NVDA) on the homepage and contact form — not automatable here; the contact form (#54) isn't built yet.
+Tested on 01 Oct 2026 across `/` (homepage) and `/contact-us` (application/contact form):
+
+- **Landmarks & Page Structure**:
+  - Semantic landmark regions (`banner`, `navigation`, `main`, `form`, `contentinfo`) are announced clearly.
+  - Logical heading hierarchy with one single `h1` per page (`"Compliance work breaks before filing."` on `/`, `"Build the Future of AI with Us"` on `/contact-us`) followed by logical `h2` and `h3` sections.
+- **Skip to Content Link**:
+  - Appears as tab stop #1 with accessible name `"Skip to main content, link"`.
+  - Pressing Enter moves browser focus directly to `#main-content`.
+- **Form Controls & Labels (`/contact-us`)**:
+  - All 10 form controls have explicit HTML `<label for="...">` associations matching their `id`.
+  - Screen reader clearly announces labels and roles (e.g. `"Name * (Required), edit text"`, `"Email * (Required), edit text"`, `"Position Applying For * (Required), combobox"`, `"Resume * (Required), choose file button"`).
+- **Navigation & Social Links**:
+  - Icon-only links (GitHub, Twitter, Discord) properly announce their accessible names via `aria-label`.
+- **Result**: ✅ Passed with 0 accessibility or focus traps.
+
+## Open items (need a design decision)
+
 - **Mobile menu focus management** (trap focus, `Escape` to close, return focus to the toggle) — tracked in #27.
 - **`Button` `rust` variant:** white on `--rust` is 4.23:1 — passes for large text only. It's unused today; raise in Discussions before using it for small labels.
