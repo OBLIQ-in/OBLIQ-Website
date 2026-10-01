@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ProjectManagement } from "@/components/sections/ProjectManagement";
 import { FinancialManagement } from "@/components/sections/FinancialManagement";
+import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
 import { Pricing } from "@/components/sections/pricing";
 import { Integrations } from "@/components/sections/Integrations";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
@@ -79,6 +80,8 @@ export default function HomePage() {
       </section>
 
       <Integrations />
+
+      <SpotlightTestimonial />
 
       <Pricing />
     </>

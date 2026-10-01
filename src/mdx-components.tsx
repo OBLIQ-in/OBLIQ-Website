@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import type { ComponentPropsWithoutRef, HTMLAttributes } from "react";
 
 /**
  * Global MDX component overrides (required by @next/mdx in the App Router).
@@ -9,8 +10,8 @@ import Link from "next/link";
  */
 const components: MDXComponents = {
   // Code blocks can scroll sideways, so they must be reachable by keyboard
-  pre: (props) => <pre tabIndex={0} {...props} />,
-  a: ({ href = "", children, ...props }) => {
+  pre: (props: HTMLAttributes<HTMLPreElement>) => <pre tabIndex={0} {...props} />,
+  a: ({ href = "", children, ...props }: ComponentPropsWithoutRef<"a">) => {
     if (href.startsWith("/") || href.startsWith("#")) {
       return (
         <Link href={href} {...props}>
