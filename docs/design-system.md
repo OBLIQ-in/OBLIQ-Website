@@ -168,6 +168,25 @@ With reduced motion, all animations and transitions site-wide are disabled.
 
 ---
 
+## Dark mode
+
+The site has a light and a dark theme. The navbar's sun/moon button switches between them; the choice is saved in `localStorage` (`theme`), and with no saved choice the site follows the OS setting (`prefers-color-scheme`), live. An inline script in `layout.tsx` sets the theme before first paint, so there is no flash of the wrong theme.
+
+How it works: `.dark` on `<html>` redefines the `:root` tokens in `globals.css`. Cream and ink swap places; accents (`--lime`, `--sky-ring`) stay. **Use tokens, not raw colours,** and new components get dark mode for free:
+
+| Instead of | Use |
+|---|---|
+| `bg-white` (cards, fields) | `bg-[var(--surface)]` (opacity works: `bg-[var(--surface)]/70`) |
+| `text-white` on an ink/charcoal fill | `text-[var(--on-ink)]` |
+| `border-[rgba(0,0,0,0.12)]`, `hover:bg-[rgba(0,0,0,0.05)]` | `border-[rgb(var(--tint-rgb)/0.12)]`, `hover:bg-[rgb(var(--tint-rgb)/0.05)]` |
+| a one-off hex colour | a token from `:root` (add one, with a `.dark` value, if none fits) |
+
+- For the rare dark-only tweak, Tailwind's `dark:` variant follows the `.dark` class (e.g. `dark:bg-white/15`).
+- Wrap anything that must stay light, such as a product screenshot, in `.theme-light`; `MockupFrame` already does.
+- Check new sections in both themes before opening a PR.
+
+---
+
 ## Reference section
 
 Before building a new section, read:

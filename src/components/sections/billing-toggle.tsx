@@ -75,10 +75,10 @@ export function BillingToggle() {
       onKeyDown={onKeyDown}
       className="relative grid h-12 grid-cols-2 rounded-full bg-[var(--pill)] p-1 font-rounded"
     >
-      {/* White pill that slides under the selected option */}
+      {/* White pill that slides under the selected option (a light tint in dark mode) */}
       <span
         aria-hidden="true"
-        className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-[0_4px_50px_rgba(97,74,68,0.06)] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+        className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-[var(--surface)] shadow-[0_4px_50px_rgba(97,74,68,0.06)] dark:bg-white/15 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
         style={{ transform: `translateX(${selected * 100}%)` }}
       />
 
@@ -97,7 +97,7 @@ export function BillingToggle() {
             onClick={() => choose(option.value)}
             className={cn(
               "relative z-10 rounded-full text-base font-semibold text-[var(--ink)] transition-colors duration-200",
-              checked ? "cursor-default" : "hover:bg-white/50"
+              checked ? "cursor-default" : "hover:bg-[var(--surface)]/50 dark:hover:bg-white/5"
             )}
           >
             {option.label}

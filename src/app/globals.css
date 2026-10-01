@@ -9,7 +9,14 @@
 
 @import "tailwindcss";
 
-:root {
+/* `dark:` utilities follow the .dark class on <html> (set by the theme
+   script in layout.tsx), not the OS setting directly */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root,
+.theme-light {
+  color-scheme: light;
+
   /* ── Sky / Hero ── */
   --sky-top:     #c5d9ec;
   --sky-bottom:  #d8e8f3;
@@ -63,6 +70,15 @@
   --border:      rgba(0,0,0,0.08);
   --border-card: rgba(0,0,0,0.06);
 
+  /* ── Theme-aware surfaces (redefined under .dark) ── */
+  --surface:          #ffffff;              /* cards, form fields, toggles */
+  --on-ink:           #ffffff;              /* text on --ink / --charcoal fills */
+  --cream-pill-hover: #d9d4cc;
+  --tint-rgb:         0 0 0;                /* hover tints & hairlines: rgb(var(--tint-rgb) / 0.06) */
+  --glass:            rgba(255,255,255,0.72);
+  --glass-border:     rgba(255,255,255,0.5);
+  --scroll-thumb:     #c5bfb5;
+
   /* ── Fonts ── */
   /* Inter Variable is self-hosted (layout.tsx); plain "Inter" covers a local install */
   --font-sans:   "Inter Variable", "Inter", system-ui, sans-serif;
@@ -77,6 +93,66 @@
   /* ── Spacing ── */
   --section-py:  clamp(5rem, 9vw, 8rem);
   --container:   1200px;
+}
+
+/* ── Dark theme ──
+   Cream and ink swap places; accents stay. Toggled by the .dark class on
+   <html>. Anything that should stay light (product screenshots) sits in a
+   .theme-light island, which re-applies the light values above. */
+:root.dark {
+  color-scheme: dark;
+
+  --sky-top:     #1b2633;
+  --sky-bottom:  #151b22;
+  --sky-bg:      linear-gradient(180deg, #17222e 0%, #151b22 60%, #141211 100%);
+
+  --cream:       #141211;
+  --cream-2:     #1b1817;
+  --cream-card:  #221f1d;
+  --cream-pill:  #2b2725;
+
+  --charcoal:    #f2efe9;
+  --charcoal-2:  #dcd8d2;
+  --muted:       #a89d93;
+  --body-text:   #c9c4bd;
+
+  --rust:        #e07a52;
+  --blue-accent: #60a5fa;
+  --blue-light:  #93c5fd;
+
+  --ink:         #f5f2eb;
+  --ink-soft:    #cfc8c3;
+  --ink-muted:   #a29c98;
+  --pill:        #262220;
+  --pill-hover:  #312c2a;
+  --sky-card:    #1f3247;
+  --peach-card:  #2e241d;
+  --sky-ring:    #5f9be0;
+  --success:     #5fd17f;
+  --success-bg:  #15271a;
+  --pricing-bg-top:    #141211;
+  --pricing-bg-bottom: #141a21;
+
+  --contact-bg-top:    #1a2a3c;
+  --contact-bg-bottom: #1c1714;
+  --eyebrow-brown:     #d1b8ae;
+  --field-shadow:      0 4px 50px rgba(0,0,0,0.35);
+  --danger:            #f07560;
+
+  --mist:              #1e1b1a;
+  --mockup-app-top:    #1a2a3c;
+  --mockup-app-bottom: #1c1714;
+
+  --border:      rgba(255,255,255,0.10);
+  --border-card: rgba(255,255,255,0.08);
+
+  --surface:          #1f1c1b;
+  --on-ink:           #141211;
+  --cream-pill-hover: #36312e;
+  --tint-rgb:         255 255 255;
+  --glass:            rgba(31,28,27,0.72);
+  --glass-border:     rgba(255,255,255,0.08);
+  --scroll-thumb:     #4a4441;
 }
 
 @theme inline {
@@ -116,6 +192,9 @@
     overflow-x: hidden;
   }
 
+  /* Light islands inside dark mode (see .theme-light above) */
+  .theme-light { color: var(--charcoal); }
+
   ::selection {
     background: var(--charcoal);
     color: var(--cream);
@@ -130,7 +209,7 @@
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--cream-2); }
-  ::-webkit-scrollbar-thumb { background: #c5bfb5; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 99px; }
 }
 
 @layer components {
@@ -152,10 +231,10 @@
 
   /* ── Floating pill navbar ── */
   .navbar-pill {
-    background: rgba(255,255,255,0.72);
+    background: var(--glass);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-pill);
     box-shadow: 0 2px 20px rgba(0,0,0,0.07);
   }
@@ -167,7 +246,7 @@
     justify-content: center;
     gap: 8px;
     background: var(--charcoal);
-    color: #fff;
+    color: var(--on-ink);
     border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.9rem;
@@ -199,11 +278,11 @@
     text-decoration: none;
     white-space: nowrap;
   }
-  .btn-secondary:hover { background: #d9d4cc; transform: translateY(-1px); }
+  .btn-secondary:hover { background: var(--cream-pill-hover); transform: translateY(-1px); }
 
   /* ── Card ── */
   .card {
-    background: #fff;
+    background: var(--surface);
     border-radius: var(--radius-card);
     border: 1px solid var(--border-card);
     box-shadow: 0 1px 8px rgba(0,0,0,0.04);
@@ -212,7 +291,7 @@
   .card-cream {
     background: var(--cream-card);
     border-radius: var(--radius-card);
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgb(var(--tint-rgb) / 0.05);
   }
 
   /* ── Eyebrow label ── */
@@ -271,7 +350,7 @@
     color: var(--charcoal);
     text-decoration: underline;
     text-underline-offset: 4px;
-    text-decoration-color: rgba(0,0,0,0.25);
+    text-decoration-color: rgb(var(--tint-rgb) / 0.25);
     transition: text-decoration-color 0.2s;
   }
   .prose-obliq a:hover { text-decoration-color: var(--charcoal); }
@@ -357,6 +436,9 @@
     background: rgba(255,255,255,0.55);
     filter: blur(28px);
   }
+  /* Clouds are white light on the sky; at night they fade to a faint haze */
+  .dark .cloud,
+  .dark [data-cloud] { opacity: 0.08; }
 
   /* ── Scroll reveal (see components/ui/reveal.tsx) ──
      Reveal only marks below-the-fold elements "pending" after mount, so
@@ -376,14 +458,14 @@
 
   /* ── Placeholder sections (contributor board) ── */
   .placeholder-section {
-    border: 2px dashed rgba(0,0,0,0.12);
+    border: 2px dashed rgb(var(--tint-rgb) / 0.12);
     border-radius: var(--radius-card);
-    background: rgba(0,0,0,0.02);
+    background: rgb(var(--tint-rgb) / 0.02);
     transition: border-color 0.2s, background 0.2s;
   }
   .placeholder-section:hover {
-    border-color: rgba(0,0,0,0.22);
-    background: rgba(0,0,0,0.035);
+    border-color: rgb(var(--tint-rgb) / 0.22);
+    background: rgb(var(--tint-rgb) / 0.035);
   }
 }
 

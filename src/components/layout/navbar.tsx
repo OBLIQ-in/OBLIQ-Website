@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 /**
  * Navbar — floating pill style matching obliqq.framer.ai
@@ -157,8 +158,8 @@ export function Navbar() {
                     "hover:after:scale-x-100 focus-visible:after:scale-x-100",
                     active ? "after:scale-x-100" : "after:scale-x-0",
                     active
-                      ? "bg-[rgba(0,0,0,0.07)] text-[var(--charcoal)]"
-                      : "text-[var(--charcoal)] opacity-65 hover:opacity-100 hover:bg-[rgba(0,0,0,0.05)]"
+                      ? "bg-[rgb(var(--tint-rgb)/0.07)] text-[var(--charcoal)]"
+                      : "text-[var(--charcoal)] opacity-65 hover:opacity-100 hover:bg-[rgb(var(--tint-rgb)/0.05)]"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
@@ -168,29 +169,33 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Desktop CTA */}
-          <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden md:inline-flex" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
-            Try Obliq free
-          </Link>
+          <div className="flex items-center gap-1.5">
+            <ThemeToggle />
 
-          {/* Mobile toggle */}
-          <button
-            id="mobile-menu-toggle"
-            ref={toggleRef}
-            className={cn(
-              "md:hidden flex items-center justify-center h-9 w-9 rounded-full",
-              "text-[var(--charcoal)] hover:bg-[rgba(0,0,0,0.06)] transition-colors"
-            )}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen
-              ? <X    className="h-5 w-5" aria-hidden="true" />
-              : <Menu className="h-5 w-5" aria-hidden="true" />
-            }
-          </button>
+            {/* Desktop CTA */}
+            <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden md:inline-flex" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
+              Try Obliq free
+            </Link>
+
+            {/* Mobile toggle */}
+            <button
+              id="mobile-menu-toggle"
+              ref={toggleRef}
+              className={cn(
+                "md:hidden flex items-center justify-center h-9 w-9 rounded-full",
+                "text-[var(--charcoal)] hover:bg-[rgb(var(--tint-rgb)/0.06)] transition-colors"
+              )}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              {menuOpen
+                ? <X    className="h-5 w-5" aria-hidden="true" />
+                : <Menu className="h-5 w-5" aria-hidden="true" />
+              }
+            </button>
+          </div>
         </div>
       </header>
 
@@ -218,8 +223,8 @@ export function Navbar() {
                 className={cn(
                   "px-5 py-4 rounded-2xl text-lg font-semibold transition-all",
                   active
-                    ? "bg-[rgba(0,0,0,0.06)] text-[var(--charcoal)]"
-                    : "text-[var(--charcoal)] opacity-60 hover:opacity-100 hover:bg-[rgba(0,0,0,0.04)]"
+                    ? "bg-[rgb(var(--tint-rgb)/0.06)] text-[var(--charcoal)]"
+                    : "text-[var(--charcoal)] opacity-60 hover:opacity-100 hover:bg-[rgb(var(--tint-rgb)/0.04)]"
                 )}
                 aria-current={active ? "page" : undefined}
               >

@@ -65,8 +65,8 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
   return (
     <article
       className={cn(
-        "group relative flex w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-card)] bg-white/60",
-        "transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(0,0,0,0.16)] focus-within:ring-2 focus-within:ring-[var(--charcoal)]",
+        "group relative flex w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-card)] bg-[var(--surface)]/60",
+        "transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgb(var(--tint-rgb)/0.16)] focus-within:ring-2 focus-within:ring-[var(--charcoal)]",
         featured ? "flex-col md:flex-row" : "flex-col"
       )}
     >
@@ -79,8 +79,8 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
         )}
         style={{ background: coverTones[post.cover ?? "cream"] }}
       >
-        <span className="absolute -right-8 -top-12 h-40 w-40 rounded-full bg-white/40" />
-        <span className="absolute -bottom-14 left-6 h-32 w-32 rounded-full bg-white/30" />
+        <span className="absolute -right-8 -top-12 h-40 w-40 rounded-full bg-white/40 dark:bg-white/5" />
+        <span className="absolute -bottom-14 left-6 h-32 w-32 rounded-full bg-white/30 dark:bg-white/[0.03]" />
       </div>
 
       <div className={cn("flex flex-1 flex-col gap-3", featured ? "p-7 md:p-10 md:justify-center" : "p-6")}>

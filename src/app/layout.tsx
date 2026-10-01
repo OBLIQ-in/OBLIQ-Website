@@ -8,6 +8,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/analytics";
 import { siteConfig } from "@/lib/site";
+import { themeScript } from "@/lib/theme";
 
 // Fonts are self-hosted via Fontsource: Inter (variable, 100–900) for body and
 // headings, Open Runde for rounded UI text. No third-party font requests, and
@@ -89,7 +90,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // suppressHydrationWarning: the theme script adds the "dark" class before React hydrates
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-screen flex flex-col antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
