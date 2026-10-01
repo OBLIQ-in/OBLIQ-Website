@@ -58,7 +58,7 @@ export function TeamSection() {
                   <Button
                     href={member.linkedin}
                     aria-label={`Connect with ${member.name} on LinkedIn (opens in a new tab)`}
-                    className="mt-auto"
+                    className="mt-auto min-h-11"
                   >
                     Connect
                     <ExternalLink className="size-3.5" aria-hidden="true" />

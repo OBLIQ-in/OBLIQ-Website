@@ -25,7 +25,7 @@ export function Footer() {
           {/* Brand — 2 cols */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {/* Logo */}
-            <Link href="/" aria-label="Obliq home" className="group w-fit flex items-center gap-1">
+            <Link href="/" aria-label="Obliq home" className="group w-fit flex items-center gap-1 py-2.5 -my-2.5">
               <span
                 className="font-black text-[var(--charcoal)] group-hover:opacity-70 transition-opacity"
                 style={{
@@ -56,7 +56,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label={`Follow Obliq on ${s.label}`}
                   className={cn(
-                    "h-8 w-8 rounded-full flex items-center justify-center",
+                    "h-11 w-11 rounded-full flex items-center justify-center",
                     "border border-[rgba(0,0,0,0.12)] text-[var(--charcoal)] opacity-50",
                     "hover:opacity-100 hover:border-[rgba(0,0,0,0.25)] transition-all duration-200"
                   )}
@@ -69,7 +69,7 @@ export function Footer() {
             {/* Email */}
             <a
               href={`mailto:${siteConfig.email.support}`}
-              className="inline-flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors w-fit"
+              className="inline-flex min-h-11 -my-3 items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors w-fit"
             >
               <Mail className="h-3.5 w-3.5" aria-hidden="true" />
               {siteConfig.email.support}
@@ -87,7 +87,7 @@ export function Footer() {
           ).map(([title, links]) => (
             <div key={title} className="flex flex-col gap-4">
               <h2 className="eyebrow">{title}</h2>
-              <ul className="flex flex-col gap-2.5" role="list">
+              <ul className="flex flex-col lg:gap-2.5" role="list">
                 {links.map((link) => {
                   const isExternal = link.href.startsWith("http");
                   return (
@@ -97,14 +97,14 @@ export function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors"
+                          className="inline-flex max-lg:min-h-11 max-lg:min-w-11 items-center text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors"
                         >
                           {link.label} ↗
                         </a>
                       ) : (
                         <Link
                           href={link.href}
-                          className="text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors"
+                          className="inline-flex max-lg:min-h-11 max-lg:min-w-11 items-center text-sm text-[var(--muted)] hover:text-[var(--charcoal)] transition-colors"
                         >
                           {link.label}
                         </Link>
