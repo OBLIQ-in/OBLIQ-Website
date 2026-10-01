@@ -31,6 +31,10 @@
   --rust:        #c85a32;
   --blue-accent: #3b82f6;
   --blue-light:  #60a5fa;
+  
+  /* ── NEW TOKENS FOR FEATURE CARD ── */
+  --obliq-lime-light: #dffb8c;
+  --obliq-periwinkle-light: #aab4ee;
 
   /* ── Pricing (matches obliqq.framer.ai) ── */
   --ink:         #1a1615;
@@ -94,6 +98,8 @@
   --color-body-text:     var(--body-text);
   --color-rust:          var(--rust);
   --color-blue-accent:   var(--blue-accent);
+  --color-obliq-lime-light: var(--obliq-lime-light);
+  --color-obliq-periwinkle-light: var(--obliq-periwinkle-light);
   --font-sans:           var(--font-sans);
 }
 
