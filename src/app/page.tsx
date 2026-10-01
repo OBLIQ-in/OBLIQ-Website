@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { LogoCloud } from "@/components/sections/LogoCloud";
 import { Pricing } from "@/components/sections/pricing";
 import { Integrations } from "@/components/sections/Integrations";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
@@ -40,6 +41,7 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <LogoCloud />
 
       {/* Contributor to-do board */}
       <section
