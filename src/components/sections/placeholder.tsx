@@ -1,22 +1,24 @@
 import Link from "next/link";
 import { GitBranch, ExternalLink, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/ui/reveal";
 import type { PlaceholderSection } from "@/types";
 
 interface SectionPlaceholderProps {
   section: PlaceholderSection;
   index?: number;
+  /** Heading level for the title — "h2" when the placeholder sits directly under the page h1 */
+  headingLevel?: "h2" | "h3";
 }
 
-export function SectionPlaceholder({ section, index = 0 }: SectionPlaceholderProps) {
+export function SectionPlaceholder({ section, index = 0, headingLevel: Heading = "h3" }: SectionPlaceholderProps) {
   return (
-    <div
+    <Reveal
+      index={index}
       className={cn(
         "placeholder-section w-full px-6 py-8 sm:px-8 sm:py-10",
-        "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5",
-        "animate-fade-up"
+        "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5"
       )}
-      style={{ animationDelay: `${index * 60}ms` }}
       aria-label={`Placeholder: ${section.title}`}
     >
       <div className="flex items-start gap-4">
@@ -29,7 +31,7 @@ export function SectionPlaceholder({ section, index = 0 }: SectionPlaceholderPro
         </div>
 
         <div className="flex flex-col gap-1">
-          <h3 className="font-semibold text-base text-[var(--charcoal)]">{section.title}</h3>
+          <Heading className="font-semibold text-base text-[var(--charcoal)]">{section.title}</Heading>
           <p className="text-sm text-[var(--muted)] leading-relaxed max-w-md">{section.description}</p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <GitBranch className="h-3 w-3 text-[var(--muted)]" aria-hidden="true" />
@@ -46,15 +48,15 @@ export function SectionPlaceholder({ section, index = 0 }: SectionPlaceholderPro
         className={cn(
           "flex-shrink-0 inline-flex items-center gap-2 rounded-full",
           "px-4 py-2 text-sm font-medium",
-          "border border-[rgba(0,0,0,0.12)] text-[var(--charcoal)] opacity-60",
-          "hover:opacity-100 hover:border-[rgba(0,0,0,0.25)] hover:bg-[var(--cream-2)]",
+          "border border-[rgba(0,0,0,0.12)] text-[var(--body-text)]",
+          "hover:text-[var(--charcoal)] hover:border-[rgba(0,0,0,0.25)] hover:bg-[var(--cream-2)]",
           "transition-all duration-200"
         )}
       >
         Contribute
         <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
       </Link>
-    </div>
+    </Reveal>
   );
 }
 
@@ -68,18 +70,6 @@ export const placeholderSections: PlaceholderSection[] = [
     description: "Highlight key benefits that differentiate Obliq. Side-by-side layout with stats.",
     issueNumber: 27,
     issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/27",
-  },
-  {
-    title: "Integrations Section",
-    description: "Show the ecosystem of tools that integrate with Obliq — logos and categories.",
-    issueNumber: 32,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/32",
-  },
-  {
-    title: "Pricing Section",
-    description: "Present pricing tiers (Free, Pro, Enterprise) with feature comparison table.",
-    issueNumber: 33,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/33",
   },
   {
     title: "Testimonials Section",

@@ -137,11 +137,23 @@ import { cn } from "@/lib/utils";
 .animate-pulse-lime /* pulsing lime glow */
 ```
 
-Stagger animations using `animationDelay`:
+These are for on-load entrances (e.g. the hero). For anything that should
+animate **as it scrolls into view**, use the `Reveal` primitive — never a
+one-off animation:
 
 ```tsx
-<div className="animate-fade-up" style={{ animationDelay: "160ms" }}>
+import { Reveal } from "@/components/ui/reveal";
+
+<Reveal>…</Reveal>                       {/* fade + 16px rise, once */}
+{items.map((item, i) => (
+  <Reveal key={item.id} index={i}>…</Reveal>  /* 60ms stagger per index */
+))}
 ```
+
+`SectionHeading` and `SectionPlaceholder` already use it. Only content below
+the fold is hidden (after mount), so above-the-fold content, no-JS visitors
+and `prefers-reduced-motion: reduce` users always see content immediately.
+With reduced motion, all animations and transitions site-wide are disabled.
 
 ---
 

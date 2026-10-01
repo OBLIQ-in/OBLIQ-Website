@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ProjectManagement } from "@/components/sections/ProjectManagement";
+import { FinancialManagement } from "@/components/sections/FinancialManagement";
+import { Pricing } from "@/components/sections/pricing";
+import { Integrations } from "@/components/sections/Integrations";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -10,11 +13,37 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: siteConfig.ogImage,
+  description: siteConfig.description,
+  sameAs: [
+    siteConfig.links.github,
+    siteConfig.links.twitter,
+    siteConfig.links.discord,
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: siteConfig.email.support,
+    contactType: "customer support",
+  },
+};
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd),
+        }}
+      />
       <Hero />
       <ProjectManagement />
+      <FinancialManagement />
 
       {/* Contributor to-do board */}
       <section
@@ -48,6 +77,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Integrations />
+
+      <Pricing />
     </>
   );
 }

@@ -39,7 +39,7 @@ export function Footer() {
               >
                 OBLIQ
               </span>
-              <span className="text-[var(--charcoal)] opacity-40 text-[0.6rem] font-medium self-end mb-0.5">.in</span>
+              <span className="text-[var(--muted)] text-[0.6rem] font-medium self-end mb-0.5">.in</span>
             </Link>
 
             <p className="text-sm text-[var(--muted)] leading-relaxed max-w-[220px]">
@@ -86,7 +86,7 @@ export function Footer() {
             ] as const
           ).map(([title, links]) => (
             <div key={title} className="flex flex-col gap-4">
-              <h3 className="eyebrow">{title}</h3>
+              <h2 className="eyebrow">{title}</h2>
               <ul className="flex flex-col gap-2.5" role="list">
                 {links.map((link) => {
                   const isExternal = link.href.startsWith("http");

@@ -3,7 +3,9 @@ import { type HTMLAttributes } from "react";
 
 export interface ChipListProps extends HTMLAttributes<HTMLDivElement> {
   /** List of chip labels to render */
-  chips: string[];
+  chips?: string[];
+  /** Alias for chips */
+  items?: string[];
 }
 
 /**
@@ -15,10 +17,12 @@ export interface ChipListProps extends HTMLAttributes<HTMLDivElement> {
  */
 export function ChipList({
   chips,
+  items,
   className,
   ...props
 }: ChipListProps) {
-  if (!chips || chips.length === 0) return null;
+  const list = chips || items || [];
+  if (list.length === 0) return null;
 
   return (
     <div
@@ -27,7 +31,7 @@ export function ChipList({
       className={cn("flex flex-wrap items-center gap-2 sm:gap-2.5", className)}
       {...props}
     >
-      {chips.map((chip) => (
+      {list.map((chip) => (
         <span
           key={chip}
           role="listitem"

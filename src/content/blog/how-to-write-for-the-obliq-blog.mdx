@@ -1,0 +1,68 @@
+export const frontmatter = {
+  title: "How to write for the Obliq blog",
+  description:
+    "A template post for contributors: where posts live, what the frontmatter means, and every formatting element the blog supports.",
+  category: "Community",
+  author: {
+    name: "Obliq Team",
+    role: "Maintainers",
+    url: "https://github.com/OBLIQ-in",
+  },
+  date: "2026-09-29",
+  cover: "sky",
+};
+
+Every post on this blog is a single MDX file. This one doubles as the template: copy it, rename it, and replace the words. Nothing else in the codebase needs to change.
+
+## Where posts live
+
+Posts are stored in `src/content/blog/`. The filename becomes the URL, so `how-to-write-for-the-obliq-blog.mdx` is served at `/blog/how-to-write-for-the-obliq-blog`. Use lowercase words separated by hyphens and keep it short — slugs are forever.
+
+## The frontmatter block
+
+At the very top of the file, every post exports its metadata:
+
+```js
+export const frontmatter = {
+  title: "Your post title",
+  description: "One or two sentences for cards and search results.",
+  category: "Insight",
+  author: { name: "Your Name", role: "Contributor", url: "https://github.com/you" },
+  date: "2026-10-01",
+  cover: "peach", // "sky" | "peach" | "cream"
+};
+```
+
+- **title** — shown as the page heading and in link previews.
+- **description** — the summary under the title and on blog cards. Aim for under 160 characters.
+- **category** — one short label, like _Tools_, _Insight_ or _Management_.
+- **author** — your name, an optional role, and an optional profile link for the author card.
+- **date** — ISO format. Posts are ordered newest first, and this also drives previous/next navigation.
+- **cover** — the tone of the placeholder cover art until real covers land in brand-assets.
+
+## Writing style
+
+Write the way you would explain something to a smart colleague over coffee: practical, friendly and specific. Prefer a concrete example to an abstract claim.
+
+> A good post answers one question well. If you find yourself writing two posts, split them.
+
+### Formatting you can use
+
+You get everything standard Markdown offers:
+
+1. Headings (`##` for sections, `###` for sub-sections — the post title is already the only `h1`)
+2. **Bold**, _italic_ and `inline code`
+3. Ordered and unordered lists
+4. Block quotes and fenced code blocks
+5. [Internal links](/pricing) and [external links](https://github.com/OBLIQ-in/OBLIQ-Website), which open in a new tab
+
+---
+
+## Publishing checklist
+
+- Proofread once out loud.
+- Run `npm run dev` and read the post at its URL.
+- Run `npm run lint` and `npm run build`.
+- Open a pull request that references the issue you are writing for.
+
+That's it. We can't wait to read what you write.

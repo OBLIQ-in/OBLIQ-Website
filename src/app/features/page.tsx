@@ -21,13 +21,14 @@ export default function FeaturesPage() {
     <div className="section pt-32">
       <Container>
         <SectionHeading
+          as="h1"
           eyebrow="Features"
           heading="Everything you need."
           subheading="Obliq provides a complete toolkit for modern open source development."
 
         />
         <div className="mt-12">
-          <SectionPlaceholder section={featurePlaceholder} />
+          <SectionPlaceholder section={featurePlaceholder} headingLevel="h2" />
         </div>
       </Container>
     </div>
