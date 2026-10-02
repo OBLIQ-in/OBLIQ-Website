@@ -71,13 +71,14 @@ const MIN_ITEMS_PER_LOOP = 24;
  * screen, and the loop is rendered twice so the track can slide by -50% for
  * a seamless cycle. Only the first list is exposed to assistive tech.
  * Pauses on hover; with reduced motion it stops and wraps into a static row.
+ * The edge fade is at least 48px so pills don't hard-clip on narrow phones.
  */
 function MarqueeRow({ tools, reverse = false }: { tools: Tool[]; reverse?: boolean }) {
   const listsPerLoop = Math.ceil(MIN_ITEMS_PER_LOOP / tools.length);
   const lists = Array.from({ length: listsPerLoop * 2 }, (_, i) => i);
 
   return (
-    <div className="group relative [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] motion-reduce:[mask-image:none]">
+    <div className="group relative [mask-image:linear-gradient(to_right,transparent,black_max(12%,48px),black_calc(100%-max(12%,48px)),transparent)] motion-reduce:[mask-image:none]">
       <div
         className={cn(
           "flex w-max animate-marquee group-hover:[animation-play-state:paused]",

@@ -61,14 +61,9 @@ export function MockupFrame({
             </div>
 
             {displayTitle && (
-              <div
-                className="flex-1 mx-3 sm:mx-4 h-5 rounded-full flex items-center px-3"
-                style={{ background: "rgba(0,0,0,0.05)", maxWidth: "260px" }}
-              >
-                <span className="text-[10px] sm:text-[11px] font-mono text-[var(--muted)] truncate">
-                  {displayTitle}
-                </span>
-              </div>
+              <span className="flex h-5 w-full max-w-[260px] items-center truncate rounded-full bg-black/5 px-3 text-[10px] font-mono text-[var(--body-text)]">
+                {displayTitle}
+              </span>
             )}
           </div>
 
@@ -90,7 +85,7 @@ export function MockupFrame({
       )}
 
       {label && (
-        <figcaption className="text-center text-sm text-[var(--muted)]">{label}</figcaption>
+        <figcaption className="text-center font-rounded text-sm text-[var(--muted)]">{label}</figcaption>
       )}
     </figure>
   );
