@@ -30,7 +30,8 @@ The Obliq palette is extracted from the Framer marketing site:
 | Role | Font | Weight | Size range |
 |------|------|--------|------------|
 | Body | Inter | 400, 500 | 14–18px |
-| Display / Headings | Plus Jakarta Sans | 600–900 | 24–96px |
+| Display / Headings | Inter | 600–900 | 24–96px |
+| Rounded UI (toggles, forms, pricing) | Open Runde (`font-rounded`) | 400–600 | 14–18px |
 | Mono | System mono | 400 | 13–14px |
 
 ### Heading scale

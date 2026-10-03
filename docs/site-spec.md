@@ -48,7 +48,7 @@ A marketing website for Obliq — an open source developer platform. The site mu
 
 - **Dark mode only** — background `#1a1a2e`
 - **Palette** — cream · lime · periwinkle (see design-system.md)
-- **Font** — Inter (body) + Plus Jakarta Sans (display)
+- **Font** — Inter (body and headings) + Open Runde (rounded UI text)
 - **Mobile first** — all breakpoints: mobile → tablet → desktop
 - **Glassmorphism** — used on Navbar and cards
 - **Animations** — subtle, purposeful, not excessive

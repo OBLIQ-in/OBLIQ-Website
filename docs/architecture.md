@@ -120,7 +120,7 @@ GitHub Actions workflow at `.github/workflows/ci.yml`:
 
 ## Performance
 
-- All fonts loaded via `next/font/google` (no layout shift)
+- Fonts are self-hosted via Fontsource and imported in `src/app/layout.tsx`: no third-party font requests and no `next/font`
 - Images should use `next/image`
 - Animations use CSS keyframes where possible; GSAP for complex sequences
 - No JavaScript hydration for purely static sections (Server Components)
