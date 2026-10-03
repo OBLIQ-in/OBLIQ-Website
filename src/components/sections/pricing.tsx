@@ -28,7 +28,9 @@ export function Pricing() {
         </Reveal>
 
         <BillingProvider>
-          <div className="mx-auto grid w-full max-w-[1072px] grid-cols-1 items-end gap-6 md:grid-cols-3">
+          {/* One column until lg: at md the three cards were ~215px wide, which
+              crushed the toggle and clipped the CTA labels (#63) */}
+          <div className="mx-auto grid w-full max-w-[440px] grid-cols-1 gap-6 lg:max-w-[1072px] lg:grid-cols-3 lg:items-end">
             {plans.map((plan, i) => (
               <Reveal key={plan.name} index={i}>
                 <PricingCard {...plan} top={plan.featured ? <BillingToggle /> : undefined} />

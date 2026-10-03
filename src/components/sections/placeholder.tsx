@@ -47,7 +47,7 @@ export function SectionPlaceholder({ section, index = 0, headingLevel: Heading =
         aria-label={`Contribute — issue #${section.issueNumber}`}
         className={cn(
           "flex-shrink-0 inline-flex items-center gap-2 rounded-full",
-          "px-4 py-2 text-sm font-medium",
+          "min-h-11 px-4 py-2 text-sm font-medium",
           "border border-[rgba(0,0,0,0.12)] text-[var(--body-text)]",
           "hover:text-[var(--charcoal)] hover:border-[rgba(0,0,0,0.25)] hover:bg-[var(--cream-2)]",
           "transition-all duration-200"
