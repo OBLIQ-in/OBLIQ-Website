@@ -79,6 +79,15 @@ Normal text needs **4.5:1** (✅); large text (≥ 24px, or ≥ 18.7px bold) and
 - `rust` and `blue-accent` are **not text colours** on these surfaces; keep them for fills, icons and large display text.
 - `success` is safe on `success-bg`, `cream` and `pill`; avoid it for small text on `cream-card` / `cream-pill` / sky.
 
+## Follow-up fixes
+
+| Date | Finding | Fix |
+|---|---|---|
+| 30 Sep 2026 | `MockupFrame` browser URL pill (10px `--muted` on `bg-black/5` over `--cream-2`) at 4.49:1, introduced after the audit | `text-[var(--body-text)]` (6.73:1) |
+| 30 Sep 2026 | `MockupFrame` caption used `--ink-muted` (4.32:1 on `--cream`) — not rendered yet, would fail as soon as a section passes `label` | `text-[var(--muted)]` (5.29:1 on `--cream`) |
+
+After these, axe reports 0 violations on `/`, `/about`, `/blog`, `/blog/[slug]`, `/contact-us`, `/privacy` and `/terms` at 1440 and 390 wide.
+
 ## Open items (need a human or a design decision)
 
 - **Screen-reader smoke test** (VoiceOver / NVDA) on the homepage and contact form — not automatable here; the contact form (#54) isn't built yet.
