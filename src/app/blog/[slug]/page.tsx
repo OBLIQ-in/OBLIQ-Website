@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <article className="container-obliq max-w-3xl">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--charcoal)]"
+          className="inline-flex min-h-11 -my-3 items-center gap-1.5 text-sm text-[var(--muted)] transition-colors hover:text-[var(--charcoal)]"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           All posts
@@ -125,7 +125,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               href={post.author.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-sm font-medium text-[var(--charcoal)] underline underline-offset-4"
+              className="ml-auto inline-flex min-h-11 min-w-11 -my-3 items-center justify-center text-sm font-medium text-[var(--charcoal)] underline underline-offset-4"
             >
               Profile<span className="sr-only"> of {post.author.name}</span>
             </a>

@@ -55,7 +55,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label="Dark theme"
       aria-pressed={dark ?? undefined}
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-full",
+        "flex h-11 w-11 -my-1 items-center justify-center rounded-full",
         "text-[var(--charcoal)] transition-colors hover:bg-[rgb(var(--tint-rgb)/0.06)]",
         className
       )}

@@ -48,6 +48,7 @@
   --pill-hover:  #ebe6e1;
   --sky-card:    #b7d5f1;
   --peach-card:  #f4e6da;
+  --feature-card: #f0eae5;
   --sky-ring:    #84b9ef;
   --success:     #007a21; /* 4.87:1 on --success-bg (WCAG AA) */
   --success-bg:  #eaf3ed;
@@ -110,6 +111,7 @@
   --cream-2:     #1b1817;
   --cream-card:  #221f1d;
   --cream-pill:  #2b2725;
+  --feature-card: #1f1c1b;
 
   --charcoal:    #f2efe9;
   --charcoal-2:  #dcd8d2;
@@ -309,7 +311,7 @@
     top: 0.75rem;
     left: 0.75rem;
     z-index: 100;
-    padding: 0.6rem 1.1rem;
+    padding: 0.7rem 1.1rem;
     border-radius: var(--radius-pill);
     background: var(--charcoal);
     color: var(--cream);

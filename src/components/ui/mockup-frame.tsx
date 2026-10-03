@@ -41,7 +41,7 @@ export function MockupFrame({
               <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
             </div>
-            <span className="flex h-5 w-full max-w-[260px] items-center truncate rounded-full bg-black/5 px-3 text-[10px] text-[var(--muted)]">
+            <span className="flex h-5 w-full max-w-[260px] items-center truncate rounded-full bg-black/5 px-3 text-[10px] text-[var(--body-text)]">
               {url}
             </span>
           </div>
@@ -71,7 +71,7 @@ export function MockupFrame({
       )}
 
       {label && (
-        <figcaption className="text-center font-rounded text-sm text-[var(--ink-muted)]">{label}</figcaption>
+        <figcaption className="text-center font-rounded text-sm text-[var(--muted)]">{label}</figcaption>
       )}
     </figure>
   );

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Join Our Team",
   description:
     "Build the future of AI with OBLIQ. Apply for an open role on our team — community, content, product/UI or CA partnerships.",
+  alternates: { canonical: "/contact-us" },
 };
 
 /** /contact-us — the "Join our team" page and the team behind it, matching obliqq.framer.ai/contact-us. */

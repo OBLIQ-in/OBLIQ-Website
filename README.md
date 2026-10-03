@@ -128,7 +128,10 @@ npm run dev    # Development server (Turbopack)
 npm run build  # Production build
 npm run start  # Production server
 npm run lint   # ESLint
+npm run test:e2e  # Playwright smoke tests (builds + serves on :3100)
 ```
+
+First time running the e2e tests? Install the browser once with `npx playwright install chromium`.
 
 ---
 

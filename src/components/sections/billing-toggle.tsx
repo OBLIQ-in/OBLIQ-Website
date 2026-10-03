@@ -73,7 +73,7 @@ export function BillingToggle() {
       role="radiogroup"
       aria-label="Billing period"
       onKeyDown={onKeyDown}
-      className="relative grid h-12 grid-cols-2 rounded-full bg-[var(--pill)] p-1 font-rounded"
+      className="relative grid h-[52px] grid-cols-2 rounded-full bg-[var(--pill)] p-1 font-rounded"
     >
       {/* White pill that slides under the selected option (a light tint in dark mode) */}
       <span

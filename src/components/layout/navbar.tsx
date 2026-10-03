@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 /**
  * Navbar — floating pill style matching obliqq.framer.ai
  * - Centered floating glass pill
- * - OBLIQ.in logo (pixel block style)
+ * - OBLIQ.in wordmark (same image as the Framer site)
  * - Nav links + "Try Obliq free" dark CTA
  * - Mobile hamburger overlay: animates in, locks body scroll, traps focus,
  *   closes on Escape and hands focus back to the toggle
@@ -118,28 +119,16 @@ export function Navbar() {
           <Link
             href="/"
             aria-label="Obliq home"
-            className="flex items-center gap-1 flex-shrink-0 group"
+            className="flex h-11 flex-shrink-0 items-center transition-opacity hover:opacity-80"
           >
-            <span
-              className="font-black tracking-tight leading-none text-[var(--charcoal)] group-hover:opacity-80 transition-opacity"
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: "1.3rem",
-                letterSpacing: "-0.02em",
-                border: "2px solid var(--charcoal)",
-                padding: "2px 6px",
-                borderRadius: "4px",
-                lineHeight: 1,
-              }}
-            >
-              OBLIQ
-            </span>
-            <span
-              className="text-[var(--muted)]"
-              style={{ fontSize: "0.6rem", alignSelf: "flex-end", marginBottom: "2px", fontWeight: 500 }}
-            >
-              .in
-            </span>
+            <Image
+              src="/brand/obliq-wordmark.png"
+              alt=""
+              width={138}
+              height={45}
+              priority
+              className="h-[45px] w-[138px] object-cover dark:invert"
+            />
           </Link>
 
           {/* Desktop nav links */}
@@ -151,7 +140,7 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "relative px-3.5 py-2 rounded-full text-sm font-medium transition-all duration-150",
+                    "relative inline-flex min-h-11 -my-1 items-center px-3.5 rounded-full text-sm font-medium transition-all duration-150",
                     // Lime underline that grows from the left on hover/focus, and stays on the active link
                     "after:absolute after:inset-x-3.5 after:bottom-1 after:h-0.5 after:rounded-full after:bg-[var(--lime)]",
                     "after:origin-left after:transition-transform after:duration-200 after:ease-out",
@@ -173,7 +162,7 @@ export function Navbar() {
             <ThemeToggle />
 
             {/* Desktop CTA */}
-            <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden md:inline-flex" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
+            <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden md:inline-flex min-h-11 -my-0.5" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
               Try Obliq free
             </Link>
 
@@ -182,7 +171,7 @@ export function Navbar() {
               id="mobile-menu-toggle"
               ref={toggleRef}
               className={cn(
-                "md:hidden flex items-center justify-center h-9 w-9 rounded-full",
+                "md:hidden flex items-center justify-center h-11 w-11 -my-1 rounded-full",
                 "text-[var(--charcoal)] hover:bg-[rgb(var(--tint-rgb)/0.06)] transition-colors"
               )}
               onClick={() => setMenuOpen((v) => !v)}
