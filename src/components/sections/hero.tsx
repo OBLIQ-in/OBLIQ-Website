@@ -123,11 +123,12 @@ export function Hero() {
       {/* ── Spacer for floating navbar ── */}
       <div className="h-[90px] flex-shrink-0" />
 
-      {/* ── Main hero content ── */}
-      <div className="container-obliq flex-1 flex flex-col items-center justify-center text-center pb-0 pt-12">
+      {/* ── Main hero content — relative z-10 keeps it above the clouds, which
+           sit over the centre of the hero on phones ── */}
+      <div className="container-obliq relative z-10 flex-1 flex flex-col items-center justify-center text-center pb-0 pt-12">
 
         {/* Eyebrow — ink-soft (≈7:1 on the sky) instead of .eyebrow's default muted (≈4:1) */}
-        <span className="eyebrow mb-5 animate-fade-up !text-ink-soft" style={enter(0)}>
+        <span className="eyebrow mb-5 text-balance animate-fade-up !text-ink-soft" style={enter(0)}>
           Compliance workflows for CA firms
         </span>
 

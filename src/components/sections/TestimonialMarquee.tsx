@@ -57,7 +57,7 @@ export function TestimonialMarquee() {
         />
       </div>
 
-      <div className="group relative mt-14 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:[mask-image:none]">
+      <div className="group relative mt-14 [mask-image:linear-gradient(to_right,transparent,black_max(10%,48px),black_calc(100%-max(10%,48px)),transparent)] motion-reduce:[mask-image:none]">
         <div
           className={cn(
             "flex w-max animate-marquee group-hover:[animation-play-state:paused]",
