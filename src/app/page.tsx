@@ -4,6 +4,7 @@ import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial
 import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -89,6 +90,8 @@ export default function HomePage() {
       <TestimonialMarquee />
 
       <Pricing />
+
+      <CTABanner />
     </>
   );
 }
