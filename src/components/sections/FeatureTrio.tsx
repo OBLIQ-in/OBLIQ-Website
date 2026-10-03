@@ -73,7 +73,7 @@ export function FeatureTrio() {
         <li key={feature.title}>
           <Reveal index={i} className="h-full">
             <article className="flex h-full min-h-[304px] flex-col justify-between gap-[68px] rounded-3xl bg-[var(--feature-card)] p-8 font-rounded">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-[var(--ink)] shadow-[0_4px_50px_rgba(97,74,68,0.1)]">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--surface)] text-[var(--ink)] shadow-[0_4px_50px_rgba(97,74,68,0.1)]">
                 {feature.icon}
               </span>
               <div className="flex flex-col gap-4">

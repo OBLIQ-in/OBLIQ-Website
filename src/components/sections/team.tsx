@@ -39,7 +39,7 @@ export function TeamSection() {
           {team.map((member, i) => (
             <li key={member.name} className="flex">
               <Reveal index={i} className="flex w-full">
-                <article className="flex w-full flex-col items-center gap-4 rounded-2xl bg-white/70 p-8 text-center font-rounded">
+                <article className="flex w-full flex-col items-center gap-4 rounded-2xl bg-[var(--surface)]/70 p-8 text-center font-rounded">
                   <span
                     aria-hidden="true"
                     className="flex size-20 items-center justify-center rounded-full bg-[var(--sky-card)] text-xl font-semibold text-[var(--ink)]"

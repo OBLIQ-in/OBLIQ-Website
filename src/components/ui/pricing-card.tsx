@@ -79,7 +79,7 @@ export function PricingCard({
               "after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl",
               "after:border-[5px] after:border-[var(--sky-ring)]",
             ]
-          : "bg-white/70",
+          : "bg-[var(--surface)]/70",
         className
       )}
     >
@@ -129,7 +129,7 @@ export function PricingCard({
         className={cn(
           "mt-auto h-[55px] w-full text-base",
           featured
-            ? "bg-[var(--ink)] text-white hover:opacity-90"
+            ? "bg-[var(--ink)] text-[var(--on-ink)] hover:opacity-90"
             : "bg-[var(--pill)] text-[var(--ink)] hover:bg-[var(--pill-hover)] hover:opacity-100"
         )}
       >
