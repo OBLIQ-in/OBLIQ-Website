@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { ProjectManagement } from "@/components/sections/ProjectManagement";
+import { FinancialManagement } from "@/components/sections/FinancialManagement";
 import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
 import { Pricing } from "@/components/sections/pricing";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
@@ -42,6 +44,8 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <ProjectManagement />
+      <FinancialManagement />
 
       {/* Contributor to-do board */}
       <section

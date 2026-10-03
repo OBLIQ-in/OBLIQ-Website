@@ -1,69 +1,84 @@
-import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { type HTMLAttributes, type ReactNode } from "react";
 
 type Variant = "browser" | "phone" | "app";
 
-export interface MockupFrameProps extends HTMLAttributes<HTMLElement> {
+export interface MockupFrameProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * browser — window with a top bar (three dots + URL pill).
-   * phone   — rounded phone body with a notch, 9:19.
-   * app     — screenshot on a sky-to-peach panel, cut off at the bottom.
+   * app / browser — window frame with top bar chrome controls.
+   * phone         — rounded phone body with notch.
    */
   variant?: Variant;
-  /** Browser only: the address shown in the URL pill. */
+  /** Address or title shown in the URL pill */
   url?: string;
-  /** Caption shown under the frame. */
+  /** Optional window title */
+  title?: string;
+  /** Optional caption under the frame */
   label?: string;
+  /** Inner content of the mockup */
   children?: ReactNode;
 }
 
 /**
- * Frame for product screenshots. Children fill the frame: pass an `<Image>`
- * (from brand-assets via getBrandAssetUrl) or any placeholder markup. With no
- * children the frame shows an empty `bg-mist` surface.
+ * MockupFrame — renders a polished application, browser, or device mockup frame
+ * with window chrome controls, header bar, and shadow.
+ *
+ * @example
+ * <MockupFrame variant="app" title="obliq.in/projects">
+ *   <ProductMockUI />
+ * </MockupFrame>
  */
 export function MockupFrame({
-  variant = "browser",
-  url = "obliq.in",
+  variant = "app",
+  url,
+  title,
   label,
   children,
   className,
   ...props
 }: MockupFrameProps) {
+  const displayTitle = title || url || "obliq.in";
+
   return (
     <figure className={cn("flex w-full flex-col items-center gap-3", className)} {...props}>
-      {variant === "browser" && (
-        <div className="w-full overflow-hidden rounded-[20px] bg-mist shadow-2xl shadow-ink/10">
-          <div className="flex h-[38px] items-center gap-4 border-b border-[var(--border)] bg-[var(--cream-2)] px-4">
+      {(variant === "app" || variant === "browser") && (
+        <div
+          className={cn(
+            "card w-full overflow-hidden transition-all duration-300",
+            "rounded-[20px] border border-[rgba(0,0,0,0.07)]",
+            "shadow-[0_8px_40px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)]"
+          )}
+        >
+          {/* ── Window Chrome Bar ── */}
+          <div
+            className="flex items-center gap-2 px-4 border-b border-[rgba(0,0,0,0.06)]"
+            style={{ background: "#f2f0eb", height: "38px" }}
+          >
             <div className="flex gap-1.5" aria-hidden="true">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+              <div className="h-2.5 w-2.5 rounded-full bg-red-400 opacity-90" />
+              <div className="h-2.5 w-2.5 rounded-full bg-yellow-400 opacity-90" />
+              <div className="h-2.5 w-2.5 rounded-full bg-green-400 opacity-90" />
             </div>
-            <span className="flex h-5 w-full max-w-[260px] items-center truncate rounded-full bg-black/5 px-3 text-[10px] text-[var(--body-text)]">
-              {url}
-            </span>
+
+            {displayTitle && (
+              <span className="flex h-5 w-full max-w-[260px] items-center truncate rounded-full bg-black/5 px-3 text-[10px] font-mono text-[var(--body-text)]">
+                {displayTitle}
+              </span>
+            )}
           </div>
-          <div className="relative min-h-40">{children}</div>
+
+          {/* ── Mockup Content Body ── */}
+          <div className="bg-[#faf9f7] w-full overflow-hidden">{children}</div>
         </div>
       )}
 
       {variant === "phone" && (
-        <div className="relative aspect-[9/19] w-full max-w-[280px] rounded-[2.5rem] bg-ink p-2.5 shadow-2xl shadow-ink/10">
+        <div className="relative aspect-[9/19] w-full max-w-[280px] rounded-[2.5rem] bg-[var(--charcoal)] p-2.5 shadow-2xl">
           <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-mist">
             <span
               aria-hidden="true"
-              className="absolute left-1/2 top-2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-ink"
+              className="absolute left-1/2 top-2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-[var(--charcoal)]"
             />
-            {children}
-          </div>
-        </div>
-      )}
-
-      {variant === "app" && (
-        // The screenshot runs 20px past the panel's bottom edge and is clipped there
-        <div className="w-full overflow-hidden rounded-3xl bg-[linear-gradient(180deg,var(--mockup-app-top),var(--mockup-app-bottom))] px-6 pt-12 shadow-2xl shadow-ink/10 md:px-10 md:pt-[100px]">
-          <div className="relative -mb-5 min-h-40 overflow-hidden rounded-[20px] bg-mist">
             {children}
           </div>
         </div>

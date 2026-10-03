@@ -20,6 +20,7 @@
   --cream-2:     #efece6;
   --cream-card:  #eae6df;
   --cream-pill:  #e5e1da;
+  --mist:        #efece6;
 
   /* ── Text ── */
   --charcoal:    #181818;
@@ -88,6 +89,7 @@
   --color-cream-2:       var(--cream-2);
   --color-cream-card:    var(--cream-card);
   --color-cream-pill:    var(--cream-pill);
+  --color-mist:          var(--mist);
   --color-charcoal:      var(--charcoal);
   --color-ink:           var(--ink);
   --color-ink-soft:      var(--ink-soft);
