@@ -204,6 +204,7 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setMenuOpen(false)}
                 className={cn(
                   "px-5 py-4 rounded-2xl text-lg font-semibold transition-all",
                   active
@@ -217,7 +218,7 @@ export function Navbar() {
             );
           })}
           <div className="divider my-4" />
-          <Link href="/contact" data-analytics-cta="mobile-menu" className="btn-primary text-center text-base py-4">
+          <Link href="/contact" onClick={() => setMenuOpen(false)} data-analytics-cta="mobile-menu" className="btn-primary text-center text-base py-4">
             Try Obliq free
           </Link>
         </div>
