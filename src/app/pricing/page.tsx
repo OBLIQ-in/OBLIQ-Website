@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionPlaceholder } from "@/components/sections/placeholder";
 import type { PlaceholderSection } from "@/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/pricing",
   title: "Pricing",
   description: "Simple, transparent pricing for Obliq. Free forever for open source.",
-  alternates: { canonical: "/pricing" },
-};
+});
 
 const pricingPlaceholder: PlaceholderSection = {
   title:       "Pricing Tiers",

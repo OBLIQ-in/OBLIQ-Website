@@ -7,12 +7,12 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: `${siteConfig.name} — ${siteConfig.tagline}`,
+export const metadata: Metadata = pageMetadata({
+  path: "/",
   description: siteConfig.description,
-  alternates: { canonical: "/" },
-};
+});
 
 const organizationJsonLd = {
   "@context": "https://schema.org",

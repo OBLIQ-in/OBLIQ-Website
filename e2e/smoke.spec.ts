@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("homepage loads with the hero and every section", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  for (const id of ["hero", "contribute", "integrations", "pricing"]) {
+  for (const id of ["hero", "contribute", "features", "pricing"]) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.getByRole("contentinfo")).toBeVisible();

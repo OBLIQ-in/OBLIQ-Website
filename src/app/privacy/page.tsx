@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { type ReactNode } from "react";
 import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/privacy",
   title: "Privacy Policy",
   description:
     "How the Obliq website handles your data — what we collect, why, who we share it with, and the choices you have.",
-  alternates: { canonical: "/privacy" },
-};
+});
 
 const LAST_UPDATED = "30 September 2026";
 

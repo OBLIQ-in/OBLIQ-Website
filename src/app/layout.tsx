@@ -8,6 +8,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/analytics";
 import { siteConfig } from "@/lib/site";
+import { defaultOpenGraph } from "@/lib/metadata";
 
 // Fonts are self-hosted via Fontsource: Inter (variable, 100–900) for body and
 // headings, Open Runde for rounded UI text. No third-party font requests, and
@@ -36,22 +37,7 @@ export const metadata: Metadata = {
   creator: "Obliq",
   publisher: "Obliq",
 
-  openGraph: {
-    type:        "website",
-    locale:      "en_US",
-    siteName:    siteConfig.name,
-    title:       `${siteConfig.name} — ${siteConfig.tagline}`,
-    description: siteConfig.description,
-    images: [
-      {
-        url:    siteConfig.ogImage,
-        width:  1200,
-        height: 630,
-        alt:    `${siteConfig.name} — ${siteConfig.tagline}`,
-        type:   "image/png",
-      },
-    ],
-  },
+  openGraph: defaultOpenGraph,
 
   twitter: {
     card:        "summary_large_image",
