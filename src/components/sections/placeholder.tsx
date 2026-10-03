@@ -60,33 +60,28 @@ export function SectionPlaceholder({ section, index = 0, headingLevel: Heading =
   );
 }
 
+const ISSUES_URL = "https://github.com/OBLIQ-in/OBLIQ-Website/issues";
+
+/** A board entry for an open GitHub issue; the URL is derived from its number. */
+export function openIssue(issueNumber: number, title: string, description: string): PlaceholderSection {
+  return { title, description, issueNumber, issueUrl: `${ISSUES_URL}/${issueNumber}` };
+}
+
 /**
- * IMPORTANT: Issue numbers #16, #27, and #32 are referenced in documentation.
- * Do NOT renumber these without updating all docs and GitHub issues.
+ * The homepage "live to-do board": homepage sections that are still open,
+ * in page order. When a section's PR merges, remove its entry here (and render
+ * the section in app/page.tsx) so the board never points at closed work.
  */
 export const placeholderSections: PlaceholderSection[] = [
-  {
-    title: "Features Section",
-    description: "Showcase Obliq's core capabilities with icon cards and visual polish.",
-    issueNumber: 16,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/16",
-  },
-  {
-    title: "Benefits / Why Obliq Section",
-    description: "Highlight key benefits that differentiate Obliq. Side-by-side layout with stats.",
-    issueNumber: 27,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/27",
-  },
-  {
-    title: "Testimonials Section",
-    description: "Social proof from real users — quote cards with avatar, name, role and company.",
-    issueNumber: 34,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/34",
-  },
-  {
-    title: "Call-to-Action (CTA) Section",
-    description: "Final conversion block before the footer — strong headline and primary CTA.",
-    issueNumber: 35,
-    issueUrl: "https://github.com/OBLIQ-in/OBLIQ-Website/issues/35",
-  },
+  openIssue(26, "Logo cloud — “Trusted by…”", "A “Trusted by CA firms, startups, freelancers and studios” line above an infinite marquee of client logos, right under the hero."),
+  openIssue(29, "Device showcase — “Work from anywhere, stay in sync”", "A phone overlapping a browser window with Mobile App / Web App chips — showing Obliq works everywhere."),
+  openIssue(30, "Project management — “Keep every project moving forward”", "First of two alternating feature sections: copy left, product image right, feature chips underneath."),
+  openIssue(31, "Financial management — “Track income, get paid, stress less”", "The mirror of the project-management section: image left, copy right — invoicing, expenses and earnings."),
+  openIssue(32, "Features / personalization", "The “Built for freelancers, powered by simplicity” block with a large customization screenshot."),
+  openIssue(34, "Feature trio", "Three equal cards: collaborate in realtime, speaks your language, view things your way."),
+  openIssue(35, "Spotlight testimonial", "One large centered quote with author attribution — the calm before the testimonial marquee."),
+  openIssue(36, "Testimonial marquee", "A slow horizontal river of testimonial cards."),
+  openIssue(38, "Blog preview", "A featured post plus a grid of recent posts, linking to the blog."),
+  openIssue(51, "Community — “Stay in the loop”", "Two large social cards with follower counts and calls to action."),
+  openIssue(52, "Final CTA banner", "The dark band above the footer that gives visitors one last nudge."),
 ];
