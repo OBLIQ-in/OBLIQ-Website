@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("homepage loads with the hero and every section", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  for (const id of ["hero", "contribute", "integrations", "pricing"]) {
+  for (const id of ["hero", "contribute", "features", "pricing"]) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.getByRole("contentinfo")).toBeVisible();
@@ -63,7 +63,7 @@ test("join form shows validation errors", async ({ page }) => {
   await expect(name).toBeFocused();
   await expect(name).toHaveAttribute("aria-invalid", "true");
   await expect(page.getByText("Please enter your name.")).toBeVisible();
-  await expect(page.getByText("Please attach your resume.")).toBeVisible();
+  await expect(page.getByText("Please add a link to your resume.")).toBeVisible();
 
   await page.getByLabel("Email").fill("not-an-email");
   await page.getByRole("button", { name: "Submit" }).click();

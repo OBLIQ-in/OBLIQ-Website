@@ -121,6 +121,18 @@ New CTAs opt in with `data-analytics-cta="<location>"`; other events go through 
 
 ---
 
+## 📬 Join-our-team form (maintainers)
+
+Applications go through [Formspree](https://formspree.io) (free plan, no backend of our own). The browser posts to our own `/api/join` route, which forwards to Formspree, so the endpoint is never exposed in the page and the Content-Security-Policy needs no change.
+
+1. Create a form in Formspree and copy its endpoint URL (looks like `https://formspree.io/f/xxxxxxxx`).
+2. Set `FORMSPREE_ENDPOINT` — locally in `.env.local`, in production under Netlify → *Site configuration → Environment variables*. Don't prefix it with `NEXT_PUBLIC_`.
+3. Redeploy.
+
+Resumes are collected as a link (Drive, Dropbox, etc.) because file uploads aren't on the free plan. A hidden honeypot field filters out simple spam bots. If the variable isn't set, the form shows an error instead of sending.
+
+---
+
 ## 📜 Scripts
 
 ```bash
