@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
+import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
-import { Integrations } from "@/components/sections/Integrations";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -9,6 +11,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
   description: siteConfig.description,
+  alternates: { canonical: "/" },
 };
 
 const organizationJsonLd = {
@@ -66,7 +69,12 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <p className="text-sm text-[var(--muted)]">
               New to open source?{" "}
-              <a href="/contributing" className="underline underline-offset-4 hover:text-[var(--charcoal)] transition-colors">
+              <a
+                href={`${siteConfig.links.repo}/blob/main/CONTRIBUTING.md`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-[var(--charcoal)] transition-colors"
+              >
                 Start with the Contributing Guide
               </a>
             </p>
@@ -74,7 +82,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Integrations />
+      <FeaturesSection />
+
+      <SpotlightTestimonial />
+
+      <TestimonialMarquee />
 
       <Pricing />
     </>

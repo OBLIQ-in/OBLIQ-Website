@@ -31,6 +31,7 @@
   --rust:        #c85a32;
   --blue-accent: #3b82f6;
   --blue-light:  #60a5fa;
+  --lime:        #c8f560;
 
   /* ── Pricing (matches obliqq.framer.ai) ── */
   --ink:         #1a1615;
@@ -40,6 +41,7 @@
   --pill-hover:  #ebe6e1;
   --sky-card:    #b7d5f1;
   --peach-card:  #f4e6da;
+  --feature-card: #f0eae5;
   --sky-ring:    #84b9ef;
   --success:     #007a21; /* 4.87:1 on --success-bg (WCAG AA) */
   --success-bg:  #eaf3ed;
@@ -229,7 +231,7 @@
     top: 0.75rem;
     left: 0.75rem;
     z-index: 100;
-    padding: 0.6rem 1.1rem;
+    padding: 0.7rem 1.1rem;
     border-radius: var(--radius-pill);
     background: var(--charcoal);
     color: var(--cream);
@@ -331,8 +333,8 @@
      animation-delay (no flash before the stagger starts); with reduced
      motion they don't run at all and content is simply visible. */
   @media (prefers-reduced-motion: no-preference) {
-    .animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both; }
-    .animate-fade-in { animation: fade-in 0.5s ease both; }
+    .animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    .animate-fade-in { animation: fade-in 0.35s ease both; }
   }
   .animate-float    { animation: float 5s ease-in-out infinite; }
   .animate-marquee  { animation: marquee 28s linear infinite; }

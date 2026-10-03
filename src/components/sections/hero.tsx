@@ -67,7 +67,7 @@ export function Hero() {
       {/* ── Cloud: left ── */}
       <div
         data-cloud="l1"
-        className="pointer-events-none absolute transition-transform duration-700 ease-out"
+        className="pointer-events-none absolute transition-transform duration-700 ease-out will-change-transform"
         style={{ top: "12%", left: "-6%", width: "340px", height: "180px" }}
         aria-hidden="true"
       >
@@ -75,12 +75,12 @@ export function Hero() {
           width: "100%", height: "100%",
           background: "rgba(255,255,255,0.65)",
           borderRadius: "50%",
-          filter: "blur(32px)",
+          filter: "blur(28px)",
         }} />
       </div>
       <div
         data-cloud="l2"
-        className="pointer-events-none absolute transition-transform duration-700 ease-out"
+        className="pointer-events-none absolute transition-transform duration-700 ease-out will-change-transform"
         style={{ top: "20%", left: "-2%", width: "220px", height: "110px" }}
         aria-hidden="true"
       >
@@ -88,14 +88,14 @@ export function Hero() {
           width: "100%", height: "100%",
           background: "rgba(255,255,255,0.5)",
           borderRadius: "50%",
-          filter: "blur(20px)",
+          filter: "blur(18px)",
         }} />
       </div>
 
       {/* ── Cloud: right ── */}
       <div
         data-cloud="r1"
-        className="pointer-events-none absolute transition-transform duration-700 ease-out"
+        className="pointer-events-none absolute transition-transform duration-700 ease-out will-change-transform"
         style={{ top: "10%", right: "-5%", width: "300px", height: "160px" }}
         aria-hidden="true"
       >
@@ -103,12 +103,12 @@ export function Hero() {
           width: "100%", height: "100%",
           background: "rgba(255,255,255,0.6)",
           borderRadius: "50%",
-          filter: "blur(30px)",
+          filter: "blur(26px)",
         }} />
       </div>
       <div
         data-cloud="r2"
-        className="pointer-events-none absolute transition-transform duration-700 ease-out"
+        className="pointer-events-none absolute transition-transform duration-700 ease-out will-change-transform"
         style={{ top: "22%", right: "0%", width: "200px", height: "100px" }}
         aria-hidden="true"
       >
@@ -116,7 +116,7 @@ export function Hero() {
           width: "100%", height: "100%",
           background: "rgba(255,255,255,0.45)",
           borderRadius: "50%",
-          filter: "blur(18px)",
+          filter: "blur(16px)",
         }} />
       </div>
 

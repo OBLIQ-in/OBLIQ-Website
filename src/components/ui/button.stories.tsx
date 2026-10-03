@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./button";
 
 const meta = {
@@ -10,6 +10,9 @@ const meta = {
     variant: { control: "inline-radio", options: ["primary", "secondary", "outline", "ghost", "rust"] },
     size: { control: "inline-radio", options: ["sm", "md", "lg", "xl", "icon"] },
     disabled: { control: "boolean" },
+    loading: { control: "boolean" },
+    leftIcon: { control: false },
+    rightIcon: { control: false },
   },
 } satisfies Meta<typeof Button>;
 
@@ -26,15 +29,26 @@ export const Disabled: Story = { args: { disabled: true } };
 /** Pass `href` and the button renders as a Next.js `<Link>`; `http` URLs open in a new tab. */
 export const AsLink: Story = { args: { href: "/pricing", children: "See pricing" } };
 
-export const WithIcon: Story = {
+/** `leftIcon` / `rightIcon` sit inside the pill, spaced by its `gap-2`. */
+export const WithIcons: Story = {
   args: {
-    children: (
-      <>
-        Get started
-        <ArrowRight className="size-4" aria-hidden="true" />
-      </>
-    ),
+    leftIcon: <ArrowLeft className="size-4" aria-hidden="true" />,
+    rightIcon: <ArrowRight className="size-4" aria-hidden="true" />,
   },
+};
+
+export const RightIcon: Story = {
+  args: { rightIcon: <ArrowRight className="size-4" aria-hidden="true" /> },
+};
+
+/** Swaps the left icon for a spinner, sets `aria-busy` and disables the button. */
+export const Loading: Story = {
+  args: { loading: true, children: "Sending…" },
+};
+
+/** On a link, `loading` sets `aria-disabled` and takes it out of the tab order instead. */
+export const LoadingLink: Story = {
+  args: { loading: true, href: "/pricing", children: "Loading pricing" },
 };
 
 export const Icon: Story = {

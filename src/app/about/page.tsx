@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description: "Learn about Obliq — built for CA firms and compliance teams.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

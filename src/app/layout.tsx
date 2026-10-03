@@ -39,7 +39,6 @@ export const metadata: Metadata = {
   openGraph: {
     type:        "website",
     locale:      "en_US",
-    url:         siteConfig.url,
     siteName:    siteConfig.name,
     title:       `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
@@ -78,9 +77,8 @@ export const metadata: Metadata = {
   // Icons come from Next.js file conventions: app/favicon.ico, app/icon.svg
   // and app/apple-icon.tsx — no manual <link> tags needed.
 
-  alternates: {
-    canonical: siteConfig.url,
-  },
+  // No site-wide canonical or og:url here: every page sets its own, otherwise
+  // pages without one would tell search engines they are the homepage.
 };
 
 export default function RootLayout({
