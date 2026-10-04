@@ -61,6 +61,8 @@ Palette: **cream** · **lime** · **periwinkle** · **charcoal**
 
 See [`docs/design-system.md`](./docs/design-system.md) for the complete guide.
 
+**Storybook:** run `npm run storybook` (http://localhost:6006) to browse every `ui/` component with live controls, plus a **Design tokens** page generated from `globals.css`. Adding a component? Put a `*.stories.tsx` file next to it.
+
 ---
 
 ## 💬 Community
@@ -141,6 +143,8 @@ npm run build  # Production build
 npm run start  # Production server
 npm run lint   # ESLint
 npm run test:e2e  # Playwright smoke tests (builds + serves on :3100)
+npm run storybook        # Storybook on :6006
+npm run build-storybook  # Static Storybook build (also runs in CI)
 ```
 
 First time running the e2e tests? Install the browser once with `npx playwright install chromium`.

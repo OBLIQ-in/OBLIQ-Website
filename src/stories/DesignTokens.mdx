@@ -1,0 +1,13 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { DesignTokens } from "./design-tokens";
+
+<Meta title="Foundations/Design tokens" />
+
+# Design tokens
+
+Every CSS custom property defined in `:root` in [`src/app/globals.css`](https://github.com/OBLIQ-in/OBLIQ-Website/blob/main/src/app/globals.css), grouped the same way as in the file. This page reads the stylesheet at build time, so adding or changing a token there updates it here automatically.
+
+- Use a token with an arbitrary value, e.g. `bg-[var(--sky-card)]` or `text-[var(--ink-soft)]`.
+- Tokens mapped in the `@theme inline` block also have a named Tailwind utility, shown on the right (e.g. `bg-cream`, `text-ink`).
+
+<DesignTokens />
