@@ -207,7 +207,11 @@ export function Hero() {
   );
 }
 
-/** CSS stand-in for the product screenshot until HERO_SCREENSHOT is set. */
+/**
+ * CSS stand-in for the product screenshot until HERO_SCREENSHOT is set.
+ * Side panels drop out on narrow screens (sidebar below sm, quick actions
+ * below md) so the main area never gets squeezed and clipped (#63).
+ */
 function DashboardMockup() {
   return (
     <div
@@ -216,7 +220,7 @@ function DashboardMockup() {
     >
       {/* Sidebar */}
       <div
-        className="flex-shrink-0 border-r border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-1"
+        className="hidden sm:flex flex-shrink-0 border-r border-[rgba(0,0,0,0.06)] p-4 flex-col gap-1"
         style={{ width: "180px", background: "#f5f3ef" }}
       >
         <div className="flex items-center gap-2 mb-4">
@@ -238,7 +242,7 @@ function DashboardMockup() {
       </div>
 
       {/* Main area */}
-      <div className="flex-1 p-6 flex flex-col gap-4">
+      <div className="min-w-0 flex-1 p-4 sm:p-6 flex flex-col gap-4">
         {/* Greeting */}
         <div>
           <p className="font-semibold text-sm text-[var(--charcoal)]">Hello, there 👋</p>
@@ -246,7 +250,7 @@ function DashboardMockup() {
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {[
             { label: "Total projects",    value: "24" },
             { label: "Active projects",   value: "12" },
@@ -266,7 +270,7 @@ function DashboardMockup() {
 
         {/* Chart placeholder */}
         <div className="card p-4 flex flex-col gap-2" style={{ borderRadius: "14px" }}>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
             <span className="text-xs font-semibold text-[var(--charcoal)]">Hours overview</span>
             <div className="flex gap-3">
               <span className="text-[10px] text-blue-600">● Billable</span>
@@ -293,7 +297,7 @@ function DashboardMockup() {
 
       {/* Right panel — quick actions */}
       <div
-        className="flex-shrink-0 border-l border-[rgba(0,0,0,0.06)] p-4 flex flex-col gap-3"
+        className="hidden md:flex flex-shrink-0 border-l border-[rgba(0,0,0,0.06)] p-4 flex-col gap-3"
         style={{ width: "160px", background: "#f9f7f4" }}
       >
         <span className="text-[10px] font-semibold text-[var(--muted)] uppercase tracking-wider">Quick actions</span>

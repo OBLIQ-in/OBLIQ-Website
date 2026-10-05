@@ -5,6 +5,7 @@ import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { FeaturesPersonalize } from "@/components/sections/FeaturesPersonalize";
+import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -92,6 +93,8 @@ export default function HomePage() {
       <TestimonialMarquee />
 
       <Pricing />
+
+      <CTABanner />
     </>
   );
 }
