@@ -30,7 +30,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  // Close the menu on navigation. Adjusting state during render (rather than in
+  // an effect) avoids an extra render pass: react.dev/learn/you-might-not-need-an-effect
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setMenuOpen(false);
+  }
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };

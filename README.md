@@ -2,7 +2,7 @@
 
 > **Open Source. No Limits.**
 
-The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
+The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 16, Tailwind CSS v4, and TypeScript.
 
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50dca47b-09f5-4fd0-a780-7c44508c0e8d/deploy-status)](https://app.netlify.com/projects/obliq-in/deploys)
@@ -15,7 +15,7 @@ The official marketing website for [Obliq]([https://obliq.in](https://github.com
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | [Next.js 15](https://nextjs.org) (App Router) |
+| Framework | [Next.js 16](https://nextjs.org) (App Router) |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | Language | TypeScript (strict) |
 | Icons | [Lucide React](https://lucide.dev) |
