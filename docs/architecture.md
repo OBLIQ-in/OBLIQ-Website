@@ -75,7 +75,7 @@ RootLayout (layout.tsx)
 
 ---
 
-## Blog (issue #36)
+## Blog (issue #59)
 
 Posts are MDX files rendered with `@next/mdx`:
 
@@ -89,12 +89,12 @@ See `src/content/blog/how-to-write-for-the-obliq-blog.mdx` for a template post.
 
 ---
 
-## Contact Form (not yet implemented — issue #37)
+## Contact Form (UI: #54 · sending: #55, not yet implemented)
 
-Recommended approach:
+The Join Our Team form UI lives at `/contact-us` (`src/components/sections/join-form.tsx`; `/contact` redirects there). It validates but doesn't send yet. Recommended approach for sending:
 
 1. Use [Resend](https://resend.com) or [Formspree](https://formspree.io)
-2. Create a Server Action in `src/app/contact/actions.ts`
+2. Create a Server Action in `src/app/contact-us/actions.ts` and call it from `submitApplication()` in the form
 3. Validate with [Zod](https://zod.dev)
 4. Rate-limit with Upstash or similar
 

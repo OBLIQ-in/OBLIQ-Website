@@ -87,16 +87,17 @@ The homepage is a **live contributor to-do board** — each placeholder section 
 3. Read [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 4. Open a pull request
 
-### Key issues
+### Finding an issue
 
-| Issue | Section |
-|-------|---------|
-| [#16](https://github.com/OBLIQ-in/OBLIQ-Website/issues/16) | Features Section |
-| [#27](https://github.com/OBLIQ-in/OBLIQ-Website/issues/27) | Benefits Section |
-| [#32](https://github.com/OBLIQ-in/OBLIQ-Website/issues/32) | Integrations Section |
-| [#33](https://github.com/OBLIQ-in/OBLIQ-Website/issues/33) | Pricing Section |
-| [#34](https://github.com/OBLIQ-in/OBLIQ-Website/issues/34) | Testimonials Section |
-| [#35](https://github.com/OBLIQ-in/OBLIQ-Website/issues/35) | CTA Section |
+Work is organised into phases (GitHub milestones and `phase:` labels):
+
+| Filter | What's in it |
+|--------|--------------|
+| [`good first issue`](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | Small, well-scoped starting points |
+| [Phase 3 — Homepage Sections](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+3%3A+homepage+sections%22) | The sections shown on the homepage to-do board |
+| [Phase 4 — Pages & Content](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+4%3A+pages+%26+content%22) | Standalone pages, blog posts, forms |
+| [Phase 5 — Quality & Polish](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+5%3A+quality+%26+polish%22) | Accessibility, performance, responsive QA |
+| [All milestones](https://github.com/OBLIQ-in/OBLIQ-Website/milestones) | The full roadmap |
 
 ---
 
