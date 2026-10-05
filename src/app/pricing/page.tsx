@@ -7,6 +7,7 @@ import type { PlaceholderSection } from "@/types";
 export const metadata: Metadata = {
   title: "Pricing",
   description: "Simple, transparent pricing for Obliq. Free forever for open source.",
+  alternates: { canonical: "/pricing" },
 };
 
 const pricingPlaceholder: PlaceholderSection = {

@@ -37,7 +37,7 @@ const directives: Record<string, string[]> = {
     "https://cdn.jsdelivr.net",
     ...(isVercelPreview ? ["https://vercel.live", "https://vercel.com"] : []),
   ],
-  // Add the form service's origin here when the contact form is wired up (#55)
+  // Form submissions go through our own /api/join route, so no extra origin is needed
   "connect-src": [
     "'self'",
     ...analytics,
