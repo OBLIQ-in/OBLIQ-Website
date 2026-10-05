@@ -6,6 +6,7 @@ import { Pricing } from "@/components/sections/pricing";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -43,6 +44,8 @@ export default function HomePage() {
         }}
       />
       <Hero />
+
+      <DeviceShowcase />
 
       {/* Contributor to-do board */}
       <section
