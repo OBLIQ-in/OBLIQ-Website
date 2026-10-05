@@ -1,20 +1,18 @@
 import { NextResponse } from "next/server";
+import { joinFields, validateApplication, type JoinValues } from "@/lib/join";
 
 // The Formspree endpoint stays on the server, so it never ships to the browser.
 // Set FORMSPREE_ENDPOINT (see .env.example) to turn sending on.
-const FIELDS = ["name", "email", "phone", "education", "linkedin", "github", "position", "resume", "availability", "note"];
 const MAX_LENGTH = 2000;
 
 export async function POST(request: Request) {
-  const endpoint = process.env.FORMSPREE_ENDPOINT;
-  if (!endpoint) {
-    return NextResponse.json({ error: "not-configured" }, { status: 503 });
-  }
-
   let body: Record<string, unknown>;
   try {
     body = await request.json();
   } catch {
+    return NextResponse.json({ error: "bad-request" }, { status: 400 });
+  }
+  if (typeof body !== "object" || body === null) {
     return NextResponse.json({ error: "bad-request" }, { status: 400 });
   }
 
@@ -23,13 +21,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const data: Record<string, string> = {};
-  for (const field of FIELDS) {
+  const data = {} as JoinValues;
+  for (const field of joinFields) {
     const value = body[field];
     data[field] = typeof value === "string" ? value.trim().slice(0, MAX_LENGTH) : "";
   }
-  if (!data.name || !data.email || !data.linkedin || !data.position || !data.resume) {
-    return NextResponse.json({ error: "missing-fields" }, { status: 400 });
+
+  // Same rules as the form, so skipping the browser doesn't skip the checks
+  const errors = validateApplication(data);
+  if (Object.keys(errors).length > 0) {
+    return NextResponse.json({ error: "invalid-fields", fields: Object.keys(errors) }, { status: 400 });
+  }
+
+  const endpoint = process.env.FORMSPREE_ENDPOINT;
+  if (!endpoint) {
+    return NextResponse.json({ error: "not-configured" }, { status: 503 });
   }
 
   try {

@@ -5,66 +5,18 @@ import { cn } from "@/lib/utils";
 import { positions } from "@/lib/positions";
 import { trackEvent } from "@/lib/analytics";
 import { siteConfig } from "@/lib/site";
+import {
+  joinFields,
+  requiredFields,
+  validateField as validate,
+  type JoinField,
+  type JoinValues,
+} from "@/lib/join";
 
-type FieldName =
-  | "name"
-  | "email"
-  | "phone"
-  | "education"
-  | "linkedin"
-  | "github"
-  | "position"
-  | "resume"
-  | "availability"
-  | "note";
+type FieldName = JoinField;
+type Values = JoinValues;
 
-type Values = Record<FieldName, string>;
-
-const initialValues: Values = {
-  name: "",
-  email: "",
-  phone: "",
-  education: "",
-  linkedin: "",
-  github: "",
-  position: "",
-  resume: "",
-  availability: "",
-  note: "",
-};
-
-const required = new Set<FieldName>(["name", "email", "linkedin", "position", "resume"]);
-
-function isWebLink(value: string) {
-  try {
-    return /^https?:$/.test(new URL(value.trim()).protocol);
-  } catch {
-    return false;
-  }
-}
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validate(field: FieldName, values: Values): string | undefined {
-  const empty = values[field].trim() === "";
-
-  if (required.has(field) && empty) {
-    return {
-      name: "Please enter your name.",
-      email: "Please enter your email address.",
-      linkedin: "Please add your LinkedIn profile link.",
-      position: "Please choose the position you're applying for.",
-      resume: "Please add a link to your resume.",
-    }[field as "name" | "email" | "linkedin" | "position" | "resume"];
-  }
-  if (field === "email" && !empty && !EMAIL_PATTERN.test(values.email.trim())) {
-    return "Please enter a valid email address, like jane@gmail.com.";
-  }
-  if (field === "resume" && !empty && !isWebLink(values.resume)) {
-    return "Please enter a full link starting with https://";
-  }
-  return undefined;
-}
+const initialValues = Object.fromEntries(joinFields.map((f) => [f, ""])) as Values;
 
 // Posts to our own /api/join route, which forwards to the form service.
 async function submitApplication(values: Values, company: string): Promise<boolean> {
@@ -140,7 +92,7 @@ export function JoinForm() {
     return {
       id: `join-${field}`,
       name: field,
-      required: required.has(field),
+      required: requiredFields.has(field),
       "aria-invalid": error ? true : undefined,
       "aria-describedby": error ? `join-${field}-error` : undefined,
       onBlur: () => onBlur(field),
@@ -149,7 +101,7 @@ export function JoinForm() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const all = Object.keys(initialValues) as FieldName[];
+    const all = joinFields;
     const found = Object.fromEntries(all.map((f) => [f, validate(f, values)]));
     setErrors(found);
 

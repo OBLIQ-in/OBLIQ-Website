@@ -69,6 +69,35 @@ test("join form shows validation errors", async ({ page }) => {
   await page.getByLabel("Email").fill("not-an-email");
   await page.getByRole("button", { name: "Submit" }).click();
   await expect(page.getByText("Please enter a valid email address", { exact: false })).toBeVisible();
+
+  const linkedin = page.getByLabel("LinkedIn Profile");
+  await linkedin.fill("my linkedin");
+  await linkedin.blur();
+  await expect(linkedin).toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator("#join-linkedin-error")).toHaveText("Please enter a full link starting with https://");
+});
+
+test("join API rejects applications the form would reject", async ({ request }) => {
+  const valid = {
+    name: "Jane Smith",
+    email: "jane@example.com",
+    linkedin: "https://www.linkedin.com/in/jane",
+    position: "Community & Support Lead",
+    resume: "https://example.com/resume.pdf",
+  };
+
+  const bad = await request.post("/api/join", {
+    data: { ...valid, email: "x", linkedin: "y", github: "z", resume: "javascript:alert(1)", position: "CEO" },
+  });
+  expect(bad.status()).toBe(400);
+  expect((await bad.json()).fields).toEqual(["email", "linkedin", "github", "position", "resume"]);
+
+  const notObject = await request.post("/api/join", { data: "null", headers: { "Content-Type": "application/json" } });
+  expect(notObject.status()).toBe(400);
+
+  // A valid application gets past the checks (the test server has no form service configured)
+  const ok = await request.post("/api/join", { data: valid });
+  expect(ok.status()).toBe(503);
 });
 
 test("old /contact URL redirects to /contact-us", async ({ page }) => {
