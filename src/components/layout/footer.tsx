@@ -15,7 +15,7 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t border-[rgba(0,0,0,0.08)]"
+      className="border-t border-[rgb(var(--tint-rgb)/0.08)]"
       style={{ background: "var(--cream-2)" }}
       aria-label="Site footer"
     >
@@ -37,7 +37,7 @@ export function Footer() {
                 width={138}
                 height={45}
                 priority
-                className="h-[45px] w-[138px] object-cover"
+                className="h-[45px] w-[138px] object-cover dark:invert"
               />
             </Link>
 
@@ -56,8 +56,8 @@ export function Footer() {
                   aria-label={`Follow Obliq on ${s.label}`}
                   className={cn(
                     "h-11 w-11 rounded-full flex items-center justify-center",
-                    "border border-[rgba(0,0,0,0.12)] text-[var(--charcoal)] opacity-50",
-                    "hover:opacity-100 hover:border-[rgba(0,0,0,0.25)] transition-all duration-200"
+                    "border border-[rgb(var(--tint-rgb)/0.12)] text-[var(--charcoal)] opacity-50",
+                    "hover:opacity-100 hover:border-[rgb(var(--tint-rgb)/0.25)] transition-all duration-200"
                   )}
                 >
                   {s.icon}

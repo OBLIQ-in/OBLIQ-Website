@@ -23,13 +23,14 @@ export function FeatureCard({
   return (
     <div
       className={cn(
-        "card flex flex-col gap-4 p-6 transition-colors duration-200 hover:border-[rgba(0,0,0,0.15)]",
+        "card flex flex-col gap-4 p-6 transition-colors duration-200 hover:border-[rgb(var(--tint-rgb)/0.15)]",
         className
       )}
       {...props}
     >
+      {/* The pastel chip stays light in dark mode, so it keeps light tokens (dark icon) */}
       <div
-        className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full"
+        className="theme-light flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full"
         style={{
           backgroundColor:
             iconVariant === "lime"

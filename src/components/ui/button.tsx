@@ -13,11 +13,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:   ["bg-[var(--charcoal)] text-white", "hover:opacity-85 active:scale-[0.97]"],
-        secondary: ["bg-[var(--cream-pill)] text-[var(--charcoal)]", "hover:bg-[#d9d4cc] active:scale-[0.97]"],
-        outline:   ["border border-[rgba(0,0,0,0.15)] text-[var(--charcoal)] bg-transparent", "hover:bg-[var(--cream-2)] active:scale-[0.97]"],
+        primary:   ["bg-[var(--charcoal)] text-[var(--on-ink)]", "hover:opacity-85 active:scale-[0.97]"],
+        secondary: ["bg-[var(--cream-pill)] text-[var(--charcoal)]", "hover:bg-[var(--cream-pill-hover)] active:scale-[0.97]"],
+        outline:   ["border border-[rgb(var(--tint-rgb)/0.15)] text-[var(--charcoal)] bg-transparent", "hover:bg-[var(--cream-2)] active:scale-[0.97]"],
         ghost:     ["text-[var(--charcoal)] bg-transparent", "hover:bg-[var(--cream-2)] active:scale-[0.97]"],
-        rust:      ["bg-[var(--rust)] text-white", "hover:opacity-85 active:scale-[0.97]"],
+        rust:      ["bg-[var(--rust)] text-[var(--on-ink)]", "hover:opacity-85 active:scale-[0.97]"],
       },
       size: {
         sm:   "h-8  px-4  text-xs",

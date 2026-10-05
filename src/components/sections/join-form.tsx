@@ -81,7 +81,7 @@ async function submitApplication(values: Values, company: string): Promise<boole
 }
 
 const boxClass = cn(
-  "w-full rounded-[10px] bg-white font-rounded text-base text-[var(--ink)] shadow-[var(--field-shadow)]",
+  "w-full rounded-[10px] bg-[var(--surface)] font-rounded text-base text-[var(--ink)] shadow-[var(--field-shadow)]",
   "placeholder:text-[var(--ink-muted)] outline-none transition-shadow",
   "focus-visible:ring-2 focus-visible:ring-[var(--ink)]",
   "aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[var(--danger)]"
@@ -176,7 +176,7 @@ export function JoinForm() {
     <form
       noValidate
       onSubmit={onSubmit}
-      className="relative grid w-full grid-cols-1 gap-6 rounded-2xl bg-white/70 p-6 sm:grid-cols-2 sm:p-10"
+      className="relative grid w-full grid-cols-1 gap-6 rounded-2xl bg-[var(--surface)]/70 p-6 sm:grid-cols-2 sm:p-10"
     >
       <Field id="join-name" label="Name" isRequired error={errors.name}>
         <input {...text("name")} type="text" autoComplete="name" placeholder="Eg. Jane Smith" className={cn(boxClass, "h-12 px-4")} />
@@ -257,14 +257,14 @@ export function JoinForm() {
           aria-busy={status === "loading"}
           className={cn(
             "group relative flex h-[55px] w-full items-center justify-center overflow-hidden rounded-full",
-            "bg-[var(--ink)] font-rounded text-base font-semibold text-white",
+            "bg-[var(--ink)] font-rounded text-base font-semibold text-[var(--on-ink)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] focus-visible:ring-offset-2",
             "disabled:cursor-wait disabled:opacity-80"
           )}
         >
           {status === "loading" ? (
             <span className="flex items-center gap-2">
-              <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-[color:var(--on-ink)]/40 border-t-[color:var(--on-ink)]" />
               Sending…
             </span>
           ) : (

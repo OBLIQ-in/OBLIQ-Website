@@ -24,7 +24,7 @@ export function SectionPlaceholder({ section, index = 0, headingLevel: Heading =
       <div className="flex items-start gap-4">
         <div
           className="mt-0.5 h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "var(--cream-card)", border: "1px solid rgba(0,0,0,0.08)" }}
+          style={{ background: "var(--cream-card)", border: "1px solid var(--border)" }}
           aria-hidden="true"
         >
           <Plus className="h-4 w-4 text-[var(--charcoal)] opacity-40" />
@@ -48,8 +48,8 @@ export function SectionPlaceholder({ section, index = 0, headingLevel: Heading =
         className={cn(
           "flex-shrink-0 inline-flex items-center gap-2 rounded-full",
           "min-h-11 px-4 py-2 text-sm font-medium",
-          "border border-[rgba(0,0,0,0.12)] text-[var(--body-text)]",
-          "hover:text-[var(--charcoal)] hover:border-[rgba(0,0,0,0.25)] hover:bg-[var(--cream-2)]",
+          "border border-[rgb(var(--tint-rgb)/0.12)] text-[var(--body-text)]",
+          "hover:text-[var(--charcoal)] hover:border-[rgb(var(--tint-rgb)/0.25)] hover:bg-[var(--cream-2)]",
           "transition-all duration-200"
         )}
       >
