@@ -75,8 +75,9 @@ main (protected)
 3. **Develop** your changes
 4. **Lint**: `npm run lint`
 5. **Build**: `npm run build` — must pass
-6. **Commit**: follow [Conventional Commits](https://www.conventionalcommits.org/)
-7. **Push** and open a **Pull Request** to `main`
+6. **Smoke tests**: `npx playwright test` — builds the site, serves it on port 3100 and runs `e2e/`. First time: `npx playwright install chromium`. Use `npx playwright test --ui` to watch them run.
+7. **Commit**: follow [Conventional Commits](https://www.conventionalcommits.org/)
+8. **Push** and open a **Pull Request** to `main`
 
 ---
 
@@ -239,5 +240,6 @@ Every PR runs:
 |-------|---------|
 | Lint | `npm run lint` |
 | Build | `npm run build` |
+| E2E smoke tests | `npx playwright test` |
 
-Both must pass before a PR can be merged.
+All three must pass before a PR can be merged.

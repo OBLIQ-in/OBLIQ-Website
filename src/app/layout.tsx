@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/inter";
 import "@fontsource/open-runde/400.css";
 import "@fontsource/open-runde/500.css";
 import "@fontsource/open-runde/600.css";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { Analytics } from "@/components/analytics";
 import { siteConfig } from "@/lib/site";
 
-// Fonts are loaded via CSS @import in globals.css (Inter + Plus Jakarta Sans)
-// This avoids Turbopack font module resolution issues in Next.js 15.5.x
+// Fonts are self-hosted via Fontsource: Inter (variable, 100–900) for body and
+// headings, Open Runde for rounded UI text. No third-party font requests, and
+// no next/font — it had Turbopack module resolution issues in Next.js 15.5.x.
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -36,7 +39,6 @@ export const metadata: Metadata = {
   openGraph: {
     type:        "website",
     locale:      "en_US",
-    url:         siteConfig.url,
     siteName:    siteConfig.name,
     title:       `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
@@ -75,9 +77,8 @@ export const metadata: Metadata = {
   // Icons come from Next.js file conventions: app/favicon.ico, app/icon.svg
   // and app/apple-icon.tsx — no manual <link> tags needed.
 
-  alternates: {
-    canonical: siteConfig.url,
-  },
+  // No site-wide canonical or og:url here: every page sets its own, otherwise
+  // pages without one would tell search engines they are the homepage.
 };
 
 export default function RootLayout({
@@ -96,6 +97,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

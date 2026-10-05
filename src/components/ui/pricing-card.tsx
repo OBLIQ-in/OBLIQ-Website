@@ -124,6 +124,7 @@ export function PricingCard({
 
       <Button
         href={cta.href}
+        data-analytics-cta={`pricing-${name.toLowerCase().replace(/\s+/g, "-")}`}
         size="lg"
         className={cn(
           "mt-auto h-[55px] w-full text-base",

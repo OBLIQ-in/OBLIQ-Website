@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-const LAST_UPDATED = "29 September 2026";
+const LAST_UPDATED = "30 September 2026";
 
 function PolicySection({
   id,
@@ -69,12 +69,12 @@ export default function PrivacyPage() {
         {/* Table of contents */}
         <nav aria-label="Privacy policy contents" className="card-cream mt-10 p-6">
           <h2 className="eyebrow mb-3">On this page</h2>
-          <ol className="grid gap-1.5 text-sm sm:grid-cols-2" role="list">
+          <ol className="grid gap-x-6 text-sm sm:grid-cols-2 lg:gap-y-1.5" role="list">
             {sections.map((s) => (
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}
-                  className="text-[var(--body-text)] underline-offset-4 hover:text-[var(--charcoal)] hover:underline"
+                  className="inline-flex max-lg:min-h-11 items-center text-[var(--body-text)] underline-offset-4 hover:text-[var(--charcoal)] hover:underline"
                 >
                   {s.title}
                 </a>
@@ -147,14 +147,6 @@ export default function PrivacyPage() {
                 {/* TODO(maintainers): name the hosting provider (e.g. Vercel) and link its privacy policy. */}
               </li>
               <li>
-                <strong className="text-[var(--charcoal)]">Google Fonts</strong> — delivers the
-                Inter typeface.{" "}
-                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-                  Google Privacy Policy
-                </a>
-                .
-              </li>
-              <li>
                 <strong className="text-[var(--charcoal)]">GitHub and jsDelivr</strong> — host
                 brand images and screenshots.{" "}
                 <a
@@ -176,6 +168,14 @@ export default function PrivacyPage() {
                 service that delivers them to us.
                 {/* TODO(maintainers): name the form/email provider(s) once issues #33 and #45 are wired up. */}
               </li>
+              <li>
+                <strong className="text-[var(--charcoal)]">Plausible Analytics</strong> — counts
+                visits and a few button clicks, without cookies. See{" "}
+                <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer">
+                  Plausible&rsquo;s data policy
+                </a>
+                .
+              </li>
             </ul>
             <p>
               Links to other sites (GitHub, Discord, social networks) are governed by those
@@ -185,13 +185,22 @@ export default function PrivacyPage() {
 
           <PolicySection id="cookies" title={sections[4].title}>
             <p>
-              This website does not currently set any cookies of its own and does not run any
-              analytics or tracking scripts.
+              This website does not set any cookies of its own.
             </p>
             <p>
-              If we add analytics in the future, we will prefer privacy-friendly, cookie-less tools,
-              update this page before it goes live, and ask for your consent wherever the law
-              requires it.
+              We use{" "}
+              <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer">
+                Plausible Analytics
+              </a>{" "}
+              to count visits and a few actions (clicks on sign-up buttons, the pricing
+              monthly/annual switch, and form submissions). Plausible uses no cookies, does not
+              track you across sites or devices, and stores no personal data: your IP address is
+              only used to derive an anonymous daily visitor count and is never stored. We never
+              send what you type into a form to analytics.
+            </p>
+            <p>
+              Copies of this site run by others (forks or self-hosted builds) have analytics
+              switched off unless their operator turns it on.
             </p>
           </PolicySection>
 

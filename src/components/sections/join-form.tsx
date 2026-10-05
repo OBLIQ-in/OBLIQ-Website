@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { positions } from "@/lib/positions";
+import { trackEvent } from "@/lib/analytics";
 import { siteConfig } from "@/lib/site";
 
 type FieldName =
@@ -17,7 +18,7 @@ type FieldName =
   | "availability"
   | "note";
 
-type Values = Record<Exclude<FieldName, "resume">, string> & { resume: File | null };
+type Values = Record<FieldName, string>;
 
 const initialValues: Values = {
   name: "",
@@ -27,19 +28,25 @@ const initialValues: Values = {
   linkedin: "",
   github: "",
   position: "",
-  resume: null,
+  resume: "",
   availability: "",
   note: "",
 };
 
 const required = new Set<FieldName>(["name", "email", "linkedin", "position", "resume"]);
 
+function isWebLink(value: string) {
+  try {
+    return /^https?:$/.test(new URL(value.trim()).protocol);
+  } catch {
+    return false;
+  }
+}
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const RESUME_TYPES = ".pdf,.doc,.docx";
 
 function validate(field: FieldName, values: Values): string | undefined {
-  const value = values[field];
-  const empty = value === null || (typeof value === "string" && value.trim() === "");
+  const empty = values[field].trim() === "";
 
   if (required.has(field) && empty) {
     return {
@@ -47,22 +54,30 @@ function validate(field: FieldName, values: Values): string | undefined {
       email: "Please enter your email address.",
       linkedin: "Please add your LinkedIn profile link.",
       position: "Please choose the position you're applying for.",
-      resume: "Please attach your resume.",
+      resume: "Please add a link to your resume.",
     }[field as "name" | "email" | "linkedin" | "position" | "resume"];
   }
   if (field === "email" && !empty && !EMAIL_PATTERN.test(values.email.trim())) {
     return "Please enter a valid email address, like jane@gmail.com.";
   }
-  if (field === "resume" && values.resume && !/\.(pdf|docx?)$/i.test(values.resume.name)) {
-    return "Please upload a PDF or Word document.";
+  if (field === "resume" && !empty && !isWebLink(values.resume)) {
+    return "Please enter a full link starting with https://";
   }
   return undefined;
 }
 
-// Sending is wired up in #55 (form service). Until then the form validates
-// and shows the loading state, then points people to email.
-async function submitApplication(values: Values): Promise<void> {
-  void values;
+// Posts to our own /api/join route, which forwards to the form service.
+async function submitApplication(values: Values, company: string): Promise<boolean> {
+  try {
+    const res = await fetch("/api/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...values, company }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 const boxClass = cn(
@@ -106,8 +121,7 @@ function Field({
 export function JoinForm() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
-  const [status, setStatus] = useState<"idle" | "loading" | "sent">("idle");
-  const resumeInput = useRef<HTMLInputElement>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
 
   function setValue<K extends FieldName>(field: K, value: Values[K]) {
     const next = { ...values, [field]: value };
@@ -146,11 +160,13 @@ export function JoinForm() {
     }
 
     setStatus("loading");
-    await submitApplication(values);
-    setStatus("sent");
+    trackEvent("Form Submit", { form: "join", position: values.position });
+    const company = new FormData(e.currentTarget).get("company");
+    const ok = await submitApplication(values, typeof company === "string" ? company : "");
+    setStatus(ok ? "sent" : "error");
   }
 
-  const text = (field: Exclude<FieldName, "resume" | "position">) => ({
+  const text = (field: Exclude<FieldName, "position">) => ({
     ...control(field),
     value: values[field],
     onChange: (e: { target: { value: string } }) => setValue(field, e.target.value),
@@ -160,7 +176,7 @@ export function JoinForm() {
     <form
       noValidate
       onSubmit={onSubmit}
-      className="grid w-full grid-cols-1 gap-6 rounded-2xl bg-white/70 p-6 sm:grid-cols-2 sm:p-10"
+      className="relative grid w-full grid-cols-1 gap-6 rounded-2xl bg-white/70 p-6 sm:grid-cols-2 sm:p-10"
     >
       <Field id="join-name" label="Name" isRequired error={errors.name}>
         <input {...text("name")} type="text" autoComplete="name" placeholder="Eg. Jane Smith" className={cn(boxClass, "h-12 px-4")} />
@@ -204,32 +220,14 @@ export function JoinForm() {
         </select>
       </Field>
 
-      <Field id="join-resume" label="Resume" isRequired error={errors.resume} className="sm:col-span-2">
-        {/* The real file input stays focusable (visually hidden); the box shows the chosen file */}
-        <div
-          onClick={() => resumeInput.current?.click()}
-          aria-invalid={errors.resume ? true : undefined}
-          className={cn(
-            boxClass,
-            "flex h-12 cursor-pointer items-center gap-3 px-2",
-            "focus-within:ring-2 focus-within:ring-[var(--ink)]"
-          )}
-        >
-          <input
-            {...control("resume")}
-            ref={resumeInput}
-            type="file"
-            accept={RESUME_TYPES}
-            onChange={(e) => setValue("resume", e.target.files?.[0] ?? null)}
-            className="sr-only"
-          />
-          <span aria-hidden="true" className="shrink-0 rounded-full bg-[var(--pill)] px-3 py-1.5 text-sm font-semibold">
-            Choose file
-          </span>
-          <span className={cn("truncate text-sm", !values.resume && "text-[var(--ink-muted)]")}>
-            {values.resume ? values.resume.name : "PDF or Word document"}
-          </span>
-        </div>
+      <Field id="join-resume" label="Resume Link" isRequired error={errors.resume} className="sm:col-span-2">
+        <input
+          {...text("resume")}
+          type="url"
+          inputMode="url"
+          placeholder="Link to your resume (Google Drive, Dropbox, etc.)"
+          className={cn(boxClass, "h-12 px-4")}
+        />
       </Field>
 
       <Field id="join-availability" label="Availability" error={errors.availability} className="sm:col-span-2">
@@ -243,6 +241,14 @@ export function JoinForm() {
           className={cn(boxClass, "h-[100px] resize-y rounded-[4px] p-2.5")}
         />
       </Field>
+
+      {/* Honeypot: hidden from people, bots tend to fill it in */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Company
+          <input type="text" name="company" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
 
       <div className="flex flex-col gap-3 sm:col-span-2">
         <button
@@ -273,9 +279,13 @@ export function JoinForm() {
         </button>
 
         <p role="status" className="text-center font-rounded text-sm text-[var(--ink-soft)]">
-          {status === "sent" &&
-            `Thanks, ${values.name.trim()}! Online applications aren't connected yet, so please also email your resume to ${siteConfig.email.support}.`}
+          {status === "sent" && `Thanks, ${values.name.trim()}! We got your application and will get back to you soon.`}
         </p>
+        {status === "error" && (
+          <p role="alert" className="text-center font-rounded text-sm text-[var(--danger)]">
+            Something went wrong and your application wasn&apos;t sent. Please try again, or email us at {siteConfig.email.support}.
+          </p>
+        )}
       </div>
     </form>
   );

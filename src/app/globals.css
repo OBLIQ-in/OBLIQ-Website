@@ -7,7 +7,6 @@
    - Rounded pill components
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -36,6 +35,7 @@
   /* ── NEW TOKENS FOR FEATURE CARD ── */
   --obliq-lime-light: #dffb8c;
   --obliq-periwinkle-light: #aab4ee;
+  --lime:        #c8f560;
 
   /* ── Pricing (matches obliqq.framer.ai) ── */
   --ink:         #1a1615;
@@ -45,6 +45,7 @@
   --pill-hover:  #ebe6e1;
   --sky-card:    #b7d5f1;
   --peach-card:  #f4e6da;
+  --feature-card: #f0eae5;
   --sky-ring:    #84b9ef;
   --success:     #007a21; /* 4.87:1 on --success-bg (WCAG AA) */
   --success-bg:  #eaf3ed;
@@ -68,8 +69,9 @@
   --border-card: rgba(0,0,0,0.06);
 
   /* ── Fonts ── */
-  --font-sans:   "Inter", system-ui, sans-serif;
-  --font-rounded: "Open Runde", "Inter", system-ui, sans-serif;
+  /* Inter Variable is self-hosted (layout.tsx); plain "Inter" covers a local install */
+  --font-sans:   "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-rounded: "Open Runde", "Inter Variable", "Inter", system-ui, sans-serif;
 
   /* ── Radius ── */
   --radius-pill: 9999px;
@@ -92,6 +94,7 @@
   --color-cream-pill:    var(--cream-pill);
   --color-charcoal:      var(--charcoal);
   --color-ink:           var(--ink);
+  --color-ink-soft:      var(--ink-soft);
   --color-mist:          var(--mist);
   --color-muted:         var(--muted);
   --color-body-text:     var(--body-text);
@@ -234,7 +237,7 @@
     top: 0.75rem;
     left: 0.75rem;
     z-index: 100;
-    padding: 0.6rem 1.1rem;
+    padding: 0.7rem 1.1rem;
     border-radius: var(--radius-pill);
     background: var(--charcoal);
     color: var(--cream);
@@ -332,10 +335,26 @@
 }
 
 @layer components {
-  .animate-fade-up  { animation: fade-up  0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
-  .animate-fade-in  { animation: fade-in  0.5s ease forwards; }
+  /* Entrance animations. `both` keeps elements hidden during their
+     animation-delay (no flash before the stagger starts); with reduced
+     motion they don't run at all and content is simply visible. */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    .animate-fade-in { animation: fade-in 0.35s ease both; }
+  }
   .animate-float    { animation: float 5s ease-in-out infinite; }
   .animate-marquee  { animation: marquee 28s linear infinite; }
+
+  /* ── Hero dashboard tilt (desktop pointers only) ── */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .hero-tilt {
+      transform-origin: 50% 100%;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hero-tilt:hover {
+      transform: perspective(1400px) rotateX(3deg) translateY(-6px);
+    }
+  }
 
   /* ── Cloud decoration ── */
   .cloud {

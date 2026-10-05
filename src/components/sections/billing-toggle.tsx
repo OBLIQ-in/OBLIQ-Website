@@ -8,6 +8,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type Billing = "annually" | "monthly";
@@ -49,6 +50,12 @@ export function BillingToggle() {
   const { billing, setBilling } = ctx;
   const selected = options.findIndex((o) => o.value === billing);
 
+  function choose(value: Billing) {
+    if (value === billing) return;
+    setBilling(value);
+    trackEvent("Pricing Toggle", { billing: value });
+  }
+
   // Radio group keyboard pattern: arrow keys move the selection and focus.
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
@@ -57,7 +64,7 @@ export function BillingToggle() {
     const next = (selected + step + options.length) % options.length;
     const option = options[next];
     if (!option) return;
-    setBilling(option.value);
+    choose(option.value);
     buttons.current[next]?.focus();
   }
 
@@ -66,7 +73,7 @@ export function BillingToggle() {
       role="radiogroup"
       aria-label="Billing period"
       onKeyDown={onKeyDown}
-      className="relative grid h-12 grid-cols-2 rounded-full bg-[var(--pill)] p-1 font-rounded"
+      className="relative grid h-[52px] grid-cols-2 rounded-full bg-[var(--pill)] p-1 font-rounded"
     >
       {/* White pill that slides under the selected option */}
       <span
@@ -87,7 +94,7 @@ export function BillingToggle() {
             role="radio"
             aria-checked={checked}
             tabIndex={checked ? 0 : -1}
-            onClick={() => setBilling(option.value)}
+            onClick={() => choose(option.value)}
             className={cn(
               "relative z-10 rounded-full text-base font-semibold text-[var(--ink)] transition-colors duration-200",
               checked ? "cursor-default" : "hover:bg-white/50"

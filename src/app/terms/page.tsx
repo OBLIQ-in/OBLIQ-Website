@@ -72,12 +72,12 @@ export default function TermsPage() {
         {/* Table of contents */}
         <nav aria-label="Terms of service contents" className="card-cream mt-10 p-6">
           <h2 className="eyebrow mb-3">On this page</h2>
-          <ol className="grid gap-1.5 text-sm sm:grid-cols-2" role="list">
+          <ol className="grid gap-x-6 text-sm sm:grid-cols-2 lg:gap-y-1.5" role="list">
             {sections.map((s) => (
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}
-                  className="text-[var(--body-text)] underline-offset-4 hover:text-[var(--charcoal)] hover:underline"
+                  className="inline-flex max-lg:min-h-11 items-center text-[var(--body-text)] underline-offset-4 hover:text-[var(--charcoal)] hover:underline"
                 >
                   {s.title}
                 </a>
