@@ -1,16 +1,10 @@
 import { type HTMLAttributes } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import type { Testimonial } from "@/types";
 
-export interface TestimonialCardProps extends HTMLAttributes<HTMLDivElement> {
-  quote: string;
-  // Support both 'author' (from #134) and 'name'
-  author?: string;
-  name?: string; 
-  role: string;
-  company?: string;
-  initials?: string;
-  avatar?: string;
+export interface TestimonialCardProps extends HTMLAttributes<HTMLElement> {
+  testimonial: Testimonial;
 }
 
 /**
@@ -18,20 +12,15 @@ export interface TestimonialCardProps extends HTMLAttributes<HTMLDivElement> {
  * Designed to work inside marquee rows with a consistent fixed width.
  */
 export function TestimonialCard({
-  quote,
-  author,
-  name,
-  role,
-  company,
-  initials,
-  avatar,
+  testimonial,
   className,
   ...props
 }: TestimonialCardProps) {
-  const displayName = author || name || "Anonymous";
+  const { quote, author, role, company, avatar } = testimonial;
+  const displayName = author || "Anonymous";
   
   // Auto-generate initials if they weren't explicitly passed
-  const displayInitials = initials || displayName
+  const displayInitials = displayName
     .split(" ")
     .map((n) => n[0])
     .join("")
@@ -39,7 +28,7 @@ export function TestimonialCard({
     .toUpperCase();
 
   return (
-    <div
+    <figure
       className={cn(
         "card flex flex-col gap-6 p-6 relative flex-shrink-0 w-full sm:w-[380px]", 
         className
@@ -56,12 +45,12 @@ export function TestimonialCard({
       </div>
 
       {/* Quote Text */}
-      <p className="text-base text-[var(--body-text)] leading-relaxed relative z-10">
+      <blockquote className="text-base text-[var(--body-text)] leading-relaxed relative z-10">
         &ldquo;{quote}&rdquo;
-      </p>
+      </blockquote>
 
       {/* Author Info */}
-      <div className="flex items-center gap-3 mt-auto pt-2 relative z-10">
+      <figcaption className="flex items-center gap-3 mt-auto pt-2 relative z-10">
         {/* Avatar */}
         <div 
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-bold text-sm tracking-wide overflow-hidden"
@@ -86,14 +75,14 @@ export function TestimonialCard({
         
         {/* Name, Role & Company */}
         <div className="flex flex-col">
-          <span className="text-sm font-bold text-[var(--charcoal)] leading-tight">
+          <cite className="text-sm font-bold text-[var(--charcoal)] leading-tight not-italic">
             {displayName}
-          </span>
+          </cite>
           <span className="text-xs text-[var(--muted)] leading-tight mt-1">
-            {role}{company ? `, ${company}` : ""}
+            {company ? `${role}, ${company}` : role}
           </span>
         </div>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }

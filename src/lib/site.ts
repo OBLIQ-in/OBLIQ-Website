@@ -5,6 +5,9 @@
  * social links, and navigation items across the entire site.
  */
 
+/** This website's source repository — home of the changelog, roadmap and project docs. */
+const repo = "https://github.com/OBLIQ-in/OBLIQ-Website";
+
 export const siteConfig = {
   name: "Obliq",
   tagline: "Compliance work breaks before filing.",
@@ -15,8 +18,9 @@ export const siteConfig = {
 
   links: {
     github: "https://github.com/OBLIQ-in",
+    repo,
     twitter: "https://twitter.com/obliq_in",
-    discord: "https://discord.gg/obliq",
+    discord: "https://discord.gg/XPC4ETU7kp",
   },
 
   email: {
@@ -35,25 +39,26 @@ export const siteConfig = {
     product: [
       { label: "Features", href: "/features" },
       { label: "Pricing", href: "/pricing" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Roadmap", href: "/roadmap" },
+      // No releases yet, so merged PRs are the changelog; the phase milestones are the roadmap
+      { label: "Changelog", href: `${repo}/pulls?q=is%3Apr+is%3Amerged` },
+      { label: "Roadmap", href: `${repo}/milestones` },
     ],
     company: [
       { label: "About", href: "/about" },
       { label: "Blog", href: "/blog" },
-      { label: "Careers", href: "/careers" },
+      { label: "Careers", href: "/contact-us" },
       { label: "Contact", href: "/contact" },
     ],
     community: [
       { label: "GitHub", href: "https://github.com/OBLIQ-in" },
-      { label: "Discord", href: "https://discord.gg/obliq" },
+      { label: "Discord", href: "https://discord.gg/XPC4ETU7kp" },
       { label: "Twitter", href: "https://twitter.com/obliq_in" },
-      { label: "Contributing", href: "/contributing" },
+      { label: "Contributing", href: `${repo}/blob/main/CONTRIBUTING.md` },
     ],
     legal: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
-      { label: "Security", href: "/security" },
+      { label: "Security", href: `${repo}/blob/main/SECURITY.md` },
     ],
   },
 } as const;

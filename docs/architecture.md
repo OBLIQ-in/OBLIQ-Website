@@ -75,14 +75,17 @@ RootLayout (layout.tsx)
 
 ---
 
-## Blog (not yet implemented — issue #36)
+## Blog (issue #36)
 
-Recommended approach:
+Posts are MDX files rendered with `@next/mdx`:
 
-1. Use MDX (`@next/mdx` or `contentlayer`)
-2. Store posts in `src/content/blog/*.mdx`
-3. Generate routes via `generateStaticParams`
-4. Expose types via `src/types/index.ts` (`BlogPost`, `Author`)
+1. Posts live in `src/content/blog/<slug>.mdx` — the filename is the URL slug
+2. Each post declares metadata with `export const frontmatter = { ... }` (type: `BlogFrontmatter` in `src/types/index.ts`)
+3. `src/lib/blog.ts` lists, loads and orders posts (`getAllPosts`, `getPost`, `getAdjacentPosts`)
+4. `src/app/blog/[slug]/page.tsx` pre-renders every post via `generateStaticParams`; unknown slugs 404
+5. Typography comes from the `.prose-obliq` class in `globals.css`; `src/mdx-components.tsx` maps internal links to `next/link`
+
+See `src/content/blog/how-to-write-for-the-obliq-blog.mdx` for a template post.
 
 ---
 

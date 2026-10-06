@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8d4e9" />
+      <stop offset="55%" stop-color="#cfe3f0" />
+      <stop offset="100%" stop-color="#ddeaf5" />
+    </linearGradient>
+    
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#f5f2eb" stop-opacity="0.7" />
+    </linearGradient>
+    
+    <filter id="cloudBlurL1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="36" />
+    </filter>
+    <filter id="cloudBlurL2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="24" />
+    </filter>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#181818" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Sky Background -->
+  <rect width="1200" height="630" fill="url(#skyGrad)" />
+
+  <!-- Cloud Blobs -->
+  <ellipse cx="60" cy="140" rx="180" ry="100" fill="#ffffff" opacity="0.65" filter="url(#cloudBlurL1)" />
+  <ellipse cx="140" cy="220" rx="120" ry="70" fill="#ffffff" opacity="0.5" filter="url(#cloudBlurL2)" />
+  <ellipse cx="1140" cy="120" rx="160" ry="90" fill="#ffffff" opacity="0.6" filter="url(#cloudBlurL1)" />
+  <ellipse cx="1060" cy="240" rx="130" ry="75" fill="#ffffff" opacity="0.45" filter="url(#cloudBlurL2)" />
+  <ellipse cx="600" cy="620" rx="450" ry="120" fill="#ffffff" opacity="0.4" filter="url(#cloudBlurL1)" />
+
+  <!-- Decorative subtle grid dots -->
+  <g opacity="0.12" fill="#181818">
+    <circle cx="200" cy="80" r="2" />
+    <circle cx="280" cy="80" r="2" />
+    <circle cx="360" cy="80" r="2" />
+    <circle cx="840" cy="80" r="2" />
+    <circle cx="920" cy="80" r="2" />
+    <circle cx="1000" cy="80" r="2" />
+    <circle cx="200" cy="140" r="2" />
+    <circle cx="1000" cy="140" r="2" />
+  </g>
+
+  <!-- Main Card Container -->
+  <g filter="url(#cardShadow)">
+    <rect x="80" y="65" width="1040" height="500" rx="28" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.9)" stroke-width="2" />
+  </g>
+
+  <!-- Navbar / Header Row inside Card -->
+  <g transform="translate(130, 115)">
+    <!-- Logo Box -->
+    <rect x="0" y="0" width="88" height="34" rx="6" fill="none" stroke="#181818" stroke-width="2.5" />
+    <text x="44" y="24" font-family="'Courier New', Courier, monospace" font-size="20" font-weight="900" fill="#181818" text-anchor="middle" letter-spacing="-0.5">OBLIQ</text>
+    <text x="94" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#181818" opacity="0.5">.in</text>
+
+    <!-- Category / Tag Pill -->
+    <rect x="740" y="0" width="200" height="34" rx="17" fill="rgba(24,24,24,0.06)" stroke="rgba(0,0,0,0.08)" stroke-width="1" />
+    <circle cx="758" cy="17" r="4" fill="#22c55e" />
+    <text x="772" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#181818" opacity="0.8">Open Source · MIT</text>
+  </g>
+
+  <!-- Tagline Headline -->
+  <text x="130" y="235" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="50" font-weight="900" fill="#181818" letter-spacing="-1.5">
+    Compliance work breaks
+  </text>
+  <text x="130" y="295" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="50" font-weight="900" fill="#181818" letter-spacing="-1.5">
+    before filing.
+  </text>
+
+  <!-- Description paragraph -->
+  <text x="130" y="360" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="400" fill="#4a4a4a" width="700">
+    CA firms manage dozens of recurring deadlines across multiple clients.
+  </text>
+  <text x="130" y="392" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="400" fill="#4a4a4a" width="700">
+    Streamline document requests, client follow-ups, and proactive deadline tracking.
+  </text>
+
+  <!-- Feature Highlights Row -->
+  <g transform="translate(130, 445)">
+    <!-- Pill 1 -->
+    <rect x="0" y="0" width="210" height="42" rx="21" fill="#ffffff" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+    <text x="18" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#181818">⚡ Deadline Tracking</text>
+
+    <!-- Pill 2 -->
+    <rect x="225" y="0" width="210" height="42" rx="21" fill="#ffffff" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+    <text x="243" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#181818">📁 Document Pipeline</text>
+
+    <!-- Pill 3 -->
+    <rect x="450" y="0" width="200" height="42" rx="21" fill="#ffffff" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+    <text x="468" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#181818">💬 Client Follow-ups</text>
+
+    <!-- URL Pill Button on the Right -->
+    <rect x="780" y="0" width="160" height="42" rx="21" fill="#181818" />
+    <text x="840" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">obliq.in ↗</text>
+  </g>
+</svg>

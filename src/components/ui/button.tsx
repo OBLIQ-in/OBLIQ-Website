@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { type ComponentPropsWithoutRef } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 const buttonVariants = cva(
   [
@@ -34,10 +34,47 @@ const buttonVariants = cva(
 type ButtonVariants = VariantProps<typeof buttonVariants>;
 type AsButton = ComponentPropsWithoutRef<"button"> & { href?: never };
 type AsLink   = ComponentPropsWithoutRef<typeof Link> & { href: string };
-type ButtonProps = ButtonVariants & (AsButton | AsLink);
 
-export function Button({ variant, size, className, ...props }: ButtonProps) {
-  const classes = cn(buttonVariants({ variant, size }), className);
+interface ButtonExtras {
+  /** Rendered before the label, spaced by the pill's `gap-2` */
+  leftIcon?: ReactNode;
+  /** Rendered after the label, spaced by the pill's `gap-2` */
+  rightIcon?: ReactNode;
+  /** Swaps the left icon for a spinner, sets `aria-busy` and blocks interaction */
+  loading?: boolean;
+}
+
+type ButtonProps = ButtonVariants & ButtonExtras & (AsButton | AsLink);
+
+function Spinner() {
+  return (
+    <span
+      aria-hidden="true"
+      className="size-4 shrink-0 animate-spin rounded-full border-2 border-current border-r-transparent"
+    />
+  );
+}
+
+export function Button({
+  variant,
+  size,
+  className,
+  leftIcon,
+  rightIcon,
+  loading = false,
+  children,
+  ...props
+}: ButtonProps) {
+  const classes = cn(buttonVariants({ variant, size }), loading && "pointer-events-none", className);
+  const content = (
+    <>
+      {loading ? <Spinner /> : leftIcon}
+      {children}
+      {rightIcon}
+    </>
+  );
+  const busy = loading ? { "aria-busy": true } : {};
+
   if ("href" in props && props.href !== undefined) {
     const { href, ...rest } = props as AsLink;
     const isExternal = href.startsWith("http");
@@ -45,10 +82,19 @@ export function Button({ variant, size, className, ...props }: ButtonProps) {
       <Link href={href} className={classes}
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         {...(rest as Omit<AsLink, "href">)}
-      />
+        {...busy}
+        {...(loading ? { "aria-disabled": true, tabIndex: -1 } : {})}
+      >
+        {content}
+      </Link>
     );
   }
-  return <button className={classes} {...(props as AsButton)} />;
+  const { disabled, ...rest } = props as AsButton;
+  return (
+    <button className={classes} disabled={disabled || loading} {...rest} {...busy}>
+      {content}
+    </button>
+  );
 }
 
 export { buttonVariants };

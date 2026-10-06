@@ -7,6 +7,7 @@ import type { PlaceholderSection } from "@/types";
 export const metadata: Metadata = {
   title: "Features",
   description: "Explore the powerful features that make Obliq the platform of choice for open source teams.",
+  alternates: { canonical: "/features" },
 };
 
 const featurePlaceholder: PlaceholderSection = {
@@ -21,13 +22,14 @@ export default function FeaturesPage() {
     <div className="section pt-32">
       <Container>
         <SectionHeading
+          as="h1"
           eyebrow="Features"
           heading="Everything you need."
           subheading="Obliq provides a complete toolkit for modern open source development."
 
         />
         <div className="mt-12">
-          <SectionPlaceholder section={featurePlaceholder} />
+          <SectionPlaceholder section={featurePlaceholder} headingLevel="h2" />
         </div>
       </Container>
     </div>

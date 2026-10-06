@@ -7,6 +7,7 @@ import type { PlaceholderSection } from "@/types";
 export const metadata: Metadata = {
   title: "Pricing",
   description: "Simple, transparent pricing for Obliq. Free forever for open source.",
+  alternates: { canonical: "/pricing" },
 };
 
 const pricingPlaceholder: PlaceholderSection = {
@@ -21,13 +22,14 @@ export default function PricingPage() {
     <div className="section pt-32">
       <Container>
         <SectionHeading
+          as="h1"
           eyebrow="Pricing"
           heading="Simple, honest pricing."
           subheading="Start for free. Upgrade when you need more. Always open source."
 
         />
         <div className="mt-12">
-          <SectionPlaceholder section={pricingPlaceholder} />
+          <SectionPlaceholder section={pricingPlaceholder} headingLevel="h2" />
         </div>
       </Container>
     </div>

@@ -7,6 +7,7 @@ This is an open-source project and every contribution — big or small — is we
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
+- [Community](#community)
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Project Structure](#project-structure)
@@ -21,6 +22,22 @@ This is an open-source project and every contribution — big or small — is we
 ## Code of Conduct
 
 By participating, you agree to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+---
+
+## Community
+
+**Stuck for more than an hour? Ask — that's normal around here.**
+
+| Channel | When to use |
+|---------|------------|
+| [Discord](https://discord.gg/XPC4ETU7kp) | Quick questions, pair-debugging, showing WIPs, hanging out |
+| [GitHub Discussions](https://github.com/OBLIQ-in/OBLIQ-Website/discussions) | Long-form Q&A, design proposals, RFCs |
+| [GitHub Issues](https://github.com/OBLIQ-in/OBLIQ-Website/issues) | Bug reports, feature requests, task tracking |
+
+**Discord channels:** `#welcome` · `#help` · `#show-your-work` · `#announcements`
+
+> **Rule of thumb:** Discord for real-time sync. Discussions for anything that should be searchable later.
 
 ---
 
@@ -58,8 +75,9 @@ main (protected)
 3. **Develop** your changes
 4. **Lint**: `npm run lint`
 5. **Build**: `npm run build` — must pass
-6. **Commit**: follow [Conventional Commits](https://www.conventionalcommits.org/)
-7. **Push** and open a **Pull Request** to `main`
+6. **Smoke tests**: `npx playwright test` — builds the site, serves it on port 3100 and runs `e2e/`. First time: `npx playwright install chromium`. Use `npx playwright test --ui` to watch them run.
+7. **Commit**: follow [Conventional Commits](https://www.conventionalcommits.org/)
+8. **Push** and open a **Pull Request** to `main`
 
 ---
 
@@ -222,5 +240,6 @@ Every PR runs:
 |-------|---------|
 | Lint | `npm run lint` |
 | Build | `npm run build` |
+| E2E smoke tests | `npx playwright test` |
 
-Both must pass before a PR can be merged.
+All three must pass before a PR can be merged.

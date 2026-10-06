@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
+import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
+import { Pricing } from "@/components/sections/pricing";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
@@ -7,11 +12,37 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
   description: siteConfig.description,
+  alternates: { canonical: "/" },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: siteConfig.ogImage,
+  description: siteConfig.description,
+  sameAs: [
+    siteConfig.links.github,
+    siteConfig.links.twitter,
+    siteConfig.links.discord,
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: siteConfig.email.support,
+    contactType: "customer support",
+  },
 };
 
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd),
+        }}
+      />
       <Hero />
 
       {/* Contributor to-do board */}
@@ -39,13 +70,28 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <p className="text-sm text-[var(--muted)]">
               New to open source?{" "}
-              <a href="/contributing" className="underline underline-offset-4 hover:text-[var(--charcoal)] transition-colors">
+              <a
+                href={`${siteConfig.links.repo}/blob/main/CONTRIBUTING.md`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-[var(--charcoal)] transition-colors"
+              >
                 Start with the Contributing Guide
               </a>
             </p>
           </div>
         </div>
       </section>
+
+      <FeaturesSection />
+
+      <SpotlightTestimonial />
+
+      <TestimonialMarquee />
+
+      <Pricing />
+
+      <CTABanner />
     </>
   );
 }
