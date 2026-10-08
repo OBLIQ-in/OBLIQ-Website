@@ -169,16 +169,17 @@
   --color-cream-2:       var(--cream-2);
   --color-cream-card:    var(--cream-card);
   --color-cream-pill:    var(--cream-pill);
+  --color-mist:          var(--mist);
   --color-charcoal:      var(--charcoal);
   --color-ink:           var(--ink);
   --color-ink-soft:      var(--ink-soft);
-  --color-mist:          var(--mist);
   --color-muted:         var(--muted);
   --color-body-text:     var(--body-text);
   --color-rust:          var(--rust);
   --color-blue-accent:   var(--blue-accent);
   --color-obliq-lime-light: var(--obliq-lime-light);
   --color-obliq-periwinkle-light: var(--obliq-periwinkle-light);
+  --color-lime:          var(--lime);
   --font-sans:           var(--font-sans);
 }
 
