@@ -8,6 +8,7 @@ import { FeaturesPersonalize } from "@/components/sections/FeaturesPersonalize";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
 import { siteConfig } from "@/lib/site";
 import { Community } from "@/components/sections/Community";
 import { pageMetadata } from "@/lib/metadata";
@@ -46,6 +47,8 @@ export default function HomePage() {
         }}
       />
       <Hero />
+
+      <DeviceShowcase />
 
       {/* Contributor to-do board */}
       <section
