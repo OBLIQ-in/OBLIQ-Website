@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.0",
     "@storybook/addon-docs": "^10.6.1",
     "@storybook/nextjs-vite": "^10.6.1",
     "@tailwindcss/postcss": "^4",
