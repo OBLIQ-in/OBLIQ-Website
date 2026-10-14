@@ -19,28 +19,38 @@ A marketing website for Obliq — an open source developer platform. The site mu
 
 | Page | Status | Notes |
 |------|--------|-------|
-| `/` | ✅ Scaffold | Hero + placeholder board |
+| `/` | ✅ Built | Homepage sections below; open ones show on the to-do board |
 | `/about` | ✅ Stub | Brand story |
-| `/features` | 🔜 Issue #16 | Full features deep-dive |
-| `/pricing` | 🔜 Issue #33 | Tier comparison |
-| `/blog` | 🔜 Issue #36 | MDX blog |
-| `/contact` | 🔜 Issue #37 | Contact form |
+| `/features` | 🔜 #30, #31 | Will reuse the homepage feature sections; shows their open issues for now |
+| `/pricing` | ✅ Built | Renders the pricing section (#37) |
+| `/blog` | ✅ Built | MDX blog: template #59, index #58, launch posts #60 |
+| `/contact-us` | ✅ Built | Join Our Team form (#54), sent via Formspree (#55); `/contact` redirects here |
+| `/privacy`, `/terms` | ✅ Built | #61, #62 |
 
 ---
 
 ## Homepage Sections
 
+In page order, as on the [Framer reference](https://obliqq.framer.ai/):
+
 | Section | Status | Issue |
 |---------|--------|-------|
-| Hero | ✅ Built | — |
-| Features | 🔜 Open | #16 |
-| Benefits / Why Obliq | 🔜 Open | #27 |
-| Integrations | 🔜 Open | #32 |
-| Pricing | 🔜 Open | #33 |
-| Testimonials | 🔜 Open | #34 |
-| CTA | 🔜 Open | #35 |
+| Navbar | ✅ Built | #27 |
+| Hero | ✅ Built | #28 |
+| Logo cloud — "Trusted by…" | 🔜 Open | #26 |
+| Device showcase | 🔜 Open | #29 |
+| Project management | 🔜 Open | #30 |
+| Financial management | 🔜 Open | #31 |
+| Features / personalization (with the feature trio) | ✅ Built | #32, #34 |
+| Spotlight testimonial | ✅ Built | #35 |
+| Testimonial marquee | ✅ Built | #36 |
+| Pricing | ✅ Built | #37 |
+| Blog preview | 🔜 Open | #38 |
+| Community — "Stay in the loop" | ✅ Built | #51 |
+| Final CTA banner | ✅ Built | #52 |
+| Footer | ✅ Built | #53 |
 
-> **Important:** Issue numbers #16, #27, and #32 are referenced in code. Do not renumber.
+The open rows are what the homepage to-do board shows (`placeholderSections` in `src/components/sections/placeholder.tsx`).
 
 ---
 
