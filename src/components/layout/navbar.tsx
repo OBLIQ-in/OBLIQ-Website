@@ -81,10 +81,10 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
-  // The menu is md:hidden — close it if the viewport grows past that, so the
+  // The menu is lg:hidden — close it if the viewport grows past that, so the
   // scroll lock and focus trap don't outlive the visible menu.
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)");
+    const desktop = window.matchMedia("(min-width: 1024px)");
     const onChange = () => { if (desktop.matches) setMenuOpen(false); };
     desktop.addEventListener("change", onChange);
     return () => desktop.removeEventListener("change", onChange);
@@ -132,7 +132,8 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          {/* Desktop links from lg: below 1024px the links, toggle and CTA don't fit in the pill (#175) */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
             {navLinks.map((item) => {
               const active = isActive(item.href);
               return (
@@ -162,7 +163,7 @@ export function Navbar() {
             <ThemeToggle />
 
             {/* Desktop CTA */}
-            <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden md:inline-flex min-h-11 -my-0.5" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
+            <Link href="/contact" data-analytics-cta="navbar" className="btn-primary hidden lg:inline-flex min-h-11 -my-0.5" style={{ fontSize: "0.875rem", padding: "0.55rem 1.25rem" }}>
               Try Obliq free
             </Link>
 
@@ -171,7 +172,7 @@ export function Navbar() {
               id="mobile-menu-toggle"
               ref={toggleRef}
               className={cn(
-                "md:hidden flex items-center justify-center h-11 w-11 -my-1 rounded-full",
+                "lg:hidden flex items-center justify-center h-11 w-11 -my-1 rounded-full",
                 "text-[var(--charcoal)] hover:bg-[rgb(var(--tint-rgb)/0.06)] transition-colors"
               )}
               onClick={() => setMenuOpen((v) => !v)}
@@ -196,7 +197,7 @@ export function Navbar() {
         aria-label="Mobile navigation"
         inert={!menuOpen}
         className={cn(
-          "fixed inset-0 z-40 md:hidden flex flex-col",
+          "fixed inset-0 z-40 lg:hidden flex flex-col",
           "bg-[var(--cream)] transition-[opacity,transform] duration-200 ease-out",
           menuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
         )}
