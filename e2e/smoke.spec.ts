@@ -66,7 +66,8 @@ test("join form shows validation errors", async ({ page }) => {
   await expect(page.getByText("Please enter your name.")).toBeVisible();
   await expect(page.getByText("Please add a link to your resume.")).toBeVisible();
 
-  await page.getByLabel("Email").fill("not-an-email");
+  // Scoped to <main>: the footer newsletter has its own "Email address" field
+  await page.getByRole("main").getByLabel("Email").fill("not-an-email");
   await page.getByRole("button", { name: "Submit" }).click();
   await expect(page.getByText("Please enter a valid email address", { exact: false })).toBeVisible();
 
