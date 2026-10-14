@@ -30,7 +30,8 @@ export function TestimonialCard({
   return (
     <figure
       className={cn(
-        "card flex flex-col gap-6 p-6 relative flex-shrink-0 w-full sm:w-[380px]", 
+        // Fills its container: the marquee sets the slot width (280px, 340px from sm)
+        "card flex flex-col gap-6 p-6 relative flex-shrink-0 w-full",
         className
       )}
       {...props}
