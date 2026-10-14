@@ -51,9 +51,10 @@ export function TestimonialCard({
 
       {/* Author Info */}
       <figcaption className="flex items-center gap-3 mt-auto pt-2 relative z-10">
-        {/* Avatar */}
+        {/* Avatar — a .theme-light island: the periwinkle fill doesn't change with
+            the theme, so the initials keep the light-theme charcoal (8.85:1) */}
         <div 
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-bold text-sm tracking-wide overflow-hidden"
+          className="theme-light flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-bold text-sm tracking-wide overflow-hidden"
           style={{
             backgroundColor: "var(--obliq-periwinkle-light, #aab4ee)",
             color: "var(--charcoal)",
