@@ -201,7 +201,15 @@ function ThemePickerMock() {
                       />
                     ))}
                   </span>
-                  <span className="text-[10px] font-medium text-[var(--ink-muted)]">{l.name}</span>
+                  {/* The selected tile's tint drops ink-muted below 4.5:1, so it uses ink-soft */}
+                  <span
+                    className={cn(
+                      "text-[10px] font-medium",
+                      l.name === ACTIVE_LAYOUT ? "text-[var(--ink-soft)]" : "text-[var(--ink-muted)]"
+                    )}
+                  >
+                    {l.name}
+                  </span>
                 </li>
               ))}
             </ul>
