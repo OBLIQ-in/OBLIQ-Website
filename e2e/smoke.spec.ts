@@ -56,6 +56,17 @@ test.describe("mobile", () => {
   });
 });
 
+test("navbar content fits inside the pill at tablet and desktop widths", async ({ page }) => {
+  await page.goto("/");
+  for (const width of [768, 820, 1023, 1024, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    const { scrollWidth, clientWidth } = await page
+      .locator(".navbar-pill")
+      .evaluate((el) => ({ scrollWidth: el.scrollWidth, clientWidth: el.clientWidth }));
+    expect(scrollWidth, `navbar overflows at ${width}px`).toBeLessThanOrEqual(clientWidth);
+  }
+});
+
 test("join form shows validation errors", async ({ page }) => {
   await page.goto("/contact-us");
   await page.getByRole("button", { name: "Submit" }).click();
