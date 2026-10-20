@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { THEME_KEY, applyTheme, type Theme } from "@/lib/theme";
@@ -15,44 +15,48 @@ function storedTheme(): Theme | null {
 }
 
 /**
+ * The `dark` class on <html> is the source of truth. The toggle, the OS
+ * setting (until someone picks) and a choice made in another tab all change
+ * that class, and the observer reports every change back to React.
+ */
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+  const system = window.matchMedia("(prefers-color-scheme: dark)");
+  const onSystemChange = () => {
+    if (!storedTheme()) applyTheme(system.matches ? "dark" : "light");
+  };
+  // Another tab saved (or cleared) a choice
+  const onStorage = (e: StorageEvent) => {
+    if (e.key !== THEME_KEY && e.key !== null) return;
+    applyTheme(storedTheme() ?? (system.matches ? "dark" : "light"));
+  };
+  system.addEventListener("change", onSystemChange);
+  window.addEventListener("storage", onStorage);
+  return () => {
+    observer.disconnect();
+    system.removeEventListener("change", onSystemChange);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+const isDark = () => document.documentElement.classList.contains("dark");
+// The server can't know the theme, so the icon is chosen by CSS (dark:
+// variant) and the label is generic until hydration
+const isDarkOnServer = () => null;
+
+/**
  * Sun/moon switch in the navbar. The theme script in layout.tsx has already
  * set the class before paint; this reads it back, flips it, and remembers
- * the choice. Until someone picks, the site follows the OS setting live, and
- * a choice made in another tab is picked up here too.
+ * the choice.
  */
 export function ThemeToggle({ className }: { className?: string }) {
-  // null until mounted: the server can't know the theme, so the icon is
-  // chosen by CSS (dark: variant) and the label is generic until hydration
-  const [dark, setDark] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-
-    const system = window.matchMedia("(prefers-color-scheme: dark)");
-    const follow = (theme: Theme) => {
-      applyTheme(theme);
-      setDark(theme === "dark");
-    };
-    const onSystemChange = () => {
-      if (!storedTheme()) follow(system.matches ? "dark" : "light");
-    };
-    // Another tab saved (or cleared) a choice
-    const onStorage = (e: StorageEvent) => {
-      if (e.key !== THEME_KEY && e.key !== null) return;
-      follow(storedTheme() ?? (system.matches ? "dark" : "light"));
-    };
-    system.addEventListener("change", onSystemChange);
-    window.addEventListener("storage", onStorage);
-    return () => {
-      system.removeEventListener("change", onSystemChange);
-      window.removeEventListener("storage", onStorage);
-    };
-  }, []);
+  const dark = useSyncExternalStore<boolean | null>(subscribe, isDark, isDarkOnServer);
 
   const toggle = () => {
-    const next: Theme = document.documentElement.classList.contains("dark") ? "light" : "dark";
+    const next: Theme = isDark() ? "light" : "dark";
     applyTheme(next);
-    setDark(next === "dark");
     try {
       localStorage.setItem(THEME_KEY, next);
     } catch {

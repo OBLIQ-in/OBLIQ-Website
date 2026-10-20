@@ -52,7 +52,7 @@ siteConfig
 
 ## SEO
 
-Metadata is configured in `src/app/layout.tsx` using Next.js 15's `Metadata` API.
+Metadata is configured in `src/app/layout.tsx` using the Next.js `Metadata` API.
 
 - `metadataBase` is set from `siteConfig.url`
 - Title template: `%s | Obliq`
