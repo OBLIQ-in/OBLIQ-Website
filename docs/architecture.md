@@ -69,13 +69,17 @@ RootLayout (layout.tsx)
 ├── <main> (page content)
 │   └── HomePage (page.tsx)
 │       ├── <Hero>
-│       └── <SectionPlaceholder> ×6
+│       ├── to-do board: <SectionPlaceholder> per open section issue
+│       ├── <FeaturesSection> (includes <FeatureTrio>) · <FeaturesPersonalize>
+│       ├── <SpotlightTestimonial> · <TestimonialMarquee>
+│       ├── <Pricing>
+│       └── <Community> · <CTABanner>
 └── <Footer>
 ```
 
 ---
 
-## Blog (issue #36)
+## Blog (issue #59)
 
 Posts are MDX files rendered with `@next/mdx`:
 
@@ -89,14 +93,15 @@ See `src/content/blog/how-to-write-for-the-obliq-blog.mdx` for a template post.
 
 ---
 
-## Contact Form (not yet implemented — issue #37)
+## Join Our Team form (#54, #55)
 
-Recommended approach:
+The form lives at `/contact-us` (`src/components/sections/join-form.tsx`; `/contact` redirects there).
 
-1. Use [Resend](https://resend.com) or [Formspree](https://formspree.io)
-2. Create a Server Action in `src/app/contact/actions.ts`
-3. Validate with [Zod](https://zod.dev)
-4. Rate-limit with Upstash or similar
+1. The browser validates each field, then posts to our own route, `src/app/api/join/route.ts`
+2. The route re-checks the same rules server-side and forwards the application to [Formspree](https://formspree.io) using `FORMSPREE_ENDPOINT`
+3. A hidden honeypot field filters out simple spam bots
+
+See the README's *Join-our-team form* section for setup.
 
 ---
 
@@ -105,7 +110,7 @@ Recommended approach:
 GitHub Actions workflow at `.github/workflows/ci.yml`:
 
 - Triggers on: PR to `main`
-- Jobs: `lint` → `build`
+- Jobs: `lint` → `build` and `e2e` (Playwright smoke tests)
 - `main` branch protection requires CI to pass
 
 ---
