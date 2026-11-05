@@ -75,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     // suppressHydrationWarning: the theme script adds the "dark" class before React hydrates
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
