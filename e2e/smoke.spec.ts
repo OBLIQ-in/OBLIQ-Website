@@ -4,7 +4,7 @@ test("homepage loads with the hero and every section", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   // Keep in sync with the sections rendered by src/app/page.tsx
-  for (const id of ["hero", "contribute", "features", "testimonial", "testimonials", "pricing"]) {
+  for (const id of ["hero", "clients", "contribute", "features", "testimonial", "testimonials", "pricing"]) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.getByRole("contentinfo")).toBeVisible();
@@ -21,6 +21,16 @@ test("desktop nav links navigate to their pages", async ({ page }) => {
   await nav.getByRole("link", { name: "Blog" }).click();
   await expect(page).toHaveURL("/blog");
   await expect(nav.getByRole("link", { name: "Blog" })).toHaveAttribute("aria-current", "page");
+});
+
+test("logo cloud renders social proof headline and wordmarks", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section#clients");
+  await expect(section).toBeAttached();
+  await expect(section.getByText("Trusted by 1+ CA firms, startups, freelancers and studios")).toBeVisible();
+  for (const mark of ["Theo", "Amsterdam", "Savannah", "Milano", "Luminous"]) {
+    await expect(section.getByText(mark).first()).toBeVisible();
+  }
 });
 
 test("pricing toggle switches between annual and monthly prices", async ({ page }) => {
