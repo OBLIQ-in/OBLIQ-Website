@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
+import { LogoCloud } from "@/components/sections/LogoCloud";
 import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
 import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
@@ -47,6 +48,7 @@ export default function HomePage() {
         }}
       />
       <Hero />
+      <LogoCloud />
 
       <DeviceShowcase />
 

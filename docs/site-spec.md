@@ -37,8 +37,8 @@ In page order, as on the [Framer reference](https://obliqq.framer.ai/):
 |---------|--------|-------|
 | Navbar | ✅ Built | #27 |
 | Hero | ✅ Built | #28 |
-| Logo cloud — "Trusted by…" | 🔜 Open | #26 |
-| Device showcase | ✅ Built | #29 |
+| Logo cloud — "Trusted by…" | ✅ Built | #26 |
+| Device showcase | 🔜 Open | #29 |
 | Project management | 🔜 Open | #30 |
 | Financial management | 🔜 Open | #31 |
 | Features / personalization (with the feature trio) | ✅ Built | #32, #34 |
