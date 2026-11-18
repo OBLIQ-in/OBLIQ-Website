@@ -11,6 +11,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
 import { Community } from "@/components/sections/Community";
 import { pageMetadata } from "@/lib/metadata";
+import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
 
 export const metadata: Metadata = pageMetadata({
   path: "/",
@@ -46,6 +47,8 @@ export default function HomePage() {
         }}
       />
       <Hero />
+
+      <DeviceShowcase />
 
       {/* Contributor to-do board */}
       <section
