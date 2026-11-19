@@ -13,6 +13,7 @@ import { siteConfig } from "@/lib/site";
 import { Community } from "@/components/sections/Community";
 import { pageMetadata } from "@/lib/metadata";
 import { DeviceShowcase } from "@/components/sections/DeviceShowcase";
+import { FinancialManagement } from "@/components/sections/FinancialManagement";
 
 export const metadata: Metadata = pageMetadata({
   path: "/",
@@ -89,6 +90,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FinancialManagement />
 
       <FeaturesSection />
 
