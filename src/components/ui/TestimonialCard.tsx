@@ -1,54 +1,89 @@
+import { type HTMLAttributes } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Testimonial } from "@/types";
 
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-interface TestimonialCardProps {
+export interface TestimonialCardProps extends HTMLAttributes<HTMLElement> {
   testimonial: Testimonial;
-  className?: string;
 }
 
 /**
- * One testimonial quote card: quote, initials avatar (no stock photos of
- * real people), name, role and company. Fixed width is set by the caller
- * so every card in the marquee row stays consistent.
- *
- * Server component: no state, no effects, no client JS.
+ * TestimonialCard — Reusable quote card for human reviews.
+ * Designed to work inside marquee rows with a consistent fixed width.
  */
-export function TestimonialCard({ testimonial, className }: TestimonialCardProps) {
+export function TestimonialCard({
+  testimonial,
+  className,
+  ...props
+}: TestimonialCardProps) {
+  const { quote, author, role, company, avatar } = testimonial;
+  const displayName = author || "Anonymous";
+  
+  // Auto-generate initials if they weren't explicitly passed
+  const displayInitials = displayName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .substring(0, 2)
+    .toUpperCase();
+
   return (
     <figure
       className={cn(
-        "flex h-full flex-col justify-between gap-5 rounded-2xl border",
-        "border-[var(--border)] bg-[var(--cream-card)] p-6 font-rounded",
+        // Fills its container: the marquee sets the slot width (280px, 340px from sm)
+        "card flex flex-col gap-6 p-6 relative flex-shrink-0 w-full",
         className
       )}
+      {...props}
     >
-      <blockquote className="text-[15px] leading-relaxed text-[var(--body-text)]">
-        &ldquo;{testimonial.quote}&rdquo;
+      {/* Decorative Quote Mark */}
+      <div 
+        className="absolute top-4 right-5 text-7xl font-serif leading-none select-none pointer-events-none"
+        style={{ color: "var(--obliq-periwinkle, #7b8cde)", opacity: 0.15 }}
+        aria-hidden="true"
+      >
+        &ldquo;
+      </div>
+
+      {/* Quote Text */}
+      <blockquote className="text-base text-[var(--body-text)] leading-relaxed relative z-10">
+        &ldquo;{quote}&rdquo;
       </blockquote>
-      <figcaption className="flex items-center gap-3">
-        <span
+
+      {/* Author Info */}
+      <figcaption className="flex items-center gap-3 mt-auto pt-2 relative z-10">
+        {/* Avatar — a .theme-light island: the periwinkle fill doesn't change with
+            the theme, so the initials keep the light-theme charcoal (8.85:1) */}
+        <div 
+          className="theme-light flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-bold text-sm tracking-wide overflow-hidden"
+          style={{
+            backgroundColor: "var(--obliq-periwinkle-light, #aab4ee)",
+            color: "var(--charcoal)",
+          }}
           aria-hidden="true"
-          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[var(--sky-card)] text-sm font-semibold text-[var(--ink)]"
         >
-          {initials(testimonial.author)}
-        </span>
-        <span className="flex min-w-0 flex-col">
-          <cite className="truncate text-sm font-semibold not-italic text-[var(--ink)]">
-            {testimonial.author}
+          {avatar ? (
+            <Image 
+              src={avatar} 
+              alt={displayName} 
+              width={40} 
+              height={40} 
+              className="h-full w-full object-cover" 
+            />
+          ) : (
+            displayInitials
+          )}
+        </div>
+        
+        {/* Name, Role & Company */}
+        <div className="flex flex-col">
+          <cite className="text-sm font-bold text-[var(--charcoal)] leading-tight not-italic">
+            {displayName}
           </cite>
-          <span className="truncate text-xs text-[var(--ink-soft)]">
-            {testimonial.company ? `${testimonial.role}, ${testimonial.company}` : testimonial.role}
+          <span className="text-xs text-[var(--muted)] leading-tight mt-1">
+            {company ? `${role}, ${company}` : role}
           </span>
-        </span>
+        </div>
       </figcaption>
     </figure>
   );

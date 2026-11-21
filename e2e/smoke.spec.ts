@@ -3,7 +3,8 @@ import { expect, test } from "@playwright/test";
 test("homepage loads with the hero and every section", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  for (const id of ["hero", "contribute", "features", "pricing"]) {
+  // Keep in sync with the sections rendered by src/app/page.tsx
+  for (const id of ["hero", "contribute", "features", "testimonial", "testimonials", "pricing"]) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.getByRole("contentinfo")).toBeVisible();
@@ -55,6 +56,17 @@ test.describe("mobile", () => {
   });
 });
 
+test("navbar content fits inside the pill at tablet and desktop widths", async ({ page }) => {
+  await page.goto("/");
+  for (const width of [768, 820, 1023, 1024, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    const { scrollWidth, clientWidth } = await page
+      .locator(".navbar-pill")
+      .evaluate((el) => ({ scrollWidth: el.scrollWidth, clientWidth: el.clientWidth }));
+    expect(scrollWidth, `navbar overflows at ${width}px`).toBeLessThanOrEqual(clientWidth);
+  }
+});
+
 test("join form shows validation errors", async ({ page }) => {
   await page.goto("/contact-us");
   await page.getByRole("button", { name: "Submit" }).click();
@@ -65,9 +77,39 @@ test("join form shows validation errors", async ({ page }) => {
   await expect(page.getByText("Please enter your name.")).toBeVisible();
   await expect(page.getByText("Please add a link to your resume.")).toBeVisible();
 
-  await page.getByLabel("Email").fill("not-an-email");
+  // Scoped to <main>: the footer newsletter has its own "Email address" field
+  await page.getByRole("main").getByLabel("Email").fill("not-an-email");
   await page.getByRole("button", { name: "Submit" }).click();
   await expect(page.getByText("Please enter a valid email address", { exact: false })).toBeVisible();
+
+  const linkedin = page.getByLabel("LinkedIn Profile");
+  await linkedin.fill("my linkedin");
+  await linkedin.blur();
+  await expect(linkedin).toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator("#join-linkedin-error")).toHaveText("Please enter a full link starting with https://");
+});
+
+test("join API rejects applications the form would reject", async ({ request }) => {
+  const valid = {
+    name: "Jane Smith",
+    email: "jane@example.com",
+    linkedin: "https://www.linkedin.com/in/jane",
+    position: "Community & Support Lead",
+    resume: "https://example.com/resume.pdf",
+  };
+
+  const bad = await request.post("/api/join", {
+    data: { ...valid, email: "x", linkedin: "y", github: "z", resume: "javascript:alert(1)", position: "CEO" },
+  });
+  expect(bad.status()).toBe(400);
+  expect((await bad.json()).fields).toEqual(["email", "linkedin", "github", "position", "resume"]);
+
+  const notObject = await request.post("/api/join", { data: "null", headers: { "Content-Type": "application/json" } });
+  expect(notObject.status()).toBe(400);
+
+  // A valid application gets past the checks (the test server has no form service configured)
+  const ok = await request.post("/api/join", { data: valid });
+  expect(ok.status()).toBe(503);
 });
 
 test("old /contact URL redirects to /contact-us", async ({ page }) => {

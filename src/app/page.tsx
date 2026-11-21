@@ -5,15 +5,18 @@ import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { FeaturesPersonalize } from "@/components/sections/FeaturesPersonalize";
+import { CTABanner } from "@/components/sections/CTABanner";
 import { SectionPlaceholder, placeholderSections } from "@/components/sections/placeholder";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/lib/site";
+import { Community } from "@/components/sections/Community";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: `${siteConfig.name} — ${siteConfig.tagline}`,
+export const metadata: Metadata = pageMetadata({
+  path: "/",
   description: siteConfig.description,
-  alternates: { canonical: "/" },
-};
+});
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -85,6 +88,8 @@ export default function HomePage() {
 
       <FeaturesSection />
 
+      <FeaturesPersonalize />
+
       <SpotlightTestimonial />
 
       <TestimonialMarquee />
@@ -92,6 +97,10 @@ export default function HomePage() {
       <Pricing />
 
       <BlogPreview />
+
+      <Community />
+
+      <CTABanner />
     </>
   );
 }

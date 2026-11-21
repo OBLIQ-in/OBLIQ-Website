@@ -5,66 +5,18 @@ import { cn } from "@/lib/utils";
 import { positions } from "@/lib/positions";
 import { trackEvent } from "@/lib/analytics";
 import { siteConfig } from "@/lib/site";
+import {
+  joinFields,
+  requiredFields,
+  validateField as validate,
+  type JoinField,
+  type JoinValues,
+} from "@/lib/join";
 
-type FieldName =
-  | "name"
-  | "email"
-  | "phone"
-  | "education"
-  | "linkedin"
-  | "github"
-  | "position"
-  | "resume"
-  | "availability"
-  | "note";
+type FieldName = JoinField;
+type Values = JoinValues;
 
-type Values = Record<FieldName, string>;
-
-const initialValues: Values = {
-  name: "",
-  email: "",
-  phone: "",
-  education: "",
-  linkedin: "",
-  github: "",
-  position: "",
-  resume: "",
-  availability: "",
-  note: "",
-};
-
-const required = new Set<FieldName>(["name", "email", "linkedin", "position", "resume"]);
-
-function isWebLink(value: string) {
-  try {
-    return /^https?:$/.test(new URL(value.trim()).protocol);
-  } catch {
-    return false;
-  }
-}
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validate(field: FieldName, values: Values): string | undefined {
-  const empty = values[field].trim() === "";
-
-  if (required.has(field) && empty) {
-    return {
-      name: "Please enter your name.",
-      email: "Please enter your email address.",
-      linkedin: "Please add your LinkedIn profile link.",
-      position: "Please choose the position you're applying for.",
-      resume: "Please add a link to your resume.",
-    }[field as "name" | "email" | "linkedin" | "position" | "resume"];
-  }
-  if (field === "email" && !empty && !EMAIL_PATTERN.test(values.email.trim())) {
-    return "Please enter a valid email address, like jane@gmail.com.";
-  }
-  if (field === "resume" && !empty && !isWebLink(values.resume)) {
-    return "Please enter a full link starting with https://";
-  }
-  return undefined;
-}
+const initialValues = Object.fromEntries(joinFields.map((f) => [f, ""])) as Values;
 
 // Posts to our own /api/join route, which forwards to the form service.
 async function submitApplication(values: Values, company: string): Promise<boolean> {
@@ -81,7 +33,7 @@ async function submitApplication(values: Values, company: string): Promise<boole
 }
 
 const boxClass = cn(
-  "w-full rounded-[10px] bg-white font-rounded text-base text-[var(--ink)] shadow-[var(--field-shadow)]",
+  "w-full rounded-[10px] bg-[var(--surface)] font-rounded text-base text-[var(--ink)] shadow-[var(--field-shadow)]",
   "placeholder:text-[var(--ink-muted)] outline-none transition-shadow",
   "focus-visible:ring-2 focus-visible:ring-[var(--ink)]",
   "aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[var(--danger)]"
@@ -140,7 +92,7 @@ export function JoinForm() {
     return {
       id: `join-${field}`,
       name: field,
-      required: required.has(field),
+      required: requiredFields.has(field),
       "aria-invalid": error ? true : undefined,
       "aria-describedby": error ? `join-${field}-error` : undefined,
       onBlur: () => onBlur(field),
@@ -149,7 +101,7 @@ export function JoinForm() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const all = Object.keys(initialValues) as FieldName[];
+    const all = joinFields;
     const found = Object.fromEntries(all.map((f) => [f, validate(f, values)]));
     setErrors(found);
 
@@ -176,7 +128,7 @@ export function JoinForm() {
     <form
       noValidate
       onSubmit={onSubmit}
-      className="relative grid w-full grid-cols-1 gap-6 rounded-2xl bg-white/70 p-6 sm:grid-cols-2 sm:p-10"
+      className="relative grid w-full grid-cols-1 gap-6 rounded-2xl bg-[var(--surface)]/70 p-6 sm:grid-cols-2 sm:p-10"
     >
       <Field id="join-name" label="Name" isRequired error={errors.name}>
         <input {...text("name")} type="text" autoComplete="name" placeholder="Eg. Jane Smith" className={cn(boxClass, "h-12 px-4")} />
@@ -257,14 +209,14 @@ export function JoinForm() {
           aria-busy={status === "loading"}
           className={cn(
             "group relative flex h-[55px] w-full items-center justify-center overflow-hidden rounded-full",
-            "bg-[var(--ink)] font-rounded text-base font-semibold text-white",
+            "bg-[var(--ink)] font-rounded text-base font-semibold text-[var(--on-ink)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] focus-visible:ring-offset-2",
             "disabled:cursor-wait disabled:opacity-80"
           )}
         >
           {status === "loading" ? (
             <span className="flex items-center gap-2">
-              <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-[color:var(--on-ink)]/40 border-t-[color:var(--on-ink)]" />
               Sending…
             </span>
           ) : (

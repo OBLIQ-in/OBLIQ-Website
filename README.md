@@ -7,7 +7,7 @@ The official marketing website for [Obliq]([https://obliq.in](https://github.com
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50dca47b-09f5-4fd0-a780-7c44508c0e8d/deploy-status)](https://app.netlify.com/projects/obliq-in/deploys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Discord](https://img.shields.io/discord/1234567890?color=5865F2&label=Discord&logo=discord&logoColor=white)](https://discord.gg/XPC4ETU7kp)
+[![Discord](https://img.shields.io/badge/Discord-join%20chat-5865F2?logo=discord&logoColor=white)](https://discord.gg/FNyj2QVTqk)
 
 ---
 
@@ -61,6 +61,8 @@ Palette: **cream** · **lime** · **periwinkle** · **charcoal**
 
 See [`docs/design-system.md`](./docs/design-system.md) for the complete guide.
 
+**Storybook:** run `npm run storybook` (http://localhost:6006) to browse every `ui/` component with live controls, plus a **Design tokens** page generated from `globals.css`. Adding a component? Put a `*.stories.tsx` file next to it.
+
 ---
 
 ## 💬 Community
@@ -85,16 +87,17 @@ The homepage is a **live contributor to-do board** — each placeholder section 
 3. Read [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 4. Open a pull request
 
-### Key issues
+### Finding an issue
 
-| Issue | Section |
-|-------|---------|
-| [#16](https://github.com/OBLIQ-in/OBLIQ-Website/issues/16) | Features Section |
-| [#27](https://github.com/OBLIQ-in/OBLIQ-Website/issues/27) | Benefits Section |
-| [#32](https://github.com/OBLIQ-in/OBLIQ-Website/issues/32) | Integrations Section |
-| [#33](https://github.com/OBLIQ-in/OBLIQ-Website/issues/33) | Pricing Section |
-| [#34](https://github.com/OBLIQ-in/OBLIQ-Website/issues/34) | Testimonials Section |
-| [#35](https://github.com/OBLIQ-in/OBLIQ-Website/issues/35) | CTA Section |
+Work is organised into phases (GitHub milestones and `phase:` labels). These links always show what's open right now:
+
+| Filter | What's in it |
+|--------|--------------|
+| [`good first issue`](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | Small, well-scoped starting points |
+| [Phase 3 — Homepage Sections](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+3%3A+homepage+sections%22) | The sections shown on the homepage to-do board |
+| [Phase 4 — Pages & Content](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+4%3A+pages+%26+content%22) | Standalone pages, blog posts, forms |
+| [Phase 5 — Quality & Polish](https://github.com/OBLIQ-in/OBLIQ-Website/issues?q=is%3Aopen+label%3A%22phase+5%3A+quality+%26+polish%22) | Accessibility, performance, responsive QA |
+| [All milestones](https://github.com/OBLIQ-in/OBLIQ-Website/milestones) | The full roadmap |
 
 ---
 
@@ -117,7 +120,7 @@ To turn it on for the production site:
 
 New CTAs opt in with `data-analytics-cta="<location>"`; other events go through `trackEvent()` in `src/lib/analytics.ts`. Never send anything a visitor typed, and keep the [Privacy Policy](src/app/privacy/page.tsx) in sync with what is tracked. See `.env.example`.
 
-**Content-Security-Policy:** every route is served with a CSP built in `src/lib/csp.ts`. The Plausible origin (taken from the script URL, so self-hosted instances work too) is allowed for scripts and event requests only when analytics is on. Loading anything from a new origin — a form service, an embed, a CDN — means adding it to the matching directive there, or the browser will block it.
+**Content-Security-Policy:** every route is served with a CSP built in `src/lib/csp.ts`. The Plausible origin (taken from the script URL, so self-hosted instances work too) is allowed for scripts and event requests only when analytics is on. Loading anything from a new origin — a form service, an embed, a CDN — means adding it to the matching directive there, or the browser will block it. Fonts are self-hosted, so no font CDN is allowed. `next.config.ts` also sends `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` and a `Permissions-Policy` that turns off the camera, microphone and geolocation.
 
 ---
 
@@ -141,6 +144,8 @@ npm run build  # Production build
 npm run start  # Production server
 npm run lint   # ESLint
 npm run test:e2e  # Playwright smoke tests (builds + serves on :3100)
+npm run storybook        # Storybook on :6006
+npm run build-storybook  # Static Storybook build (also runs in CI)
 ```
 
 First time running the e2e tests? Install the browser once with `npx playwright install chromium`.

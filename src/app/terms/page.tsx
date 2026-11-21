@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { type ReactNode } from "react";
 import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/terms",
   title: "Terms of Service",
   description:
     "The terms that apply when you use the Obliq website — acceptable use, open-source licensing, disclaimers, and how to reach us.",
-  alternates: { canonical: "/terms" },
-};
+});
 
 const LAST_UPDATED = "29 September 2026";
 

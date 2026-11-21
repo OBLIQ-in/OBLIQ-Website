@@ -49,6 +49,7 @@ export default async function BlogPage() {
                 cover={featured.cover}
                 readingTime={featured.readingTime}
                 featured
+                headingLevel="h2"
               />
             </Reveal>
             {rest.length > 0 && (
@@ -65,6 +66,7 @@ export default async function BlogPage() {
                         date={post.date}
                         cover={post.cover}
                         readingTime={post.readingTime}
+                        headingLevel="h2"
                       />
                     </Reveal>
                   </li>

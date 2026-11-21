@@ -14,6 +14,7 @@ export default function NotFound() {
     >
       {/* ── Cloud: left ── */}
       <div
+        data-cloud
         className="pointer-events-none absolute transition-transform duration-700 ease-out animate-float"
         style={{ top: "25%", left: "-15%", width: "500px", height: "300px", animationDelay: "0ms" }}
         aria-hidden="true"
@@ -28,6 +29,7 @@ export default function NotFound() {
 
       {/* ── Cloud: right ── */}
       <div
+        data-cloud
         className="pointer-events-none absolute transition-transform duration-700 ease-out animate-float"
         style={{ top: "30%", right: "-15%", width: "450px", height: "250px", animationDelay: "500ms" }}
         aria-hidden="true"
@@ -48,7 +50,7 @@ export default function NotFound() {
         
         {/* Eyebrow Pill */}
         <div 
-          className="mb-10 rounded-full bg-white shadow-sm border border-[rgba(0,0,0,0.04)] animate-fade-up inline-flex items-center justify-center"
+          className="mb-10 rounded-full bg-[var(--surface)] shadow-sm border border-[rgb(var(--tint-rgb)/0.04)] animate-fade-up inline-flex items-center justify-center"
           style={{ padding: "8px 24px" }}
         >
           <span className="text-[11px] font-bold tracking-[0.1em] text-[var(--muted)] uppercase whitespace-nowrap">

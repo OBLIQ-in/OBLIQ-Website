@@ -11,7 +11,7 @@ export function ChipList({ items, className, ...props }: ChipListProps) {
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-full border border-[var(--border)] bg-white px-3.5 py-1.5 text-sm text-[var(--muted)] whitespace-nowrap"
+          className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3.5 py-1.5 text-sm text-[var(--muted)] whitespace-nowrap"
         >
           {item}
         </span>

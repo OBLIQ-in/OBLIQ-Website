@@ -8,12 +8,16 @@ interface BlogPreviewProps {
   posts?: BlogPost[];
 }
 
+/** Contributor template post; displayed on /blog but excluded from homepage preview. */
+const EXCLUDED_SLUGS = new Set(["how-to-write-for-the-obliq-blog"]);
+
 /**
- * BlogPreview Section (Issue #28 / Issue #38).
+ * BlogPreview Section (Issue #38).
  * Displays a featured post and a 3-column grid of recent blog posts.
  */
 export async function BlogPreview({ posts: customPosts }: BlogPreviewProps) {
-  const posts = customPosts ?? (await getAllPosts());
+  const allPosts = customPosts ?? (await getAllPosts());
+  const posts = allPosts.filter((p) => !EXCLUDED_SLUGS.has(p.slug));
 
   // Find the featured post (fallback to first post if none marked featured)
   const featuredPost = posts.find((p) => p.featured) ?? posts[0];
@@ -58,6 +62,7 @@ export async function BlogPreview({ posts: customPosts }: BlogPreviewProps) {
               cover={featuredPost.cover}
               readingTime={featuredPost.readingTime}
               featured
+              headingLevel="h3"
             />
           </Reveal>
         </div>
@@ -80,6 +85,7 @@ export async function BlogPreview({ posts: customPosts }: BlogPreviewProps) {
                     date={post.date}
                     cover={post.cover}
                     readingTime={post.readingTime}
+                    headingLevel="h3"
                   />
                 </Reveal>
               </li>
@@ -91,7 +97,7 @@ export async function BlogPreview({ posts: customPosts }: BlogPreviewProps) {
         <Reveal className="flex justify-center pt-2">
           <Link
             href="/blog"
-            className="group inline-flex items-center gap-2 rounded-full border border-[rgba(0,0,0,0.12)] bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--charcoal)] backdrop-blur-xs transition-all duration-200 hover:border-[rgba(0,0,0,0.25)] hover:bg-white"
+            className="group inline-flex items-center gap-2 rounded-full border border-[rgb(var(--tint-rgb)/0.12)] bg-[var(--surface)]/60 px-6 py-3 text-sm font-semibold text-[var(--charcoal)] backdrop-blur-xs transition-all duration-200 hover:border-[rgb(var(--tint-rgb)/0.25)] hover:bg-[var(--surface)]"
           >
             <span>Explore all articles</span>
             <ArrowRight

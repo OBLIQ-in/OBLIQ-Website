@@ -14,11 +14,13 @@ export interface BlogCardProps {
   cover?: "sky" | "peach" | "cream" | string;
   featured?: boolean;
   readingTime?: number;
+  /** Level of the card title heading: one below the section heading (h3 under an h2, h2 under a page h1). */
+  headingLevel?: "h2" | "h3";
   className?: string;
 }
 
 /**
- * Reusable BlogCard component (Issue #13).
+ * Reusable BlogCard component (Issue #23).
  * Follows the stretched-link pattern, accessible focus ring,
  * and responsive card styling matching obliqq.framer.ai.
  */
@@ -32,6 +34,7 @@ export function BlogCard({
   cover = "cream",
   featured = false,
   readingTime,
+  headingLevel: Heading = "h3",
   className,
 }: BlogCardProps) {
   const coverBg =
@@ -42,8 +45,8 @@ export function BlogCard({
   return (
     <article
       className={cn(
-        "group relative flex w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-card)] bg-white/70 backdrop-blur-sm",
-        "transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(0,0,0,0.16)] hover:shadow-lg focus-within:ring-2 focus-within:ring-[var(--charcoal)]",
+        "group relative flex w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-card)] bg-[var(--surface)]/60 backdrop-blur-sm",
+        "transition-all duration-300 hover:-translate-y-1 hover:border-[rgb(var(--tint-rgb)/0.16)] hover:shadow-lg focus-within:ring-2 focus-within:ring-[var(--charcoal)]",
         featured ? "flex-col md:flex-row" : "flex-col h-full",
         className
       )}
@@ -61,8 +64,8 @@ export function BlogCard({
       >
         {/* Soft abstract graphic elements mimicking Framer artwork */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black/5 to-transparent pointer-events-none" />
-        <span className="absolute -right-8 -top-12 h-44 w-44 rounded-full bg-white/40 blur-xs transition-transform duration-500 group-hover:scale-105" />
-        <span className="absolute -bottom-14 left-6 h-36 w-36 rounded-full bg-white/30 blur-xs transition-transform duration-500 group-hover:scale-105" />
+        <span className="absolute -right-8 -top-12 h-44 w-44 rounded-full bg-white/40 dark:bg-white/5 blur-xs transition-transform duration-500 group-hover:scale-105" />
+        <span className="absolute -bottom-14 left-6 h-36 w-36 rounded-full bg-white/30 dark:bg-white/[0.03] blur-xs transition-transform duration-500 group-hover:scale-105" />
       </div>
 
       {/* Card Content */}
@@ -89,14 +92,14 @@ export function BlogCard({
             </span>
           )}
           {featured && (
-            <span className="rounded-full bg-[var(--rust)] px-3 py-1 text-xs font-semibold text-white">
+            <span className="rounded-full bg-[var(--charcoal)] px-3 py-1 text-xs font-semibold text-[var(--cream)]">
               Featured
             </span>
           )}
         </div>
 
         {/* Title with stretched link */}
-        <h3
+        <Heading
           className={cn(
             "font-rounded font-bold leading-snug tracking-tight text-[var(--charcoal)] transition-colors group-hover:text-[var(--rust)]",
             featured ? "text-2xl sm:text-3xl" : "text-lg"
@@ -108,7 +111,7 @@ export function BlogCard({
           >
             {title}
           </Link>
-        </h3>
+        </Heading>
 
         {/* Excerpt */}
         {excerpt && (
@@ -126,43 +129,43 @@ export function BlogCard({
         <div
           className={cn(
             "mt-auto flex items-center justify-between gap-3 pt-3 text-xs sm:text-sm text-[var(--muted)]",
-            "border-t border-[rgba(0,0,0,0.04)]"
+            "border-t border-[rgb(var(--tint-rgb)/0.06)]"
           )}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             {author && (
-              <span className="flex items-center gap-2 font-medium text-[var(--charcoal)]">
+              <span className="inline-flex items-center gap-2 font-medium text-[var(--charcoal)]">
                 {author.name && (
                   <span
                     aria-hidden="true"
-                    className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--charcoal)] text-[10px] font-bold text-[var(--cream)]"
+                    className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--charcoal)] text-[10px] font-bold text-[var(--cream)]"
                   >
                     {authorInitials(author.name)}
                   </span>
                 )}
                 <span>{author.name}</span>
                 {author.role && featured && (
-                  <span className="hidden sm:inline text-xs text-[var(--muted)] font-normal">
+                  <span className="hidden sm:inline text-xs font-normal text-[var(--muted)]">
                     · {author.role}
                   </span>
                 )}
               </span>
             )}
             {date && (
-              <span className="text-[var(--muted)]">
+              <span className="whitespace-nowrap text-[var(--muted)]">
                 {author ? "· " : ""}
                 <time dateTime={date}>{formatPostDate(date)}</time>
               </span>
             )}
             {readingTime && (
-              <span className="hidden sm:inline text-[var(--muted)]">
+              <span className="whitespace-nowrap text-[var(--muted)]">
                 · {readingTime} min read
               </span>
             )}
           </div>
 
           <div
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--cream-2)] text-[var(--charcoal)] transition-transform duration-200 group-hover:translate-x-1"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--cream-2)] text-[var(--charcoal)] transition-transform duration-200 group-hover:translate-x-1"
             aria-hidden="true"
           >
             <ArrowRight className="h-3.5 w-3.5" />

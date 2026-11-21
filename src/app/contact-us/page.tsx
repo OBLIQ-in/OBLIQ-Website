@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { JoinForm } from "@/components/sections/join-form";
 import { TeamSection } from "@/components/sections/team";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/contact-us",
   title: "Join Our Team",
   description:
     "Build the future of AI with OBLIQ. Apply for an open role on our team — community, content, product/UI or CA partnerships.",
-  alternates: { canonical: "/contact-us" },
-};
+});
 
 /** /contact-us — the "Join our team" page and the team behind it, matching obliqq.framer.ai/contact-us. */
 export default function ContactUsPage() {

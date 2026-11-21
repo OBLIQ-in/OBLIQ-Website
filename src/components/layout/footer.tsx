@@ -3,6 +3,7 @@ import Image from "next/image";
 import { GitFork, Share2, MessageCircle, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { NewsletterForm } from "./newsletter-form";
 
 const socialLinks = [
   { label: "GitHub",  href: siteConfig.links.github,  icon: <GitFork  className="h-3.5 w-3.5" aria-hidden="true" /> },
@@ -15,16 +16,16 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t border-[rgba(0,0,0,0.08)]"
+      className="border-t border-[rgb(var(--tint-rgb)/0.08)]"
       style={{ background: "var(--cream-2)" }}
       aria-label="Site footer"
     >
       <div className="container-obliq">
-        {/* Main grid */}
-        <div className="py-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        {/* Main grid — brand spans the full row on mobile/tablet, link columns sit two-up */}
+        <div className="py-14 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-6 lg:gap-10">
 
           {/* Brand — 2 cols */}
-          <div className="lg:col-span-2 flex flex-col gap-5">
+          <div className="col-span-2 flex flex-col gap-5">
             {/* Logo */}
             <Link
               href="/"
@@ -37,7 +38,7 @@ export function Footer() {
                 width={138}
                 height={45}
                 priority
-                className="h-[45px] w-[138px] object-cover"
+                className="h-[45px] w-[138px] object-cover dark:invert"
               />
             </Link>
 
@@ -56,8 +57,8 @@ export function Footer() {
                   aria-label={`Follow Obliq on ${s.label}`}
                   className={cn(
                     "h-11 w-11 rounded-full flex items-center justify-center",
-                    "border border-[rgba(0,0,0,0.12)] text-[var(--charcoal)] opacity-50",
-                    "hover:opacity-100 hover:border-[rgba(0,0,0,0.25)] transition-all duration-200"
+                    "border border-[rgb(var(--tint-rgb)/0.12)] text-[var(--charcoal)] opacity-50",
+                    "hover:opacity-100 hover:border-[rgb(var(--tint-rgb)/0.25)] transition-all duration-200"
                   )}
                 >
                   {s.icon}
@@ -73,6 +74,8 @@ export function Footer() {
               <Mail className="h-3.5 w-3.5" aria-hidden="true" />
               {siteConfig.email.support}
             </a>
+
+            <NewsletterForm />
           </div>
 
           {/* Nav columns */}

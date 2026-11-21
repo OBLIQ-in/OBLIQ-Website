@@ -25,9 +25,10 @@ const directives: Record<string, string[]> = {
     ...analytics,
     ...vercelLive,
   ],
-  // Inline style attributes are used throughout; Inter comes from Google Fonts
-  "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", ...vercelLive],
-  "font-src": ["'self'", "data:", "https://fonts.gstatic.com", ...(isVercelPreview ? ["https://vercel.live", "https://assets.vercel.com"] : [])],
+  // Inline style attributes are used throughout
+  "style-src": ["'self'", "'unsafe-inline'", ...vercelLive],
+  // Inter and Open Runde are self-hosted via Fontsource (layout.tsx), so no font CDN
+  "font-src": ["'self'", "data:", ...(isVercelPreview ? ["https://vercel.live", "https://assets.vercel.com"] : [])],
   // Brand assets (lib/assets.ts) come from GitHub raw or jsDelivr
   "img-src": [
     "'self'",

@@ -18,7 +18,8 @@ export interface MockupFrameProps extends HTMLAttributes<HTMLElement> {
 }
 
 /**
- * Frame for product screenshots. Children fill the frame: pass an `<Image>`
+ * Frame for product screenshots. The frame stays light in dark mode
+ * (`.theme-light`), like a real screenshot would. Children fill the frame: pass an `<Image>`
  * (from brand-assets via getBrandAssetUrl) or any placeholder markup. With no
  * children the frame shows an empty `bg-mist` surface.
  */
@@ -33,7 +34,7 @@ export function MockupFrame({
   return (
     <figure className={cn("flex w-full flex-col items-center gap-3", className)} {...props}>
       {variant === "browser" && (
-        <div className="w-full overflow-hidden rounded-[20px] bg-mist shadow-2xl shadow-ink/10">
+        <div className="theme-light w-full overflow-hidden rounded-[20px] bg-mist shadow-2xl shadow-ink/10">
           <div className="flex h-[38px] items-center gap-4 border-b border-[var(--border)] bg-[var(--cream-2)] px-4">
             <div className="flex gap-1.5" aria-hidden="true">
               <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
@@ -49,7 +50,7 @@ export function MockupFrame({
       )}
 
       {variant === "phone" && (
-        <div className="relative aspect-[9/19] w-full max-w-[280px] rounded-[2.5rem] bg-ink p-2.5 shadow-2xl shadow-ink/10">
+        <div className="theme-light relative aspect-[9/19] w-full max-w-[280px] rounded-[2.5rem] bg-ink p-2.5 shadow-2xl shadow-ink/10">
           <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-mist">
             <span
               aria-hidden="true"
@@ -62,7 +63,7 @@ export function MockupFrame({
 
       {variant === "app" && (
         // The screenshot runs 20px past the panel's bottom edge and is clipped there
-        <div className="w-full overflow-hidden rounded-3xl bg-[linear-gradient(180deg,var(--mockup-app-top),var(--mockup-app-bottom))] px-6 pt-12 shadow-2xl shadow-ink/10 md:px-10 md:pt-[100px]">
+        <div className="theme-light w-full overflow-hidden rounded-3xl bg-[linear-gradient(180deg,var(--mockup-app-top),var(--mockup-app-bottom))] px-6 pt-12 shadow-2xl shadow-ink/10 md:px-10 md:pt-[100px]">
           <div className="relative -mb-5 min-h-40 overflow-hidden rounded-[20px] bg-mist">
             {children}
           </div>

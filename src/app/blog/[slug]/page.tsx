@@ -152,8 +152,8 @@ function CoverArt({ post }: { post: BlogPost }) {
       className="relative mt-10 aspect-[16/7] overflow-hidden rounded-[var(--radius-card)]"
       style={{ background: coverTones[post.cover ?? "cream"] }}
     >
-      <span className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-white/40" />
-      <span className="absolute -bottom-20 left-10 h-48 w-48 rounded-full bg-white/30" />
+      <span className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-white/40 dark:bg-white/5" />
+      <span className="absolute -bottom-20 left-10 h-48 w-48 rounded-full bg-white/30 dark:bg-white/[0.03]" />
     </div>
   );
 }
@@ -165,7 +165,7 @@ function PostNavLink({ post, direction }: { post: BlogPost; direction: "prev" | 
       href={`/blog/${post.slug}`}
       rel={isPrev ? "prev" : "next"}
       className={cn(
-        "group flex flex-col gap-1 rounded-[var(--radius-lg)] border border-[var(--border)] p-5 transition-colors hover:border-[rgba(0,0,0,0.2)]",
+        "group flex flex-col gap-1 rounded-[var(--radius-lg)] border border-[var(--border)] p-5 transition-colors hover:border-[rgb(var(--tint-rgb)/0.2)]",
         isPrev ? "items-start text-left" : "items-end text-right sm:col-start-2"
       )}
     >

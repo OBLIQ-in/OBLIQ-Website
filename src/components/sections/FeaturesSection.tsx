@@ -28,7 +28,8 @@ function LogoRow({ logos, reverse = false, offset = false }: { logos: string[]; 
   // Three copies per list keep a loop wider than the card; the loop renders twice for a seamless -50% slide
   const list = [...logos, ...logos, ...logos];
   return (
-    <div className="[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] motion-reduce:[mask-image:none]">
+    // overflow-hidden + the fade keep the rows inside the card, also with reduced motion (the rows stay one line)
+    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_max(12%,48px),black_calc(100%-max(12%,48px)),transparent)]">
       <div
         className={cn(
           "flex w-max animate-marquee motion-reduce:animate-none",
@@ -73,7 +74,7 @@ export function FeaturesSection() {
               <Reveal>
                 <article className={cardClass}>
                   <h3 className={cardTitle}>Smart, flexible, and built around your business workflow</h3>
-                  <div className="relative h-[176px] w-full">
+                  <div className="relative aspect-[460/176] w-full">
                     <Image
                       src="/features/personalize.png"
                       alt="Appearance settings with accent colour swatches, a Hide Obliq branding switch and a light and dark mode toggle"
