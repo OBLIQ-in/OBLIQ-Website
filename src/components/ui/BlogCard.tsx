@@ -2,16 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { coverTones, formatPostDate, authorInitials } from "@/lib/blog";
-import type { Author } from "@/types";
 
 export interface BlogCardProps {
   title: string;
   excerpt?: string;
   category?: string;
   href: string;
-  author?: Author | { name: string; role?: string; avatar?: string };
+  author?: { name: string; role?: string };
   date?: string;
-  cover?: "sky" | "peach" | "cream" | string;
+  cover?: "sky" | "peach" | "cream" | (string & {});
   featured?: boolean;
   readingTime?: number;
   /** Level of the card title heading: one below the section heading (h3 under an h2, h2 under a page h1). */
@@ -38,7 +37,7 @@ export function BlogCard({
   className,
 }: BlogCardProps) {
   const coverBg =
-    cover in coverTones
+    typeof cover === "string" && Object.hasOwn(coverTones, cover)
       ? coverTones[cover as keyof typeof coverTones]
       : cover || "var(--cream-card)";
 
@@ -46,7 +45,8 @@ export function BlogCard({
     <article
       className={cn(
         "group relative flex w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-card)] bg-[var(--surface)]/60 backdrop-blur-sm",
-        "transition-all duration-300 hover:-translate-y-1 hover:border-[rgb(var(--tint-rgb)/0.16)] hover:shadow-lg focus-within:ring-2 focus-within:ring-[var(--charcoal)]",
+        "transition-all duration-300 hover:-translate-y-1 hover:border-[rgb(var(--tint-rgb)/0.16)] hover:shadow-lg",
+        "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[var(--charcoal)]",
         featured ? "flex-col md:flex-row" : "flex-col h-full",
         className
       )}
@@ -84,7 +84,7 @@ export function BlogCard({
               className={cn(
                 "rounded-full px-3 py-1 text-xs font-semibold tracking-wide",
                 category === "Must Read"
-                  ? "bg-[#614a44] text-white"
+                  ? "bg-[var(--peach-card)] text-[var(--charcoal)] border border-[rgb(var(--tint-rgb)/0.12)]"
                   : "bg-[var(--cream-pill)] text-[var(--charcoal)]"
               )}
             >
@@ -101,7 +101,7 @@ export function BlogCard({
         {/* Title with stretched link */}
         <Heading
           className={cn(
-            "font-rounded font-bold leading-snug tracking-tight text-[var(--charcoal)] transition-colors group-hover:text-[var(--rust)]",
+            "font-rounded font-bold leading-snug tracking-tight text-[var(--charcoal)] transition-colors group-hover:text-[var(--eyebrow-brown)]",
             featured ? "text-2xl sm:text-3xl" : "text-lg"
           )}
         >
@@ -134,7 +134,7 @@ export function BlogCard({
         >
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             {author && (
-              <span className="inline-flex items-center gap-2 font-medium text-[var(--charcoal)]">
+              <span className="inline-flex items-center gap-2 font-medium text-[var(--charcoal)] whitespace-nowrap">
                 {author.name && (
                   <span
                     aria-hidden="true"
@@ -143,25 +143,21 @@ export function BlogCard({
                     {authorInitials(author.name)}
                   </span>
                 )}
-                <span>{author.name}</span>
-                {author.role && featured && (
-                  <span className="hidden sm:inline text-xs font-normal text-[var(--muted)]">
+                <span className="whitespace-nowrap">{author.name}</span>
+                {author.role && featured ? (
+                  <span className="hidden sm:inline text-xs font-normal text-[var(--muted)] whitespace-nowrap">
                     · {author.role}
                   </span>
-                )}
+                ) : null}
               </span>
             )}
-            {date && (
+            {(date || readingTime) ? (
               <span className="whitespace-nowrap text-[var(--muted)]">
-                {author ? "· " : ""}
-                <time dateTime={date}>{formatPostDate(date)}</time>
+                {date ? <time dateTime={date}>{formatPostDate(date)}</time> : null}
+                {date && readingTime ? <span className="mx-1" aria-hidden="true">·</span> : null}
+                {readingTime ? `${readingTime} min read` : null}
               </span>
-            )}
-            {readingTime && (
-              <span className="whitespace-nowrap text-[var(--muted)]">
-                · {readingTime} min read
-              </span>
-            )}
+            ) : null}
           </div>
 
           <div
