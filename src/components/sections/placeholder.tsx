@@ -73,8 +73,6 @@ export function openIssue(issueNumber: number, title: string, description: strin
  * the section in app/page.tsx) so the board never points at closed work.
  */
 export const placeholderSections: PlaceholderSection[] = [
-  openIssue(26, "Logo cloud — “Trusted by…”", "A “Trusted by CA firms, startups, freelancers and studios” line above an infinite marquee of client logos, right under the hero."),
   openIssue(29, "Device showcase — “Work from anywhere, stay in sync”", "A phone overlapping a browser window with Mobile App / Web App chips, showing Obliq works everywhere."),
   openIssue(30, "Project management — “Keep every project moving forward”", "First of two alternating feature sections: copy left, product image right, feature chips underneath."),
-  openIssue(31, "Financial management — “Track income, get paid, stress less”", "The mirror of the project-management section: image left, copy right — invoicing, expenses and earnings."),
 ];
