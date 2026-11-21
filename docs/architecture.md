@@ -69,6 +69,7 @@ RootLayout (layout.tsx)
 ├── <main> (page content)
 │   └── HomePage (page.tsx)
 │       ├── <Hero>
+│       ├── <LogoCloud>
 │       ├── to-do board: <SectionPlaceholder> per open section issue
 │       ├── <FeaturesSection> (includes <FeatureTrio>) · <FeaturesPersonalize>
 │       ├── <SpotlightTestimonial> · <TestimonialMarquee>

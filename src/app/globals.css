@@ -87,6 +87,7 @@
   /* ── Fonts ── */
   /* Inter Variable is self-hosted (layout.tsx); plain "Inter" covers a local install */
   --font-sans:   "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-display: "Inter Variable", "Inter", system-ui, sans-serif;
   --font-rounded: "Open Runde", "Inter Variable", "Inter", system-ui, sans-serif;
 
   /* ── Radius ── */
@@ -162,6 +163,7 @@
 }
 
 @theme inline {
+  --font-display:        var(--font-display);
   --font-rounded:        var(--font-rounded);
   --color-sky-top:       var(--sky-top);
   --color-sky-bottom:    var(--sky-bottom);
@@ -424,6 +426,7 @@
   }
   .animate-float    { animation: float 5s ease-in-out infinite; }
   .animate-marquee  { animation: marquee 28s linear infinite; }
+  .font-display     { font-family: var(--font-display); }
 
   /* ── Hero dashboard tilt (desktop pointers only) ── */
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
