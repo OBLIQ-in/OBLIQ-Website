@@ -4,7 +4,7 @@ test("homepage loads with the hero and every section", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   // Keep in sync with the sections rendered by src/app/page.tsx
-  for (const id of ["hero", "clients", "contribute", "features", "testimonial", "testimonials", "pricing"]) {
+  for (const id of ["hero", "clients", "contribute", "features", "testimonial", "testimonials", "pricing", "blog"]) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.getByRole("contentinfo")).toBeVisible();
