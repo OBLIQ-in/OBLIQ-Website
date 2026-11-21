@@ -2,15 +2,16 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { coverTones, formatPostDate, authorInitials } from "@/lib/blog";
+import type { Author, BlogFrontmatter } from "@/types";
 
 export interface BlogCardProps {
   title: string;
   excerpt?: string;
   category?: string;
   href: string;
-  author?: { name: string; role?: string };
+  author?: Author;
   date?: string;
-  cover?: "sky" | "peach" | "cream" | (string & {});
+  cover?: BlogFrontmatter["cover"];
   featured?: boolean;
   readingTime?: number;
   /** Level of the card title heading: one below the section heading (h3 under an h2, h2 under a page h1). */
@@ -36,10 +37,7 @@ export function BlogCard({
   headingLevel: Heading = "h3",
   className,
 }: BlogCardProps) {
-  const coverBg =
-    typeof cover === "string" && Object.hasOwn(coverTones, cover)
-      ? coverTones[cover as keyof typeof coverTones]
-      : cover || "var(--cream-card)";
+  const coverBg = (cover && coverTones[cover]) || "var(--cream-card)";
 
   return (
     <article

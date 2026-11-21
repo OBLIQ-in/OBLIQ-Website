@@ -77,5 +77,4 @@ export const placeholderSections: PlaceholderSection[] = [
   openIssue(29, "Device showcase — “Work from anywhere, stay in sync”", "A phone overlapping a browser window with Mobile App / Web App chips, showing Obliq works everywhere."),
   openIssue(30, "Project management — “Keep every project moving forward”", "First of two alternating feature sections: copy left, product image right, feature chips underneath."),
   openIssue(31, "Financial management — “Track income, get paid, stress less”", "The mirror of the project-management section: image left, copy right — invoicing, expenses and earnings."),
-  openIssue(38, "Blog preview", "A featured post plus a grid of recent posts, linking to the blog."),
 ];
