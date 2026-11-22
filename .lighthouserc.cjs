@@ -21,6 +21,7 @@ module.exports = {
       ],
       numberOfRuns: 1,
       chromePath: chromium.executablePath(),
+      chromeFlags: ["--no-sandbox", "--disable-dev-shm-usage"],
       settings: { preset: "desktop" },
     },
     assert: {

@@ -89,7 +89,7 @@ jobs:
         run: tar -xzf next-build.tar.gz
 
       - name: Install Chromium
-        run: npx playwright install chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run Lighthouse CI
         run: npm run lighthouse:ci
