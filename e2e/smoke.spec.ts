@@ -117,9 +117,46 @@ test("join API rejects applications the form would reject", async ({ request }) 
   const notObject = await request.post("/api/join", { data: "null", headers: { "Content-Type": "application/json" } });
   expect(notObject.status()).toBe(400);
 
+  const honeypot = await request.post("/api/join", { data: { ...valid, company: "spam" } });
+  expect(honeypot.status()).toBe(200);
+  expect(await honeypot.json()).toEqual({ ok: true });
+
   // A valid application gets past the checks (the test server has no form service configured)
   const ok = await request.post("/api/join", { data: valid });
   expect(ok.status()).toBe(503);
+});
+
+test("join form shows sending, retry, and success states", async ({ page }) => {
+  await page.goto("/contact-us");
+  await page.getByLabel("Name").fill("Jane Smith");
+  await page.getByRole("textbox", { name: "Email", exact: true }).fill("jane@example.com");
+  await page.getByLabel("LinkedIn Profile").fill("https://www.linkedin.com/in/jane");
+  await page.getByLabel("Position Applying For").selectOption("Community & Support Lead");
+  await page.getByLabel("Resume Link").fill("https://example.com/resume.pdf");
+
+  let submissions = 0;
+  await page.route("**/api/join", async (route) => {
+    submissions += 1;
+    expect(route.request().postDataJSON().company).toBe("");
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await route.fulfill({
+      status: submissions === 1 ? 502 : 200,
+      contentType: "application/json",
+      body: JSON.stringify(submissions === 1 ? { error: "send-failed" } : { ok: true }),
+    });
+  });
+
+  const form = page.locator("form").filter({ has: page.getByLabel("LinkedIn Profile") });
+  const submit = form.locator('button[type="submit"]');
+  await submit.click();
+  await expect(form.getByText("Sending…")).toBeVisible();
+  await expect(submit).toBeDisabled();
+  await expect(form.getByRole("alert")).toContainText("Please try again");
+  await expect(submit).toBeEnabled();
+
+  await submit.click();
+  await expect(form.getByRole("status")).toContainText("Thanks, Jane Smith!");
+  expect(submissions).toBe(2);
 });
 
 test("old /contact URL redirects to /contact-us", async ({ page }) => {
