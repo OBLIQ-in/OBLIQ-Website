@@ -38,7 +38,7 @@ export function LogoCloud() {
           <span
             key={mark.name}
             className={cn(
-              "font-display text-ink/40 text-xl sm:text-2xl select-none transition-colors hover:text-ink/70",
+              "font-display text-ink/70 text-xl sm:text-2xl select-none transition-colors hover:text-ink/90",
               mark.className
             )}
           >
