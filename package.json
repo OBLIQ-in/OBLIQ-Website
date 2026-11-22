@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "lighthouse:ci": "lhci autorun",
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@lhci/cli": "^0.16.1",
     "@playwright/test": "^1.63.0",
     "@storybook/addon-docs": "^10.6.1",
     "@storybook/nextjs-vite": "^10.6.1",
