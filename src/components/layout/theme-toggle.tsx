@@ -26,6 +26,8 @@ export function ThemeToggle({ className }: { className?: string }) {
   const [dark, setDark] = useState<boolean | null>(null);
 
   useEffect(() => {
+    // The theme script sets this before hydration; sync React's label afterward.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDark(document.documentElement.classList.contains("dark"));
 
     const system = window.matchMedia("(prefers-color-scheme: dark)");

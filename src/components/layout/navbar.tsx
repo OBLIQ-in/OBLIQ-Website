@@ -19,10 +19,16 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [lastPathname, setLastPathname] = useState(pathname);
   const [scrolled, setScrolled]  = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef   = useRef<HTMLDivElement>(null);
   const wasOpen   = useRef(false);
+
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -31,7 +37,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
