@@ -51,10 +51,16 @@ By participating, you agree to uphold our [Code of Conduct](./CODE_OF_CONDUCT.md
 
 ### Setup
 
+First, [fork OBLIQ-Website](https://github.com/OBLIQ-in/OBLIQ-Website/fork) on GitHub.
+In the command below, replace `YOUR_GITHUB_USERNAME` with your GitHub username.
+Clone your fork so that `origin` is a repository you can push to, and keep
+the original repository as `upstream` so you can fetch updates.
+
 ```bash
-git clone https://github.com/OBLIQ-in/OBLIQ-Website.git
+git clone https://github.com/YOUR_GITHUB_USERNAME/OBLIQ-Website.git
 cd OBLIQ-Website
-npm install
+git remote add upstream https://github.com/OBLIQ-in/OBLIQ-Website.git
+npm ci
 npm run dev
 ```
 
@@ -70,14 +76,14 @@ main (protected)
         └── PR → main
 ```
 
-1. **Fork** the repository
-2. **Create a branch**: `git checkout -b feature/features-section`
+1. **Fetch current upstream changes**: `git fetch upstream`
+2. **Create a branch from upstream**: `git switch -c feature/features-section upstream/main`
 3. **Develop** your changes
 4. **Lint**: `npm run lint`
 5. **Build**: `npm run build` — must pass
 6. **Smoke tests**: `npx playwright test` — builds the site, serves it on port 3100 and runs `e2e/`. First time: `npx playwright install chromium`. Use `npx playwright test --ui` to watch them run.
 7. **Commit**: follow [Conventional Commits](https://www.conventionalcommits.org/)
-8. **Push** and open a **Pull Request** to `main`
+8. **Push to your fork**: `git push -u origin feature/features-section`. Open a **Pull Request** from that branch to `OBLIQ-in/OBLIQ-Website:main`
 
 ---
 
