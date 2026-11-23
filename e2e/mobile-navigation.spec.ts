@@ -54,3 +54,30 @@ test("different-page navigation and Escape still close the menu", async ({ page 
   await expectMenuClosed(page);
   await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
 });
+
+test("resizing to desktop releases the menu with a larger browser font", async ({ page, browserName }) => {
+  // CDP changes the browser's initial font size. Styling <html> would not
+  // affect rem-based media queries, which use the browser preference instead.
+  test.skip(browserName !== "chromium", "Changing the default font size requires Chromium CDP");
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Page.setFontSizes", { fontSizes: { standard: 20 } });
+  await page.setViewportSize({ width: 1100, height: 800 });
+  await page.goto("/blog");
+  const open = page.getByRole("button", { name: "Open menu" });
+  await open.click();
+  await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
+
+  // Already past 1024px on both sides; the actual lg breakpoint is now 1280px.
+  await page.setViewportSize({ width: 1300, height: 800 });
+  const nav = page.getByRole("navigation", { name: "Main navigation" });
+  await expect(nav).toBeVisible();
+  await expect(page.locator("#mobile-menu")).toHaveAttribute("inert", "");
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
+  const pricing = nav.getByRole("link", { name: "Pricing" });
+  await pricing.focus();
+  await page.keyboard.press("Tab");
+  await expect(nav.getByRole("link", { name: "Blog" })).toBeFocused();
+
+  await page.setViewportSize({ width: 1100, height: 800 });
+  await expect(open).toHaveAttribute("aria-expanded", "false");
+});
