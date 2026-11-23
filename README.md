@@ -132,7 +132,7 @@ Applications go through [Formspree](https://formspree.io) (free plan, no backend
 2. Set `FORMSPREE_ENDPOINT` — locally in `.env.local`, in production under Netlify → *Site configuration → Environment variables*. Don't prefix it with `NEXT_PUBLIC_`.
 3. Redeploy.
 
-Resumes are collected as a link (Drive, Dropbox, etc.) because file uploads aren't on the free plan. A hidden honeypot field filters out simple spam bots. If the variable isn't set, the form shows an error instead of sending.
+Resumes are collected as a link (Drive, Dropbox, etc.) because file uploads aren't on the free plan. A hidden honeypot field filters out simple spam bots. If the variable isn't set, the form shows an error instead of sending. The server waits up to 8 seconds for Formspree. If the request times out, delivery is unconfirmed: Formspree may already have received it. The server does not retry automatically, and applicants are directed to check with support before submitting again.
 
 ---
 

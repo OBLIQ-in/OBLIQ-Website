@@ -18,17 +18,20 @@ type Values = JoinValues;
 
 const initialValues = Object.fromEntries(joinFields.map((f) => [f, ""])) as Values;
 
+type SubmissionResult = "sent" | "error" | "unconfirmed";
+
 // Posts to our own /api/join route, which forwards to the form service.
-async function submitApplication(values: Values, company: string): Promise<boolean> {
+async function submitApplication(values: Values, company: string): Promise<SubmissionResult> {
   try {
     const res = await fetch("/api/join", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...values, company }),
     });
-    return res.ok;
+    if (res.status === 504) return "unconfirmed";
+    return res.ok ? "sent" : "error";
   } catch {
-    return false;
+    return "error";
   }
 }
 
@@ -73,7 +76,7 @@ function Field({
 export function JoinForm() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
-  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | SubmissionResult>("idle");
 
   function setValue<K extends FieldName>(field: K, value: Values[K]) {
     const next = { ...values, [field]: value };
@@ -114,8 +117,7 @@ export function JoinForm() {
     setStatus("loading");
     trackEvent("Form Submit", { form: "join", position: values.position });
     const company = new FormData(e.currentTarget).get("company");
-    const ok = await submitApplication(values, typeof company === "string" ? company : "");
-    setStatus(ok ? "sent" : "error");
+    setStatus(await submitApplication(values, typeof company === "string" ? company : ""));
   }
 
   const text = (field: Exclude<FieldName, "position">) => ({
@@ -233,6 +235,13 @@ export function JoinForm() {
         <p role="status" className="text-center font-rounded text-sm text-[var(--ink-soft)]">
           {status === "sent" && `Thanks, ${values.name.trim()}! We got your application and will get back to you soon.`}
         </p>
+        {status === "unconfirmed" && (
+          <p role="alert" className="text-center font-rounded text-sm text-[var(--danger)]">
+            We couldn&apos;t confirm that your application was received. Email us at{" "}
+            <a className="underline" href={"mailto:" + siteConfig.email.support}>{siteConfig.email.support}</a>{" "}
+            to check before submitting again.
+          </p>
+        )}
         {status === "error" && (
           <p role="alert" className="text-center font-rounded text-sm text-[var(--danger)]">
             Something went wrong and your application wasn&apos;t sent. Please try again, or email us at {siteConfig.email.support}.
