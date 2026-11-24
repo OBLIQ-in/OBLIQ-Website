@@ -21,7 +21,7 @@ A marketing website for Obliq — an open source developer platform. The site mu
 |------|--------|-------|
 | `/` | ✅ Built | Homepage sections below; open ones show on the to-do board |
 | `/about` | ✅ Stub | Brand story |
-| `/features` | 🔜 #30, #31 | Will reuse the homepage feature sections; shows their open issues for now |
+| `/features` | 🟡 Partial | Reuses the financial management section; project management (#30) is still a placeholder |
 | `/pricing` | ✅ Built | Renders the pricing section (#37) |
 | `/blog` | ✅ Built | MDX blog: template #59, index #58, launch posts #60 |
 | `/contact-us` | ✅ Built | Join Our Team form (#54), sent via Formspree (#55); `/contact` redirects here |
@@ -38,9 +38,9 @@ In page order, as on the [Framer reference](https://obliqq.framer.ai/):
 | Navbar | ✅ Built | #27 |
 | Hero | ✅ Built | #28 |
 | Logo cloud — "Trusted by…" | ✅ Built | #26 |
-| Device showcase | 🔜 Open | #29 |
+| Device showcase | ✅ Built | #29 |
 | Project management | 🔜 Open | #30 |
-| Financial management | 🔜 Open | #31 |
+| Financial management | ✅ Built | #31 |
 | Features / personalization (with the feature trio) | ✅ Built | #32, #34 |
 | Spotlight testimonial | ✅ Built | #35 |
 | Testimonial marquee | ✅ Built | #36 |
