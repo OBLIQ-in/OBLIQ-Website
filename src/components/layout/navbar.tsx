@@ -89,7 +89,8 @@ export function Navbar() {
   // The menu is lg:hidden — close it if the viewport grows past that, so the
   // scroll lock and focus trap don't outlive the visible menu.
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
+    // Tailwind lg is 64rem, not a fixed pixel width when the browser font size changes.
+    const desktop = window.matchMedia("(min-width: 64rem)");
     const onChange = () => { if (desktop.matches) setMenuOpen(false); };
     desktop.addEventListener("change", onChange);
     return () => desktop.removeEventListener("change", onChange);
