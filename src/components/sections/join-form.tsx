@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { positions } from "@/lib/positions";
 import { trackEvent } from "@/lib/analytics";
@@ -74,6 +74,10 @@ export function JoinForm() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
+  const [submittedName, setSubmittedName] = useState("");
+  // Guard even before React has committed the disabled controls.
+  const submissionLocked = useRef(false);
+  const locked = status === "loading" || status === "sent";
 
   function setValue<K extends FieldName>(field: K, value: Values[K]) {
     const next = { ...values, [field]: value };
@@ -93,6 +97,7 @@ export function JoinForm() {
       id: `join-${field}`,
       name: field,
       required: requiredFields.has(field),
+      disabled: locked,
       "aria-invalid": error ? true : undefined,
       "aria-describedby": error ? `join-${field}-error` : undefined,
       onBlur: () => onBlur(field),
@@ -101,6 +106,8 @@ export function JoinForm() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submissionLocked.current) return;
+
     const all = joinFields;
     const found = Object.fromEntries(all.map((f) => [f, validate(f, values)]));
     setErrors(found);
@@ -111,11 +118,19 @@ export function JoinForm() {
       return;
     }
 
-    setStatus("loading");
-    trackEvent("Form Submit", { form: "join", position: values.position });
     const company = new FormData(e.currentTarget).get("company");
-    const ok = await submitApplication(values, typeof company === "string" ? company : "");
-    setStatus(ok ? "sent" : "error");
+    const application = { ...values };
+    submissionLocked.current = true;
+    setStatus("loading");
+    trackEvent("Form Submit", { form: "join", position: application.position });
+    const ok = await submitApplication(application, typeof company === "string" ? company : "");
+    if (ok) {
+      setSubmittedName(application.name.trim());
+      setStatus("sent");
+    } else {
+      submissionLocked.current = false;
+      setStatus("error");
+    }
   }
 
   const text = (field: Exclude<FieldName, "position">) => ({
@@ -205,13 +220,14 @@ export function JoinForm() {
       <div className="flex flex-col gap-3 sm:col-span-2">
         <button
           type="submit"
-          disabled={status === "loading"}
+          disabled={locked}
           aria-busy={status === "loading"}
           className={cn(
             "group relative flex h-[55px] w-full items-center justify-center overflow-hidden rounded-full",
             "bg-[var(--ink)] font-rounded text-base font-semibold text-[var(--on-ink)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] focus-visible:ring-offset-2",
-            "disabled:cursor-wait disabled:opacity-80"
+            "disabled:opacity-80",
+            status === "loading" && "cursor-wait"
           )}
         >
           {status === "loading" ? (
@@ -219,6 +235,8 @@ export function JoinForm() {
               <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-[color:var(--on-ink)]/40 border-t-[color:var(--on-ink)]" />
               Sending…
             </span>
+          ) : status === "sent" ? (
+            "Application sent"
           ) : (
             // "Submit" slides up and "Send a message" slides in on hover, like the design
             <span className="block h-[19px] overflow-hidden">
@@ -231,7 +249,7 @@ export function JoinForm() {
         </button>
 
         <p role="status" className="text-center font-rounded text-sm text-[var(--ink-soft)]">
-          {status === "sent" && `Thanks, ${values.name.trim()}! We got your application and will get back to you soon.`}
+          {status === "sent" && `Thanks, ${submittedName}! We got your application and will get back to you soon.`}
         </p>
         {status === "error" && (
           <p role="alert" className="text-center font-rounded text-sm text-[var(--danger)]">
