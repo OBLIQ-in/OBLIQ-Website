@@ -4,6 +4,8 @@ import { joinFields, validateApplication, type JoinValues } from "@/lib/join";
 // The Formspree endpoint stays on the server, so it never ships to the browser.
 // Set FORMSPREE_ENDPOINT (see .env.example) to turn sending on.
 const MAX_LENGTH = 2000;
+// Leave time to report an unconfirmed delivery before the hosting request ends.
+const PROVIDER_TIMEOUT_MS = 8000;
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
@@ -38,14 +40,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "not-configured" }, { status: 503 });
   }
 
+  const signal = AbortSignal.timeout(PROVIDER_TIMEOUT_MS);
   try {
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(data),
+      signal,
     });
     if (!res.ok) return NextResponse.json({ error: "send-failed" }, { status: 502 });
-  } catch {
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "TimeoutError") {
+      return NextResponse.json({ error: "delivery-unconfirmed" }, { status: 504 });
+    }
     return NextResponse.json({ error: "send-failed" }, { status: 502 });
   }
   return NextResponse.json({ ok: true });
