@@ -105,9 +105,10 @@ export default function PrivacyPage() {
           <PolicySection id="what-we-collect" title={sections[1].title}>
             <p>
               <strong className="text-[var(--charcoal)]">Information you give us.</strong> When you
-              use a form on this site (for example the contact form or the newsletter sign-up, once
-              they are live) we receive what you type in: typically your name, email address, and
-              your message. We only ask for what we need to reply.
+              submit an application through our Join Our Team form, we receive the details you
+              provide, such as your name, email, phone, education, profile links, selected role,
+              resume link, availability, and note. We use these details to review your application
+              and respond to you.
             </p>
             <p>
               <strong className="text-[var(--charcoal)]">Information sent automatically.</strong>{" "}
@@ -124,6 +125,7 @@ export default function PrivacyPage() {
           <PolicySection id="how-we-use-it" title={sections[2].title}>
             <ul>
               <li>To reply to messages and requests you send us.</li>
+              <li>To review applications submitted through our Join Our Team form.</li>
               <li>To send you updates, if — and only if — you subscribed to them.</li>
               <li>To keep the website running, secure, and free of abuse (e.g. spam or attacks).</li>
               <li>To understand, in aggregate, how the site is used so we can improve it.</li>
@@ -164,10 +166,9 @@ export default function PrivacyPage() {
                 .
               </li>
               <li>
-                <strong className="text-[var(--charcoal)]">Form and email services</strong> — once
-                the contact form and newsletter are connected, submissions will be processed by the
-                service that delivers them to us.
-                {/* TODO(maintainers): name the form/email provider(s) once issues #33 and #45 are wired up. */}
+                <strong className="text-[var(--charcoal)]">Formspree</strong> — processes Join Our
+                Team form submissions on our behalf. Our server forwards the application details
+                to Formspree; the form endpoint is not exposed in the browser.
               </li>
               <li>
                 <strong className="text-[var(--charcoal)]">Plausible Analytics</strong> — counts

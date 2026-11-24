@@ -2,6 +2,16 @@
 
 Tracking issue: [#64](https://github.com/OBLIQ-in/OBLIQ-Website/issues/64) · Audited: 29 Sep 2026
 
+## Follow-up audit — 22 Nov 2026
+
+- Expanded Lighthouse CI coverage to every canonical content route, including a representative blog post.
+- Added Playwright checks for landmarks, one `h1`, heading hierarchy, first-stop skip link, and keyboard Tab traversal on every page, the representative blog post, and the 404 page.
+- Lighthouse found the logo-cloud wordmarks at **3.56:1** in dark theme. Increased their opacity from 40% to 70%; a focused Playwright check verifies the 4.5:1 AA threshold in both light and dark themes.
+- Follow-up Lighthouse CI run: **100% accessibility** on all 9 audited content routes, with no color-contrast failures.
+- Full Playwright suite: **36 passed**, including all route-by-route keyboard and heading checks.
+- The skip link was already the first focusable element; its activation is now covered by a browser keyboard test.
+- **Still needs a human:** VoiceOver or NVDA smoke test on the homepage and contact form. Automated browser checks do not replace an assistive-technology test.
+
 ## Method
 
 - **Automated:** [axe-core](https://github.com/dequelabs/axe-core) 4.x (rule sets `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `best-practice`) run in Microsoft Edge via Playwright against a production build (`next build && next start`).
@@ -90,6 +100,6 @@ After these, axe reports 0 violations on `/`, `/about`, `/blog`, `/blog/[slug]`,
 
 ## Open items (need a human or a design decision)
 
-- **Screen-reader smoke test** (VoiceOver / NVDA) on the homepage and contact form — not automatable here; the contact form (#54) isn't built yet.
-- **Mobile menu focus management** (trap focus, `Escape` to close, return focus to the toggle) — tracked in #27.
+- **Screen-reader smoke test** (VoiceOver / NVDA) on the homepage and contact form — the contact form now exists, but an actual screen-reader session is still required.
+- **Mobile menu focus management** (trap focus, `Escape` to close, return focus to the toggle) — covered by the existing mobile navigation Playwright tests; still confirm with a screen reader.
 - **`Button` `rust` variant:** white on `--rust` is 4.23:1 — passes for large text only. It's unused today; raise in Discussions before using it for small labels.

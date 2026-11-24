@@ -2,7 +2,7 @@
 
 > **Open Source. No Limits.**
 
-The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 15, Tailwind CSS v4, and TypeScript.
+The official marketing website for [Obliq]([https://obliq.in](https://github.com/OBLIQ-in)) — built with Next.js 16, Tailwind CSS v4, and TypeScript.
 
 [![CI](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/OBLIQ-in/OBLIQ-Website/actions/workflows/ci.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/50dca47b-09f5-4fd0-a780-7c44508c0e8d/deploy-status)](https://app.netlify.com/projects/obliq-in/deploys)
@@ -15,7 +15,7 @@ The official marketing website for [Obliq]([https://obliq.in](https://github.com
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | [Next.js 15](https://nextjs.org) (App Router) |
+| Framework | [Next.js 16](https://nextjs.org) (App Router) |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | Language | TypeScript (strict) |
 | Icons | [Lucide React](https://lucide.dev) |
@@ -136,11 +136,26 @@ Resumes are collected as a link (Drive, Dropbox, etc.) because file uploads aren
 
 ---
 
+## ✅ Continuous integration
+
+GitHub Actions runs these checks on pushes to `main` and on every pull request:
+
+| Check | What it verifies |
+|-------|------------------|
+| Lint | ESLint |
+| Build | Next.js production build |
+| Lighthouse CI | Runs against the built site after the build; Desktop scores must be at least 90 for Performance and 95 for Accessibility, Best Practices, and SEO. Reports are attached to the job summary and workflow artifacts. |
+| E2E smoke tests | Playwright browser and form/navigation checks |
+| Storybook | Static Storybook build |
+
+Lighthouse uses the production build and runs locally with `npm run build`, then `npm run lighthouse:ci`. It audits the home, Features, Pricing, Blog, and Join Our Team pages. Lighthouse output is saved under `.lighthouseci/`, which is git-ignored.
+
 ## 📜 Scripts
 
 ```bash
 npm run dev    # Development server (Turbopack)
 npm run build  # Production build
+npm run lighthouse:ci  # Lighthouse CI (run npm run build first)
 npm run start  # Production server
 npm run lint   # ESLint
 npm run test:e2e  # Playwright smoke tests (builds + serves on :3100)
