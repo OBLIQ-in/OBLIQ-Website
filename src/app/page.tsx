@@ -4,6 +4,7 @@ import { LogoCloud } from "@/components/sections/LogoCloud";
 import { SpotlightTestimonial } from "@/components/sections/SpotlightTestimonial";
 import { TestimonialMarquee } from "@/components/sections/TestimonialMarquee";
 import { Pricing } from "@/components/sections/pricing";
+import { BlogPreview } from "@/components/sections/BlogPreview";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { FeaturesPersonalize } from "@/components/sections/FeaturesPersonalize";
 import { CTABanner } from "@/components/sections/CTABanner";
@@ -102,6 +103,8 @@ export default function HomePage() {
       <TestimonialMarquee />
 
       <Pricing />
+
+      <BlogPreview />
 
       <Community />
 
